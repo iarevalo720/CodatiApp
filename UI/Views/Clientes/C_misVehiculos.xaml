@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Clientes.C_misVehiculos"
+             Title="C_misVehiculos">
+    <ScrollView>
+        <VerticalStackLayout 
+            Padding="20"
+            Spacing="15"
+            MaximumWidthRequest="500">
+
+            <CollectionView SelectionMode="Single"
+                            ItemsSource="{Binding Vehiculos}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout
+                            Padding="10, 20"
+                            HorizontalOptions="Start">
+
+                            <HorizontalStackLayout Spacing="5">
+                                <Label 
+                                    Text="{Binding MarcaVehiculoNombre}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"/>
+                                <Label 
+                                    Text="{Binding ModeloVehiculoNombre}"
+                                    FontSize="18"
+                                    FontAttributes="Bold"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="3">
+                                <Label Text="Matricula: "
+                                       TextColor="Gray"/>
+                                <Label 
+                                    Text="{Binding Matricula}"
+                                    FontSize="15"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="3">
+                                <Label Text="Año: "
+                                       TextColor="Gray"/>
+                                <Label 
+                                    Text="{Binding Anio}"
+                                    FontSize="15"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="3">
+                                <Label
+                                    Text="Color: "
+                                    TextColor="Gray"/>
+                                <Label 
+                                    Text="{Binding Color}"
+                                    FontSize="15"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="3">
+                                <Label
+                                    Text="Kilometraje: "
+                                    TextColor="Gray"/>
+                                <Label 
+                                    Text="{Binding Kilometraje}"
+                                    FontSize="15"/>
+                            </HorizontalStackLayout>
+
+                            <HorizontalStackLayout Spacing="3">
+                                <Label
+                                    Text="Transmision: "
+                                    TextColor="Gray"/>
+                                <Label 
+                                    Text="{Binding Transmision}"
+                                    FontSize="15"/>
+                            </HorizontalStackLayout>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button 
+                Text="Agergar vehiculo" 
+                Clicked="BtnIrCrearVehiculo"/>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Taller.T_menu"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Title="Menu">
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="*, 100"
+        RowSpacing="10"
+        Padding="20, 30"
+        MaximumWidthRequest="500">
+
+        <VerticalStackLayout
+            Grid.Row="0"
+            VerticalOptions="Start"
+            Spacing="10">
+            <Grid Margin="0, 0, 0, 20" HeightRequest="50" MaximumWidthRequest="300">
+                <RoundRectangle
+                    CornerRadius="10"
+                    Fill="#444"
+                    ZIndex="1"/>
+
+                <Label 
+                    Text="Ordenes a verificar:"
+                    TextColor="#eee"
+                    VerticalOptions="Center"
+                    FontSize="25"
+                    Margin="20, 0, 0, 0"
+                    ZIndex="2"/>
+
+                <Label 
+                    Text="{Binding TxtOrdenesAVerificar}"
+                    FontAttributes="Bold"
+                    FontSize="30"
+                    TextColor="#eee"
+                    VerticalOptions="Center"
+                    HorizontalOptions="End"
+                    Margin="0, 0, 20, 0"
+                    ZIndex="2"/>
+            </Grid>
+
+            <Label Text="Referenciales"
+                   FontSize="Medium"/>
+
+            <Button Text="Ordenes"
+                    IsVisible="{Binding btnOrdenesVisible}"
+                    Clicked="BtnIrOrdenes"/>
+
+            <Button Text="Clientes"
+                    IsVisible="{Binding btnClientesVisible}"
+                    IsEnabled="False"/>
+
+            <Button Text="Funcionarios"
+                    IsVisible="{Binding btnFuncionariosVisible}"
+                    IsEnabled="False"/>
+
+            <Button Text="Categoria"
+                    IsVisible="{Binding btnCategoriaVisible}"
+                    IsEnabled="False"/>
+
+            <Button Text="Subcategoria"
+                    IsVisible="{Binding btnSubcategoriaVisible}"
+                    IsEnabled="False"/>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            Spacing="10">
+            <Button
+                Text="Informes"
+                IsEnabled="False"/>
+            <Button
+                Text="Cerrar Sesión"
+                Clicked="BtnCerrarSeccion"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

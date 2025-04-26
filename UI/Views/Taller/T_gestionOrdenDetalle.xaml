@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Taller.T_gestionOrdenDetalle"
+             Title="T_gestionOrdenDetalle">
+    <Grid RowDefinitions="auto, auto, *, auto"
+          ColumnDefinitions="*, *"
+          Padding="20, 10"
+          RowSpacing="20"
+          MaximumWidthRequest="470">
+        <Grid Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  RowDefinitions="auto"
+                  ColumnDefinitions="*, *">
+            <Label Text="{Binding OrdenDetalleCompleto.OrdenDetalleId, StringFormat='Orden Detalle #{0}'}"
+                       VerticalOptions="Center"
+                       Grid.Row="0"
+                       Grid.Column="0"/>
+            <Picker ItemsSource="{Binding EstadosDisponibles}"
+                        SelectedItem="{Binding EstadoActual}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        Grid.Row="0"
+                        Grid.Column="1"/>
+        </Grid>
+
+        <Label Grid.Row="1"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   Margin="0, 0, 0, -20"
+                   FontAttributes="Bold"
+                   Text="{Binding OrdenDetalleCompleto.OrdenDetalleNombre, StringFormat='Avance de: {0}'}"/>
+
+        <!--#region HISTORIAL ORDEN DETALLE -->
+        <CollectionView Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            ItemsSource="{Binding OrdenDetalleCompleto.ListaOrdenDetallesHistorial}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Padding="10" BackgroundColor="#333">
+                        <Label Text="{Binding FechaCompleta}"
+                                   TextColor="#aaa"/>
+                        <Label Text="{Binding Descripcion}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!--#endregion-->
+
+        <VerticalStackLayout Grid.Row="3"
+                             Grid.Column="0"
+                             Grid.ColumnSpan="2"
+                             Spacing="10">
+            <Entry Placeholder="Observacion..."
+                   Text="{Binding TxtObservacion}"
+                   HeightRequest="70"
+                   VerticalTextAlignment="Start"/>
+            <Entry Placeholder="Costo del servicio"
+                   Text="{Binding TxtCosto}"/>
+            <Button Text="Agregar Observacion"
+                    Clicked="BtnEnviarObservacion"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodel="clr-namespace:UI.ViewModels.Taller"
+             x:Class="UI.Views.Taller.T_ordenDetalle"
+             Title="T_ordenDetalle">
+    <ScrollView>
+        <Grid ColumnDefinitions="*, *"
+              RowDefinitions="auto, auto, auto, auto, *"
+              Padding="20"
+              RowSpacing="30"
+              MaximumWidthRequest="470">
+            <Grid Grid.Row="0"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  RowDefinitions="*, *"
+                  ColumnDefinitions="*, *">
+                <Label Text="{Binding OrdenCompleto.OrdenId, StringFormat='Orden #{0}'}"
+                       VerticalOptions="Center"
+                       Grid.Row="0"
+                       Grid.Column="0"
+                       FontSize="20"
+                       FontAttributes="Bold"
+                       x:Name="txtOrdenId"/>
+                <Picker VerticalOptions="Center"
+                        HorizontalOptions="End"
+                        ItemsSource="{Binding EstadoDisponibles}"
+                        SelectedItem="{Binding EstadoActual}"
+                        Grid.Row="0"
+                        Grid.Column="1"/>
+                <Button Grid.Row="1"
+                        Grid.Column="1"
+                        Text="Guardar estado"
+                        HorizontalOptions="End"
+                        Margin="0, 5, 0, 0"
+                        Clicked="BtnGuardarEstadoOrdenCabecera"/>
+            </Grid>
+
+            <!--#region ORDEN DETALLE -->
+            <CollectionView Grid.Row="1"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            ItemsSource="{Binding OrdenCompleto.ListaOrdenDetalleResumenes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions=".7*, .3*"
+                              RowDefinitions="auto, auto, auto, 20"
+                              BackgroundColor="#2a2a2a"
+                              Padding="15,10">
+                            <Label Grid.Row="0"
+                                   Grid.Column="0"
+                                   Text="{Binding OrdenDetalleName}"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="1"
+                                   Grid.Column="0"
+                                   Text="{Binding OrdenDetalleEstado}"
+                                   FontAttributes="Bold"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Row="2"
+                                   Grid.Column="0"
+                                   Text="{Binding OrdenDetalleMonto, StringFormat='{0} Gs.'}"
+                                   VerticalOptions="Center"/>
+                            <Button Grid.Row="1"
+                                    Grid.RowSpan="2"
+                                    Grid.Column="1"
+                                    Text="GESTIONAR"
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:T_ordenDetalleViewModel}}, Path=IrGestionarOrdenDetalleCommand}"
+                                    CommandParameter="{Binding OrdenDetalleId}"
+                                    VerticalOptions="Center"/>
+                            <Frame Grid.Row="3"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Background="#454545"
+                                   Margin="0, 13, 0, 0"
+                                   HasShadow="true"
+                                   BorderColor="Transparent"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!--#endregion-->
+
+            <Label Grid.Row="2"
+                   Text="Progreso de la Orden"
+                   Margin="0, 0, 0, -20"
+                   FontAttributes="Bold"/>
+
+            <!--#region PROGRSO DE LA ORDEN -->
+            <CollectionView ItemsSource="{Binding OrdenCompleto.ListaHistorialOrden}"
+                            Grid.Row="3"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Grid.Row="3"
+                              Grid.Column="0"
+                              Grid.ColumnSpan="2"
+                              RowDefinitions="auto, auto, 20"
+                              ColumnDefinitions="*"
+                              BackgroundColor="#181818"
+                              Padding="15, 10">
+                            <Label Grid.Column="0"
+                                   Grid.Row="0"
+                                   Text="{Binding FechaCompleta}"
+                                   TextColor="#aaa"
+                                   VerticalOptions="Center"/>
+                            <Label Grid.Column="0"
+                                   Grid.Row="1"
+                                   Text="{Binding Descripcion}"
+                                   VerticalOptions="Center"/>
+                            <Frame Grid.Row="3"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="2"
+                                   Background="#454545"
+                                   Margin="0, 15, 0, 0"
+                                   HasShadow="true"
+                                   BorderColor="Transparent"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <!--#endregion-->
+
+            <Grid Grid.Row="4"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  RowDefinitions="auto, auto, auto"
+                  ColumnDefinitions="*"
+                  RowSpacing="10"
+                  Margin="0, 0, 0, 0">
+                <Label Grid.Row="0"
+                       Text="{Binding TxtCostoTotal, StringFormat='Total: {0}'}"
+                       FontAttributes="Bold"/>
+                <Button Text="Finalizar orden y generar factura"
+                        Grid.Row="1"
+                        IsEnabled="{Binding BtnCompletarOrdenEnabled}"/>
+                <Button Text="Cancelar orden"
+                        Grid.Row="2"/>
+            </Grid>
+        </Grid>
+    </ScrollView>
+</ContentPage>

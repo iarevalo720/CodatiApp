@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Clientes.C_acercaDe"
+             NavigationPage.HasBackButton="True"
+             Title="C_acercaDe">
+    <VerticalStackLayout Padding="25">
+        <Grid RowDefinitions="*, *, *, *, *, *, *, *"
+              ColumnDefinitions=".35*, .65*"
+              MaximumWidthRequest="500"
+              Padding="25"
+              RowSpacing="10">
+            <Label 
+                Grid.Row="0"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="Codati SRL"
+                FontSize="Large"
+                HorizontalTextAlignment="Center"
+                FontAttributes="Bold"
+                Margin="0, 0, 0, 30"/>
+            <Label 
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="Contacto" 
+                HorizontalOptions="Center"
+                FontSize="Medium"/>
+            <Label
+                Grid.Row="2"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Nro. teléfono:"/>
+            <Label
+                Grid.Row="2"
+                Grid.Column="1"
+                Text="0981 223 344"/>
+            <Label
+                Grid.Row="3"
+                Grid.Column="0"
+                FontAttributes="Bold"
+                Text="Correo:"/>
+            <Label
+                Grid.Row="3"
+                Grid.Column="1"
+                Text="codati@gmail.com"/>
+            <Label
+                Grid.Row="4"
+                HeightRequest="20"/>
+            <Label
+                Grid.Row="5"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalTextAlignment="Center"
+                Text="Horario de atención" FontSize="Medium"/>
+            <Label 
+                Grid.Row="6"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="Lunes a Viernes - 09:00hs a 18:00hs"/>
+            <Label
+                Grid.Row="7"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                Text="Sabados - 10:00hs a 16:00hs"/>
+        </Grid>
+    </VerticalStackLayout>
+</ContentPage>

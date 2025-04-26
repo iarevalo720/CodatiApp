@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Clientes.C_crearOrden"
+             Title="C_crearOrden">
+    <Grid RowDefinitions="*, 50" Padding="25" MaximumWidthRequest="500">
+        <VerticalStackLayout Grid.Row="0">
+            <Label 
+                Text="Seleccione su vehículo"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start"
+                FontSize="Medium"/>
+            <Picker Margin="0, 0, 0, 30"
+                    ItemsSource="{Binding ListadoVehiculos}"
+                    ItemDisplayBinding="{Binding ContenidoVehiculo}"
+                    SelectedItem="{Binding SelectedVehiculo}"/>
+
+            <Label 
+                Text="Seleccione la categoría"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                FontSize="Medium"/>
+            <Picker Margin="0, 0, 0, 30"
+                    ItemsSource="{Binding Categorias}"
+                    ItemDisplayBinding="{Binding Nombre}"
+                    SelectedItem="{Binding SelectedCategoria}"
+                    SelectedIndexChanged="PickerCategoria_SelectedIndexChanged"
+                    x:Name="pickerCategoria"/>
+
+            <Label 
+                Text="Seleccione el servicio a realizar"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                FontSize="Medium"/>
+            <Picker Margin="0, 0, 0, 30"
+                    ItemsSource="{Binding SubCategorias}"
+                    ItemDisplayBinding="{Binding Nombre}"
+                    SelectedIndexChanged="PickerSubCategoria_SelectedIndexChanged"
+                    SelectedItem="{Binding SelectedSubCategoria}"/>
+
+
+            <Label Text="Servicios escogidos:"
+                   FontSize="Medium"/>
+
+            <CollectionView ItemsSource="{Binding ListaSubcategoriaAgregar}"
+                            Margin="0, 5, 0, 20">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid RowDefinitions="*"
+                              ColumnDefinitions="*">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="BtnEliminarSubCategoriaCommand"/>
+                            </Grid.GestureRecognizers>
+
+                            <RoundRectangle CornerRadius="10"
+                                   BackgroundColor="#444"
+                                   Grid.Column="0"
+                                   Grid.Row="0"/>
+
+                            <Label Text="{Binding Nombre}"
+                                   VerticalOptions="Center"
+                                   Margin="20, 0, 0, 0"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label 
+                Text="Observaciones"
+                VerticalOptions="Center" 
+                HorizontalOptions="Start" 
+                FontSize="Medium"/>
+            <Entry HeightRequest="70"
+                   VerticalTextAlignment="Start"
+                   Text="{Binding TxtObservacion}"/>
+        </VerticalStackLayout>
+        <Button Text="Crear" 
+                Grid.Row="1"
+                Command="{Binding btnEnviarPedidoCommand}"/>
+    </Grid>
+</ContentPage>
