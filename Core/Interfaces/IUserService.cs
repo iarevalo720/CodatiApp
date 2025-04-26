@@ -1,8 +1,9 @@
-﻿namespace Core.Interfaces
+﻿using Core.DTOs;
+
+namespace Core.Interfaces
 {
     public interface IUserService
     {
-        public bool EstaAutenticado(string jwt);
-        public Task<string> Login(string username, string password);
+        public Task<UserSession> Login(string username, string password);
     }
 }

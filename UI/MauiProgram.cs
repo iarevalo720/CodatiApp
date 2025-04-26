@@ -53,7 +53,6 @@ namespace UI
               .AddEntityFrameworkStores<AppDbContext>();
 
             //Views
-            builder.Services.AddTransient<Loading>();
             builder.Services.AddTransient<Login>();
             builder.Services.AddTransient<T_menu>();
             builder.Services.AddTransient<T_ordenes>();

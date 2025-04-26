@@ -1,4 +1,5 @@
-﻿using Core.Interfaces;
+﻿using Core.DTOs;
+using Core.Interfaces;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Windows.Input;
@@ -25,7 +26,6 @@ namespace UI.ViewModels.Inicio
 
         public async Task Login()
         {
-            string jwt  = string.Empty;
 
             if (string.IsNullOrWhiteSpace(Correo) || string.IsNullOrWhiteSpace(Contrasena))
             {
@@ -35,8 +35,8 @@ namespace UI.ViewModels.Inicio
 
             try
             {
-                jwt = await _service.Login(Correo, Contrasena);
-                await GuardarCredenciales(jwt);
+                UserSession user = await _service.Login(Correo, Contrasena);
+                await GuardarCredenciales(user);
             }
             catch (Exception)
             {
@@ -47,19 +47,11 @@ namespace UI.ViewModels.Inicio
             return;
         }
 
-        public async Task GuardarCredenciales(string jwt)
+        public async Task GuardarCredenciales(UserSession user)
         {
-            var handler = new JwtSecurityTokenHandler();
-            var jsonToken = handler.ReadToken(jwt) as JwtSecurityToken;
-
-            string userId = jsonToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value.ToString();
-            string name = jsonToken.Claims.First(claim => claim.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").Value.ToString();
-            string role = jsonToken.Claims.First(claim => claim.Type == "http://schemas.microsoft.com/ws/2008/06/identity/claims/role").Value.ToString();
-
-            await SecureStorage.SetAsync("jwt", jwt);
-            await SecureStorage.SetAsync("id", userId);
-            await SecureStorage.SetAsync("nombre", name);
-            await SecureStorage.SetAsync("rol", role);
+            await SecureStorage.SetAsync("id", user.Id);
+            await SecureStorage.SetAsync("nombre", user.Name);
+            await SecureStorage.SetAsync("rol", user.Role);
         }
     }
 }

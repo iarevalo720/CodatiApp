@@ -31,7 +31,7 @@ public partial class C_menu : ContentPage
     {
         SecureStorage.RemoveAll();
 
-        await Shell.Current.GoToAsync($"{nameof(Login)}");
+        await Shell.Current.GoToAsync($"//{nameof(Login)}");
     }
 
     private async void BtnIrVehiculos(object sender, EventArgs e)
