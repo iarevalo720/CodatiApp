@@ -12,6 +12,7 @@ public partial class Login : ContentPage
 		InitializeComponent();
         BindingContext = loginViewModel;
 		_loginViewModel = loginViewModel;
+        SecureStorage.RemoveAll();
 	}
 
     private async void BtnLogin(object sender, EventArgs e)
