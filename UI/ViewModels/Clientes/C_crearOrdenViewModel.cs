@@ -71,7 +71,7 @@ namespace UI.ViewModels.Clientes
         {
             try
             {
-                if (SelectedCategoria == null || SelectedCategoria == null || SelectedSubCategoria == null)
+                if (SelectedCategoria == null || SelectedSubCategoria == null || ListaSubcategoriaAgregar.Count <= 0 || SelectedVehiculo == null)
                 {
                     await Application.Current.MainPage.DisplayAlert("Información", "Por favor, complete todos los campos primero", "OK");
                     return;
