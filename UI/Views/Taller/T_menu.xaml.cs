@@ -21,7 +21,7 @@ public partial class T_menu : ContentPage
 
     private async void BtnIrOrdenes(object sender, EventArgs e)
     {
-        await Shell.Current.GoToAsync($"//{nameof(T_ordenes)}");
+        await Shell.Current.GoToAsync($"{nameof(T_ordenes)}");
     }
 
     private async Task CerrarSeccion()
