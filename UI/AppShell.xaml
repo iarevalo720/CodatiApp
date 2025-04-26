@@ -10,6 +10,6 @@
     Shell.NavBarIsVisible="False">
 
     <ShellContent
-        ContentTemplate="{DataTemplate inicio:Loading}"
-        Route="Loading" />
+        ContentTemplate="{DataTemplate inicio:Login}"
+        Route="Login" />
 </Shell>

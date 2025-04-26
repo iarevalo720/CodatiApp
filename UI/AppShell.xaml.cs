@@ -10,7 +10,6 @@ namespace UI
         {
             InitializeComponent();
 
-            Routing.RegisterRoute(nameof(Login), typeof(Login));
             Routing.RegisterRoute(nameof(T_menu), typeof(T_menu));
             Routing.RegisterRoute(nameof(T_ordenes), typeof(T_ordenes));
             Routing.RegisterRoute(nameof(T_ordenDetalle), typeof(T_ordenDetalle));
