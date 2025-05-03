@@ -1,7 +1,5 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
-using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
 using System.Windows.Input;
 
 namespace UI.ViewModels.Inicio

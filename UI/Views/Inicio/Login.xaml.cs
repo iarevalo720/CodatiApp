@@ -45,9 +45,4 @@ public partial class Login : ContentPage
                 break;
         }
     }
-
-    private void BtnIrRegistro(object sender, EventArgs e)
-    {
-
-    }
 }

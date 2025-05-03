@@ -96,13 +96,6 @@
                             FontAttributes="Bold"
                             Clicked="BtnLogin"
                             TextColor="#FBF6FD"/>
-
-                    <Button Clicked="BtnIrRegistro"
-                            Margin="0, 15, 0, 0"
-                            BackgroundColor="#FBF6FD"
-                            HeightRequest="60"
-                            Text="Crea tu cuenta!"
-                            TextColor="#4F3F9B"/>
                 </VerticalStackLayout>
             </Grid>
         </Grid>

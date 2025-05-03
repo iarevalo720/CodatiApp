@@ -1,4 +1,3 @@
-using UI.Utilities;
 using UI.ViewModels.Taller;
 using UI.Views.Inicio;
 
@@ -33,6 +32,5 @@ public partial class T_menu : ContentPage
     protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
     {
         base.OnNavigatedFrom(args);
-        // Handle any cleanup or state saving if necessary
     }
 }
