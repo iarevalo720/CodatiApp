@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250413042820_first-migration")]
-    partial class firstmigration
+    [Migration("20250427211033_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -518,8 +518,9 @@ namespace Data.Migrations
                     b.Property<int>("PuntoEstablecimiento")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PuntoExpedicion")
-                        .HasColumnType("integer");
+                    b.Property<string>("PuntoExpedicion")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -615,13 +616,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2ddf6e61-a4e6-42ab-9844-bfe13729fe1f",
+                            Id = "b8f15edb-4ab0-4a68-8f64-8b3ec0689668",
                             Name = "Mecanico",
                             NormalizedName = "MECANICO"
                         },
                         new
                         {
-                            Id = "6704f0ba-41c3-44eb-9996-fb9dcfe1a82f",
+                            Id = "b1caa829-115f-4c63-a7f4-3088768748d0",
                             Name = "Secretaria",
                             NormalizedName = "SECRETARIA"
                         });
