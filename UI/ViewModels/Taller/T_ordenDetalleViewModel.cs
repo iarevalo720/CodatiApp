@@ -13,7 +13,10 @@ namespace UI.ViewModels.Taller
         public string EstadoActual { get; set; } = string.Empty; // Initialize to avoid null
         public string EstadoInicial { get; set; } = string.Empty; // Initialize to avoid null
         public int TxtCostoTotal { get; set; }
-        public bool BtnCompletarOrdenEnabled { get; set; }
+        public bool BtnCrearComprobanteEnabled { get; set; }
+        public bool BtnFinalizarOrdenEnabled { get; set; }
+        public bool BtnCancelarOrdenEnabled { get; set; }
+        public bool btnCambiarEstadoOrdenCabeceraEnabled { get; set; }
         public List<string> EstadoDisponibles => ListaEstadosOrdenDTO.ListaEstados;
 
         //COMANDOS
@@ -33,10 +36,33 @@ namespace UI.ViewModels.Taller
             EstadoInicial = EstadoActual;
             TxtCostoTotal = 0;
             VerificarEstadosOrdenDetalle();
+            VerificarEstadoOrdenCabecera();
 
             foreach (var ordenDetalle in OrdenCompleto.ListaOrdenDetalleResumenes)
             {
                 TxtCostoTotal += ordenDetalle.OrdenDetalleMonto;
+            }
+        }
+
+        private void VerificarEstadoOrdenCabecera()
+        {
+            if (OrdenCompleto.EstadoOrden == "FINALIZADO")
+            {
+                BtnFinalizarOrdenEnabled = false;
+                BtnCrearComprobanteEnabled = true;
+                BtnCancelarOrdenEnabled = false;
+            }
+            else if (OrdenCompleto.EstadoOrden == "CANCELADO" || OrdenCompleto.EstadoOrden == "RECHAZADO")
+            {
+                BtnFinalizarOrdenEnabled = false;
+                BtnCrearComprobanteEnabled = false;
+                BtnCancelarOrdenEnabled = false;
+            }
+            else
+            {
+                BtnFinalizarOrdenEnabled = true;
+                BtnCrearComprobanteEnabled = false;
+                BtnCancelarOrdenEnabled = true;
             }
         }
 
@@ -66,15 +92,38 @@ namespace UI.ViewModels.Taller
 
         private void VerificarEstadosOrdenDetalle()
         {
+
             foreach (var ordenDetalle in OrdenCompleto.ListaOrdenDetalleResumenes)
             {
                 if (ordenDetalle.OrdenDetalleEstado != "TERMINADO")
                 {
-                    BtnCompletarOrdenEnabled = false;
+                    BtnCrearComprobanteEnabled = false;
                     break;
                 }
 
-                BtnCompletarOrdenEnabled = true;
+                BtnCrearComprobanteEnabled = true;
+            }
+        }
+
+        public async Task FinalizarOrden(int ordenId)
+        {
+            var idUsuario = await SecureStorage.GetAsync("id");
+            if (EstadoActual == "FINALIZADO")
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "La orden ya se encuentra finalizada", "OK");
+            }
+            else
+            {
+                bool cambioExitoso = await _ordenService.ActualizarEstadoOrdenCabecera("FINALIZADO", idUsuario, ordenId);
+                if (cambioExitoso)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Exito", "Orden finalizada exitosamente", "OK");
+                    await CargarOrdenCompletoAsync(ordenId);
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                }
             }
         }
     }
