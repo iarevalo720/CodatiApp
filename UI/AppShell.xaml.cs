@@ -13,6 +13,7 @@ namespace UI
             Routing.RegisterRoute(nameof(T_ordenes), typeof(T_ordenes));
             Routing.RegisterRoute(nameof(T_ordenDetalle), typeof(T_ordenDetalle));
             Routing.RegisterRoute(nameof(T_gestionOrdenDetalle), typeof(T_gestionOrdenDetalle));
+            Routing.RegisterRoute(nameof(T_cliente), typeof(T_cliente));
 
             Routing.RegisterRoute(nameof(C_menu), typeof(C_menu));
             Routing.RegisterRoute(nameof(C_acercaDe), typeof(C_acercaDe));
