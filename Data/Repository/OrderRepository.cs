@@ -76,6 +76,7 @@ namespace Data.Repository
                     .Include(o => o.OrdenDetalles)
                         .ThenInclude(od => od.SubCategoria)
                     .Include(o => o.HistorialOrdenes)
+                    .Include(o => o.Usuario)
                     .FirstOrDefaultAsync(o => o.Id == idOrden);
 
                 if (orden == null)
@@ -86,6 +87,8 @@ namespace Data.Repository
                 var ordenCompleto = new OrdenCompletoDTO
                 {
                     OrdenId = orden.Id,
+                    NombreUsuario = orden.Usuario?.Name,
+                    NroDocumento = orden.Usuario?.NroDocumento,
                     EstadoOrden = orden.Estado,
                     ListaOrdenDetalleResumenes = orden.OrdenDetalles.Select(od => new OrdenDetalleResumen
                     {
