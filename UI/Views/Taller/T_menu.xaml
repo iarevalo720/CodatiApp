@@ -49,8 +49,7 @@
                     Clicked="BtnIrOrdenes"/>
 
             <Button Text="Clientes"
-                    IsVisible="{Binding btnClientesVisible}"
-                    IsEnabled="False"/>
+                    IsVisible="{Binding btnClientesVisible}"/>
 
             <Button Text="Funcionarios"
                     IsVisible="{Binding btnFuncionariosVisible}"
