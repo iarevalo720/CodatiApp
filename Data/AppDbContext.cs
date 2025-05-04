@@ -40,14 +40,6 @@ namespace Data
                 .WithMany()
                 .HasForeignKey(o => o.IdUsuario)
                 .OnDelete(DeleteBehavior.Restrict);
-
-            var mecanico = new IdentityRole("Mecanico");
-            mecanico.NormalizedName = "MECANICO";
-
-            var secretaria = new IdentityRole("Secretaria");
-            secretaria.NormalizedName = "SECRETARIA";
-
-            builder.Entity<IdentityRole>().HasData(mecanico, secretaria);
         }
     }
 }
