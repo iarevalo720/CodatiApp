@@ -1,4 +1,5 @@
 ﻿using Core.DTOs;
+using Core.Entities;
 using Core.Interfaces;
 
 namespace Service.Services
@@ -31,6 +32,11 @@ namespace Service.Services
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<ApplicationUser?> ObtenerUsuarioPorCi(string ci)
+        {
+            return await _userRepository.ObtenerUsuarioPorCI(ci);
         }
     }
 }
