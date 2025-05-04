@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Taller.T_cliente"
+             Title="Ver Cliente">
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="*, 100"
+        MaximumWidthRequest="500"
+        Padding="30">
+        <VerticalStackLayout Grid.Row="0">
+            <HorizontalStackLayout
+                HorizontalOptions="End"
+                Spacing="10"
+                Margin="0, 0, 0, 40">
+                <Entry
+                    Text="{Binding TxtCI}"
+                    Placeholder="Cedula"
+                    WidthRequest="140"
+                    IsEnabled="{Binding TxtCIEnabled}"/>
+                <Button 
+                    Text="Buscar"
+                    Clicked="BtnBuscarCliente"
+                    WidthRequest="80"
+                    HeightRequest="43"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    IsEnabled="{Binding BtnBuscarEnabled}"/>
+                <Button 
+                    Text="Limpiar"
+                    Clicked="BtnLimpiarCampos"
+                    WidthRequest="80"
+                    HeightRequest="43"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"/>
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="Nombre"/>
+                <Entry Text="{Binding TxtNombre}"
+                       IsEnabled="{Binding TxtNombreEnabled}"/>
+
+                <Label Text="Correo"/>
+                <Entry Text="{Binding TxtCorreo}"
+                       IsEnabled="{Binding TxtCorreoEnabled}"/>
+
+                <Label Text="Telefono"/>
+                <Entry Text="{Binding TxtTelefono}"
+                       IsEnabled="{Binding TxtTelefonoEnabled}"/>
+
+                <Label Text="Direccion"/>
+                <Entry Text="{Binding TxtDireccion}"
+                       IsEnabled="{Binding TxtDireccionEnabled}"/>
+
+                <Label Text="Usuario Habilitado"/>
+                <Entry Text="{Binding TxtUsuarioHabilitado}"
+                       IsEnabled="{Binding TxtUsuarioHabilitadoEnabled}"/>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            VerticalOptions="End"
+            Spacing="10">
+            <Button Text="MODIFICAR"
+                    IsEnabled="{Binding BtnModificarEnabled}"/>
+            <Button Text="INHABILITAR"
+                    IsEnabled="{Binding BtnInhabilitarEnabled}"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
