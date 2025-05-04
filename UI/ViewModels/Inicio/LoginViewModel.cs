@@ -38,7 +38,7 @@ namespace UI.ViewModels.Inicio
             }
             catch (Exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                
                 return;
             }
 
