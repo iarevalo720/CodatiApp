@@ -19,7 +19,7 @@
             <Grid Margin="0, 0, 0, 20" HeightRequest="50" MaximumWidthRequest="300">
                 <RoundRectangle
                     CornerRadius="10"
-                    Fill="#444"
+                    Fill="#333"
                     ZIndex="1"/>
 
                 <Label 
