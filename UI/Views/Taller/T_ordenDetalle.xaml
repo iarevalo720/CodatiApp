@@ -33,6 +33,7 @@
                         Text="Guardar estado"
                         HorizontalOptions="End"
                         Margin="0, 5, 0, 0"
+                        IsEnabled="{Binding btnCambiarEstadoOrdenCabeceraEnabled}"
                         Clicked="BtnGuardarEstadoOrdenCabecera"/>
             </Grid>
 
@@ -131,10 +132,16 @@
                 <Label Grid.Row="0"
                        Text="{Binding TxtCostoTotal, StringFormat='Total: {0}'}"
                        FontAttributes="Bold"/>
-                <Button Text="Finalizar orden y generar factura"
+                <Button
+                    Text="Finalizar Orden"
+                    Clicked="btnFinalizarOrden"
+                    IsEnabled="{Binding BtnFinalizarOrdenEnabled}"/>
+                <Button Text="Generar comprobante"
                         Grid.Row="1"
-                        IsEnabled="{Binding BtnCompletarOrdenEnabled}"/>
+                        Clicked="btnCrearComprobante"
+                        IsEnabled="{Binding BtnCrearComprobanteEnabled}"/>
                 <Button Text="Cancelar orden"
+                        IsEnabled="{Binding BtnCancelarOrdenEnabled}"
                         Grid.Row="2"/>
             </Grid>
         </Grid>

@@ -1,7 +1,5 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
-using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
 using System.Windows.Input;
 
 namespace UI.ViewModels.Inicio
@@ -40,7 +38,7 @@ namespace UI.ViewModels.Inicio
             }
             catch (Exception)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                
                 return;
             }
 

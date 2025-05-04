@@ -17,37 +17,34 @@ public partial class Login : ContentPage
 
     private async void BtnLogin(object sender, EventArgs e)
     {
-        await _loginViewModel.Login();
-        string? rol = await SecureStorage.GetAsync("rol");
-
-        if (rol == null)
+        try
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "No se ha podido obtener el rol del usuario", "OK");
-            return;
-        }
+            await _loginViewModel.Login();
+            string? rol = await SecureStorage.GetAsync("rol");
 
-        switch (rol)
+            switch (rol)
+            {
+                case "admin":
+                    await Shell.Current.GoToAsync($"{nameof(T_menu)}");
+                    break;
+
+                case "mecanico":
+                    await Shell.Current.GoToAsync($"{nameof(T_menu)}");
+                    break;
+
+                case "Secretaria":
+                    await Shell.Current.GoToAsync($"{nameof(T_menu)}");
+                    break;
+
+                case "Cliente":
+                    await Shell.Current.GoToAsync($"{nameof(C_menu)}");
+                    break;
+            }
+        }
+        catch (Exception)
         {
-            case "admin":
-                await Shell.Current.GoToAsync($"{nameof(T_menu)}");
-                break;
-
-            case "mecanico":
-                await Shell.Current.GoToAsync($"{nameof(T_menu)}");
-                break;
-
-            case "Secretaria":
-                await Shell.Current.GoToAsync($"{nameof(T_menu)}");
-                break;
-
-            case "Cliente":
-                await Shell.Current.GoToAsync($"{nameof(C_menu)}");
-                break;
+            await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+            throw;
         }
-    }
-
-    private void BtnIrRegistro(object sender, EventArgs e)
-    {
-
     }
 }

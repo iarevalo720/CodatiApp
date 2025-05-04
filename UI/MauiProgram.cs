@@ -31,7 +31,16 @@ namespace UI
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                var connectionString = "Host=localhost;Database=db_taller;Username=postgres;Password=258364";
+                //var connectionString = "Host=localhost;Database=db_taller;Username=postgres;Password=258364";
+                var connectionString =
+                  "Host=dpg-d079j3s9c44c739qa7hg-a.oregon-postgres.render.com;"
+                + "Port=5432;"
+                + "Database=test_database_xmim;"
+                + "Username=root;"
+                + "Password=mdfuf1KnBFTrCRaKaQpG3oLRb5YK4TX3;"
+                + "SSL Mode=Require;"
+                + "Trust Server Certificate=true;";
+
                 options.UseNpgsql(connectionString, npgsqlOptions =>
                 {
                     npgsqlOptions.MigrationsAssembly("Migrations");
@@ -58,6 +67,7 @@ namespace UI
             builder.Services.AddTransient<T_ordenes>();
             builder.Services.AddTransient<T_ordenDetalle>();
             builder.Services.AddTransient<T_gestionOrdenDetalle>();
+            builder.Services.AddTransient<T_crearComprobante>();
             builder.Services.AddTransient<C_menu>();
             builder.Services.AddTransient<C_acercaDe>();
             builder.Services.AddTransient<C_misVehiculos>();
@@ -74,6 +84,7 @@ namespace UI
             builder.Services.AddTransient<C_misVehiculosViewModel>();
             builder.Services.AddTransient<C_crearVehiculoViewModel>();
             builder.Services.AddTransient<C_crearOrdenViewModel>();
+            builder.Services.AddTransient<T_crearComprobanteViewModel>();
 
             //Services & Repositories
             builder.Services.AddScoped<IUserService, UserService>();

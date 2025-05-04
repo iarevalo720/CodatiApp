@@ -111,7 +111,7 @@ namespace Data.Migrations
 
                     b.HasKey("CategoriaId");
 
-                    b.ToTable("Categoria", (string)null);
+                    b.ToTable("Categoria");
                 });
 
             modelBuilder.Entity("Core.Entities.Comprobante", b =>
@@ -157,7 +157,7 @@ namespace Data.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Comprobantes", (string)null);
+                    b.ToTable("Comprobantes");
                 });
 
             modelBuilder.Entity("Core.Entities.ComprobanteDetalle", b =>
@@ -184,7 +184,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrdenDetalleId");
 
-                    b.ToTable("ComprobanteDetalles", (string)null);
+                    b.ToTable("ComprobanteDetalles");
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaAlias", b =>
@@ -205,7 +205,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CuentasAlias", (string)null);
+                    b.ToTable("CuentasAlias");
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaBancaria", b =>
@@ -238,7 +238,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CuentasBancarias", (string)null);
+                    b.ToTable("CuentasBancarias");
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaCliente", b =>
@@ -267,7 +267,7 @@ namespace Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CuentasClientes", (string)null);
+                    b.ToTable("CuentasClientes");
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaCobrar", b =>
@@ -300,7 +300,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ComprobanteId");
 
-                    b.ToTable("CuentasCobrar", (string)null);
+                    b.ToTable("CuentasCobrar");
                 });
 
             modelBuilder.Entity("Core.Entities.HistorialOrden", b =>
@@ -334,7 +334,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrdenId");
 
-                    b.ToTable("HistorialOrdenes", (string)null);
+                    b.ToTable("HistorialOrdenes");
                 });
 
             modelBuilder.Entity("Core.Entities.MarcaVehiculo", b =>
@@ -350,7 +350,7 @@ namespace Data.Migrations
 
                     b.HasKey("MarcaVehiculoId");
 
-                    b.ToTable("MarcaVehiculos", (string)null);
+                    b.ToTable("MarcaVehiculos");
                 });
 
             modelBuilder.Entity("Core.Entities.ModeloVehiculo", b =>
@@ -371,7 +371,7 @@ namespace Data.Migrations
 
                     b.HasIndex("MarcaVehiculoId");
 
-                    b.ToTable("ModeloVehiculos", (string)null);
+                    b.ToTable("ModeloVehiculos");
                 });
 
             modelBuilder.Entity("Core.Entities.Orden", b =>
@@ -409,7 +409,7 @@ namespace Data.Migrations
 
                     b.HasIndex("VehiculoId");
 
-                    b.ToTable("Ordenes", (string)null);
+                    b.ToTable("Ordenes");
                 });
 
             modelBuilder.Entity("Core.Entities.OrdenDetalle", b =>
@@ -438,7 +438,7 @@ namespace Data.Migrations
 
                     b.HasIndex("SubCategoriaId");
 
-                    b.ToTable("OrdenDetalles", (string)null);
+                    b.ToTable("OrdenDetalles");
                 });
 
             modelBuilder.Entity("Core.Entities.OrdenDetalleHistorial", b =>
@@ -465,7 +465,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrdenDetalleId");
 
-                    b.ToTable("OrdenDetalleHistoriales", (string)null);
+                    b.ToTable("OrdenDetalleHistoriales");
                 });
 
             modelBuilder.Entity("Core.Entities.SubCategoria", b =>
@@ -486,7 +486,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("SubCategoria", (string)null);
+                    b.ToTable("SubCategoria");
                 });
 
             modelBuilder.Entity("Core.Entities.Timbrado", b =>
@@ -515,12 +515,13 @@ namespace Data.Migrations
                     b.Property<int>("PuntoEstablecimiento")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PuntoExpedicion")
-                        .HasColumnType("integer");
+                    b.Property<string>("PuntoExpedicion")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Timbrados", (string)null);
+                    b.ToTable("Timbrados");
                 });
 
             modelBuilder.Entity("Core.Entities.Transferencia", b =>
@@ -542,7 +543,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CuentaId");
 
-                    b.ToTable("Transferencias", (string)null);
+                    b.ToTable("Transferencias");
                 });
 
             modelBuilder.Entity("Core.Entities.Vehiculo", b =>
@@ -581,7 +582,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ModeloVehiculoId");
 
-                    b.ToTable("Vehiculos", (string)null);
+                    b.ToTable("Vehiculos");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -612,13 +613,13 @@ namespace Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2ddf6e61-a4e6-42ab-9844-bfe13729fe1f",
+                            Id = "b8f15edb-4ab0-4a68-8f64-8b3ec0689668",
                             Name = "Mecanico",
                             NormalizedName = "MECANICO"
                         },
                         new
                         {
-                            Id = "6704f0ba-41c3-44eb-9996-fb9dcfe1a82f",
+                            Id = "b1caa829-115f-4c63-a7f4-3088768748d0",
                             Name = "Secretaria",
                             NormalizedName = "SECRETARIA"
                         });
