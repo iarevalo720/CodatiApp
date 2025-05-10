@@ -43,5 +43,10 @@ namespace Data.Repository
         {
             return await _context.Users.Where(u => u.NroDocumento == ci).FirstOrDefaultAsync();
         }
+
+        public async Task GuardarCambiosUsuario(ApplicationUser user)
+        {
+            await _userManager.UpdateAsync(user);
+        }
     }
 }

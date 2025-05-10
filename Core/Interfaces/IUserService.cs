@@ -7,5 +7,6 @@ namespace Core.Interfaces
     {
         public Task<UserSession> Login(string username, string password);
         public Task<ApplicationUser?> ObtenerUsuarioPorCi(string ci);
+        public Task GuardarCambiosUsuario(ApplicationUser user);
     }
 }

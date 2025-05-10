@@ -13,6 +13,11 @@ namespace Service.Services
             _userRepository = userRepository;
         }
 
+        public async Task GuardarCambiosUsuario(ApplicationUser user)
+        {
+            await _userRepository.GuardarCambiosUsuario(user);
+        }
+
         public async Task<UserSession> Login(string username, string password)
         {
             var user = await _userRepository.ValidarEmail(username);

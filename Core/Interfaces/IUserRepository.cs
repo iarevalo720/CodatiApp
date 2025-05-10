@@ -8,5 +8,6 @@ namespace Core.Interfaces
         public Task<bool> ValidarPassword(ApplicationUser user, string password);
         public Task<IList<string>> ObtenerRoles(ApplicationUser user);
         public Task<ApplicationUser?> ObtenerUsuarioPorCI(string ci);
+        public Task GuardarCambiosUsuario(ApplicationUser user);
     }
 }
