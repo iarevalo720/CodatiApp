@@ -16,6 +16,10 @@ public class ComprobantePdf : IDocument
     public List<(string descripcion, int monto)> ListaOrdenDetalles { get; set; }
 
     public DocumentMetadata GetMetadata() => DocumentMetadata.Default;
+    public ComprobantePdf()
+    {
+        QuestPDF.Settings.License = LicenseType.Community;
+    }
 
     public void Compose(IDocumentContainer container)
     {
