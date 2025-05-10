@@ -16,6 +16,7 @@ namespace UI.ViewModels.Taller
         public bool BtnCrearComprobanteEnabled { get; set; }
         public bool BtnFinalizarOrdenEnabled { get; set; }
         public bool BtnCancelarOrdenEnabled { get; set; }
+        public bool BtnCrearComprobanteVisible { get; set; }
         public bool btnCambiarEstadoOrdenCabeceraEnabled { get; set; }
         public List<string> EstadoDisponibles => ListaEstadosOrdenDTO.ListaEstados;
 
@@ -26,6 +27,7 @@ namespace UI.ViewModels.Taller
         {
             _ordenService = orderService;
             IrGestionarOrdenDetalleCommand = new Command<int>((OrdenDetalleId) => GestionarOrdenDetalleCommand(OrdenDetalleId));
+            BtnCrearComprobanteVisible = DeviceInfo.Platform == DevicePlatform.WinUI;
         }
 
         public async Task CargarOrdenCompletoAsync(int ordenId)

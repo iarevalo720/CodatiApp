@@ -1,4 +1,5 @@
 ﻿using Core.DTOs;
+using Core.Entities;
 using Core.Interfaces;
 
 namespace Service.Services
@@ -10,6 +11,11 @@ namespace Service.Services
         public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
+        }
+
+        public async Task GuardarCambiosUsuario(ApplicationUser user)
+        {
+            await _userRepository.GuardarCambiosUsuario(user);
         }
 
         public async Task<UserSession> Login(string username, string password)
@@ -31,6 +37,11 @@ namespace Service.Services
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public async Task<ApplicationUser?> ObtenerUsuarioPorCi(string ci)
+        {
+            return await _userRepository.ObtenerUsuarioPorCI(ci);
         }
     }
 }

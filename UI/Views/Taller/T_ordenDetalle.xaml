@@ -139,6 +139,7 @@
                 <Button Text="Generar comprobante"
                         Grid.Row="1"
                         Clicked="btnCrearComprobante"
+                        IsVisible="{Binding BtnCrearComprobanteVisible}"
                         IsEnabled="{Binding BtnCrearComprobanteEnabled}"/>
                 <Button Text="Cancelar orden"
                         IsEnabled="{Binding BtnCancelarOrdenEnabled}"

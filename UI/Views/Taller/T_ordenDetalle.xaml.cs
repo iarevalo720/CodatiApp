@@ -1,4 +1,5 @@
 using QuestPDF.Fluent;
+using QuestPDF.Infrastructure;
 using System.Threading.Tasks;
 using UI.Utilities;
 using UI.ViewModels.Taller;
@@ -16,7 +17,6 @@ public partial class T_ordenDetalle : ContentPage
         _t_ordenDetalleViewModel = t_OrdenDetalleViewModel;
         BindingContext = _t_ordenDetalleViewModel;
 
-        QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
     }
 
     protected override async void OnAppearing()
