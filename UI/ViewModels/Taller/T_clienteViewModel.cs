@@ -22,7 +22,6 @@ namespace UI.ViewModels.Taller
         public bool TxtCorreoEnabled { get; set; } = false;
         public bool TxtTelefonoEnabled { get; set; } = false;
         public bool TxtDireccionEnabled { get; set; } = false;
-        public bool TxtUsuarioHabilitadoEnabled { get; set; } = false;
 
         public bool BtnBuscarEnabled { get; set; } = true;
         public bool BtnModificarEnabled { get; set; } = false;
@@ -31,6 +30,27 @@ namespace UI.ViewModels.Taller
         public T_clienteViewModel(IUserService userService)
         {
             _userService = userService;
+        }
+
+        public async Task GuardarCambiosUsuario()
+        {
+            try
+            {
+                validarCamposVacios();
+
+                User.Name = TxtNombre;
+                User.Email = TxtCorreo;
+                User.PhoneNumber = TxtTelefono;
+                User.Direccion = TxtDireccion;
+
+                await _userService.GuardarCambiosUsuario(User);
+                await Shell.Current.DisplayAlert("Exito", "Datos actualiazados exitosamente", "OK");
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                return;
+            }
         }
 
         public async void ObtenerUsuario(string ci)
@@ -60,8 +80,6 @@ namespace UI.ViewModels.Taller
             TxtCorreoEnabled = true;
             TxtTelefonoEnabled = true;
             TxtDireccionEnabled = true;
-            TxtUsuarioHabilitadoEnabled = true;
-
 
             BtnBuscarEnabled = false;
             BtnModificarEnabled = true;
@@ -82,11 +100,20 @@ namespace UI.ViewModels.Taller
             TxtCorreoEnabled = false;
             TxtTelefonoEnabled = false;
             TxtDireccionEnabled = false;
-            TxtUsuarioHabilitadoEnabled = false;
 
             BtnBuscarEnabled = true;
             BtnModificarEnabled = false;
             BtnInhabilitarEnabled = false;
+        }
+
+        private async void validarCamposVacios()
+        {
+
+            if (string.IsNullOrWhiteSpace(TxtNombre) || string.IsNullOrWhiteSpace(TxtCorreo) || string.IsNullOrWhiteSpace(TxtTelefono) || string.IsNullOrWhiteSpace(TxtDireccion))
+            {
+                await Shell.Current.DisplayAlert("Información", "Complete todos los campos", "OK");
+                return;
+            }
         }
     }
 }

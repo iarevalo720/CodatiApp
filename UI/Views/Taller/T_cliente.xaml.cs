@@ -21,4 +21,9 @@ public partial class T_cliente : ContentPage
     {
         _viewModel.LimpiarCampos();
     }
+
+    private async void BtnGuardarCambiosUsuario(object sender, EventArgs e)
+    {
+        await _viewModel.GuardarCambiosUsuario();
+    }
 }

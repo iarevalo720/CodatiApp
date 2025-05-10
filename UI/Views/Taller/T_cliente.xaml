@@ -52,9 +52,8 @@
                 <Entry Text="{Binding TxtDireccion}"
                        IsEnabled="{Binding TxtDireccionEnabled}"/>
 
-                <Label Text="Usuario Habilitado"/>
-                <Entry Text="{Binding TxtUsuarioHabilitado}"
-                       IsEnabled="{Binding TxtUsuarioHabilitadoEnabled}"/>
+                <Label Text="Usuario Habilitado:"/>
+                <Label Text="{Binding TxtUsuarioHabilitado}"/>
             </VerticalStackLayout>
         </VerticalStackLayout>
 
@@ -63,7 +62,8 @@
             VerticalOptions="End"
             Spacing="10">
             <Button Text="MODIFICAR"
-                    IsEnabled="{Binding BtnModificarEnabled}"/>
+                    IsEnabled="{Binding BtnModificarEnabled}"
+                    Clicked="BtnGuardarCambiosUsuario"/>
             <Button Text="INHABILITAR"
                     IsEnabled="{Binding BtnInhabilitarEnabled}"/>
         </VerticalStackLayout>
