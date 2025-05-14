@@ -52,6 +52,10 @@
                     IsVisible="{Binding btnClientesVisible}"
                     Clicked="BtnIrClientes"/>
 
+            <Button Text="Vehiculos"
+                    IsVisible="{Binding btnVehiculosVisible}"
+                    Clicked="BtnIrVehiculos"/>
+
             <Button Text="Funcionarios"
                     IsVisible="{Binding btnFuncionariosVisible}"
                     IsEnabled="False"/>

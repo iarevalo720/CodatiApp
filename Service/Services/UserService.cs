@@ -26,6 +26,8 @@ namespace Service.Services
             bool esPasswordValido = await _userRepository.ValidarPassword(user, password);
             if (!esPasswordValido) throw new Exception("credenciales_invalidos");
 
+            if (user.Habilitado?.ToLower() != "si") throw new Exception("usuario_inhabilitado");
+
             var rolesUsuario = await _userRepository.ObtenerRoles(user);
             var userSession = new UserSession(user.Id, user.Name, user.Email, rolesUsuario.First());
 

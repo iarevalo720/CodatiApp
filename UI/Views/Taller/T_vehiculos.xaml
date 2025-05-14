@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Taller.T_vehiculos"
+             Title="T_vehiculos">
+    <VerticalStackLayout MaximumWidthRequest="500">
+        <HorizontalStackLayout
+            HorizontalOptions="End"
+            Spacing="10"
+            Margin="0, 0, 0, 40">
+            <Entry
+                Text="{Binding TxtCI}"
+                Placeholder="Cedula"
+                WidthRequest="140"/>
+            <Button 
+                Text="Buscar"
+                Clicked="BtnBuscarVehiculo"
+                WidthRequest="80"
+                HeightRequest="43"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+            <Button 
+                Text="Limpiar"
+                Clicked="BtnLimpiarCampos"
+                WidthRequest="80"
+                HeightRequest="43"
+                VerticalOptions="Center"
+                HorizontalOptions="Center"/>
+        </HorizontalStackLayout>
+
+        <HorizontalStackLayout Spacing="5">
+            <Label Text="Nombre: "
+                   FontAttributes="Bold"/>
+            <Label Text="{Binding txtNombreUsuario}"/>
+        </HorizontalStackLayout>
+
+        <Label Text="Lista de vehiculos"/>
+
+        <CollectionView SelectionMode="Single"
+                        ItemsSource="{Binding ListaVehiculos}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout
+                        Padding="10, 20">
+
+                        <Label Text="{Binding VehiculoId, StringFormat='#{0}'}"
+                                FontSize="15"/>
+
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="{Binding MarcaVehiculoNombre}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                            <Label Text="{Binding ModeloVehiculoNombre}"
+                                   FontSize="18"
+                                   FontAttributes="Bold"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="3">
+                            <Label Text="Matricula: "
+                                   TextColor="Gray"/>
+                            <Label Text="{Binding Matricula}"
+                                   FontSize="15"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="3">
+                            <Label Text="Año: "
+                                   TextColor="Gray"/>
+                            <Label Text="{Binding Anio}"
+                                   FontSize="15"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="3">
+                            <Label Text="Color: "
+                                   TextColor="Gray"/>
+                            <Label Text="{Binding Color}"
+                                   FontSize="15"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="3">
+                            <Label Text="Kilometraje: "
+                                   TextColor="Gray"/>
+                            <Label Text="{Binding Kilometraje}"
+                                   FontSize="15"/>
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="3"
+                                               Margin="0,0,0, 20">
+                            <Label Text="Transmision: "
+                                   TextColor="Gray"/>
+                            <Label Text="{Binding Transmision}"
+                                   FontSize="15"/>
+                        </HorizontalStackLayout>
+                        <Button Text="Modificar"
+                                Clicked="BtnIrModificarVehiculo"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </VerticalStackLayout>
+</ContentPage>

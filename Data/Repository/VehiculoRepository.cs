@@ -72,5 +72,10 @@ namespace Data.Repository
                     Nombre = x.Nombre,
                 }).ToListAsync();
         }
+
+        public async Task<Vehiculo> ObtenerVehiculoPorId(int id)
+        {
+            return await _context.Vehiculos.Where(v => v.VehiculoId == id).FirstOrDefaultAsync();
+        }
     }
 }

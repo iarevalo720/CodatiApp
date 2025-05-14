@@ -64,8 +64,9 @@
             <Button Text="MODIFICAR"
                     IsEnabled="{Binding BtnModificarEnabled}"
                     Clicked="BtnGuardarCambiosUsuario"/>
-            <Button Text="INHABILITAR"
-                    IsEnabled="{Binding BtnInhabilitarEnabled}"/>
+            <Button Text="{Binding TxtBtnCambiarEstadoCliente}"
+                    IsEnabled="{Binding BtnInhabilitarEnabled}"
+                    Clicked="BtnCambiarEstadoCliente"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

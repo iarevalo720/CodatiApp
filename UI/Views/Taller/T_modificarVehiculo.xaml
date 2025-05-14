@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Taller.T_modificarVehiculo"
+             Title="T_modificarVehiculo">
+    <VerticalStackLayout Padding="20"
+                         Spacing="10"
+                         MaximumWidthRequest="500">
+        <Picker Title="Selecciona la marca"
+                ItemsSource="{Binding Marcas}"
+                ItemDisplayBinding="{Binding Nombre}"
+                SelectedItem="{Binding SelectedMarca}"/>
+
+        <Picker Title="Seleccionar Modelo"
+                ItemsSource="{Binding Modelos}"
+                ItemDisplayBinding="{Binding Nombre}"
+                SelectedItem="{Binding Vehiculo.ModeloVehiculo}"/>
+
+        <Picker Title="Seleccionar Transmision"
+                ItemsSource="{Binding Transmision}"
+                SelectedItem="{Binding CurrentTransmion}"/>
+
+        <Entry Placeholder="Matricula"
+               Text="{Binding Vehiculo.Matricula}"
+               MaxLength="7"
+               x:Name="txtMatricula"/>
+
+        <Entry Placeholder="Color"
+               Text="{Binding Vehiculo.Color}"
+               MaxLength="12"
+               x:Name="txtColor"/>
+
+        <Entry Placeholder="Año"
+               Keyboard="Numeric"
+               MaxLength="4"
+               Text="{Binding Vehiculo.Anio}"
+               x:Name="txtAnio"/>
+
+        <Entry Placeholder="Kilometraje aprox."
+               Keyboard="Numeric"
+               MaxLength="7"
+               Text="{Binding Vehiculo.Kilometraje}"
+               x:Name="txtKilometraje"/>
+
+
+        <Button Command="{Binding GuardarVehiculoCommand}"
+                Text="Modificar"/>
+    </VerticalStackLayout>
+</ContentPage>
