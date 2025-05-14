@@ -31,18 +31,8 @@ namespace UI.ViewModels.Inicio
                 return;
             }
 
-            try
-            {
                 UserSession user = await _service.Login(Correo, Contrasena);
                 await GuardarCredenciales(user);
-            }
-            catch (Exception)
-            {
-                
-                return;
-            }
-
-            return;
         }
 
         public async Task GuardarCredenciales(UserSession user)

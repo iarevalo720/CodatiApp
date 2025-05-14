@@ -41,10 +41,16 @@ public partial class Login : ContentPage
                     break;
             }
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
-            throw;
+            if (ex.Message == "usuario_inhabilitado")
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El usuario está inhabilitado, por favor contactese con el taller", "OK");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+            }
         }
     }
 }

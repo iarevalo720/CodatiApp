@@ -22,6 +22,7 @@ namespace UI.ViewModels.Taller
         public bool TxtCorreoEnabled { get; set; } = false;
         public bool TxtTelefonoEnabled { get; set; } = false;
         public bool TxtDireccionEnabled { get; set; } = false;
+        public string TxtBtnCambiarEstadoCliente { get; set; } = "INHABILITAR";
 
         public bool BtnBuscarEnabled { get; set; } = true;
         public bool BtnModificarEnabled { get; set; } = false;
@@ -53,7 +54,7 @@ namespace UI.ViewModels.Taller
             }
         }
 
-        public async void ObtenerUsuario(string ci)
+        public async Task ObtenerUsuario(string ci)
         {
             if (string.IsNullOrWhiteSpace(ci))
             {
@@ -84,6 +85,15 @@ namespace UI.ViewModels.Taller
             BtnBuscarEnabled = false;
             BtnModificarEnabled = true;
             BtnInhabilitarEnabled = true;
+
+            if (User.Habilitado?.ToLower() == "si")
+            {
+                TxtBtnCambiarEstadoCliente = "INHABILITAR";
+            }
+            else
+            {
+                TxtBtnCambiarEstadoCliente = "HABILITAR";
+            }
         }
 
         public void LimpiarCampos()
@@ -112,6 +122,33 @@ namespace UI.ViewModels.Taller
             if (string.IsNullOrWhiteSpace(TxtNombre) || string.IsNullOrWhiteSpace(TxtCorreo) || string.IsNullOrWhiteSpace(TxtTelefono) || string.IsNullOrWhiteSpace(TxtDireccion))
             {
                 await Shell.Current.DisplayAlert("Información", "Complete todos los campos", "OK");
+                return;
+            }
+        }
+
+        public async Task CambiarEstadoCliente()
+        {
+            bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea cambiar el estado del usuario?", "Sí", "No");
+
+            if (!confirmar) return;
+
+            try
+            {
+                if (User.Habilitado == "si")
+                {
+                    User.Habilitado = "no";
+                }
+                else
+                {
+                    User.Habilitado = "si";
+                }
+                await _userService.GuardarCambiosUsuario(User);
+                await Shell.Current.DisplayAlert("Exito", "Estado del usuario actualizado exitosamente", "OK");
+                await ObtenerUsuario(TxtCI);
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
                 return;
             }
         }

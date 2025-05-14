@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UI.ViewModels.Taller;
 
 namespace UI.Views.Taller;
@@ -25,5 +26,10 @@ public partial class T_cliente : ContentPage
     private async void BtnGuardarCambiosUsuario(object sender, EventArgs e)
     {
         await _viewModel.GuardarCambiosUsuario();
+    }
+
+    private async void BtnCambiarEstadoCliente(object sender, EventArgs e)
+    {
+        await _viewModel.CambiarEstadoCliente();
     }
 }
