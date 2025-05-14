@@ -66,5 +66,10 @@ namespace Service.Services
         {
             return await _vehiculoRepository.GetSubCategoria(idCategoria);
         }
+
+        public Task<Vehiculo> ObtenerVehiculoPorId(int id)
+        {
+            return _vehiculoRepository.ObtenerVehiculoPorId(id);
+        }
     }
 }

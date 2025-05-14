@@ -68,6 +68,9 @@ namespace UI
             builder.Services.AddTransient<T_ordenDetalle>();
             builder.Services.AddTransient<T_gestionOrdenDetalle>();
             builder.Services.AddTransient<T_cliente>();
+            builder.Services.AddTransient<T_vehiculos>();
+            builder.Services.AddTransient<T_modificarVehiculo>();
+
             builder.Services.AddTransient<C_menu>();
             builder.Services.AddTransient<C_acercaDe>();
             builder.Services.AddTransient<C_misVehiculos>();
@@ -85,6 +88,8 @@ namespace UI
             builder.Services.AddTransient<C_misVehiculosViewModel>();
             builder.Services.AddTransient<C_crearVehiculoViewModel>();
             builder.Services.AddTransient<C_crearOrdenViewModel>();
+            builder.Services.AddTransient<T_vehiculosViewModel>();
+            builder.Services.AddTransient<T_modificarVehiculoVIewModel>();
 
             //Services & Repositories
             builder.Services.AddScoped<IUserService, UserService>();

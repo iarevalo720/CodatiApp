@@ -39,4 +39,9 @@ public partial class T_menu : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(T_cliente)}");
     }
+
+    private async void BtnIrVehiculos(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(T_vehiculos)}");
+    }
 }
