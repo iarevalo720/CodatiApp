@@ -12,5 +12,6 @@ namespace Core.Entities
         public int CategoriaId { get; set; }
         [ForeignKey("CategoriaId")]
         public virtual Categoria? Categoria { get; set; }
+        public string? Habilitado { get; set; }
     }
 }
