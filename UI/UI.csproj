@@ -122,6 +122,9 @@
 	  <MauiXaml Update="Views\Inicio\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Taller\T_categorias.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Taller\T_cliente.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

@@ -60,13 +60,9 @@
                     IsVisible="{Binding btnFuncionariosVisible}"
                     IsEnabled="False"/>
 
-            <Button Text="Categoria"
+            <Button Text="Categorias"
                     IsVisible="{Binding btnCategoriaVisible}"
-                    IsEnabled="False"/>
-
-            <Button Text="Subcategoria"
-                    IsVisible="{Binding btnSubcategoriaVisible}"
-                    IsEnabled="False"/>
+                    Clicked="BtnIrCategorias"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout

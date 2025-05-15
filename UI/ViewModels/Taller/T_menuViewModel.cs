@@ -1,10 +1,5 @@
 ﻿using Core.Interfaces;
 using PropertyChanged;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace UI.ViewModels.Taller
 {
@@ -16,7 +11,6 @@ namespace UI.ViewModels.Taller
         public bool btnClientesVisible { get; set; }
         public bool btnFuncionariosVisible { get; set; }
         public bool btnCategoriaVisible { get; set; }
-        public bool btnSubcategoriaVisible { get; set; }
         public string? TxtOrdenesAVerificar { get; set; }
 
         public T_menuViewModel(IOrderService orderService)
@@ -36,15 +30,13 @@ namespace UI.ViewModels.Taller
                     btnClientesVisible = false;
                     btnFuncionariosVisible = false;
                     btnCategoriaVisible = false;
-                    btnSubcategoriaVisible = false;
                     break;
 
                 case "Secretaria":
                     btnOrdenesVisible = true;
                     btnClientesVisible = true;
                     btnFuncionariosVisible = false;
-                    btnCategoriaVisible = false;
-                    btnSubcategoriaVisible = false;
+                    btnCategoriaVisible = true;
                     break;
 
                 case "admin":
@@ -52,7 +44,6 @@ namespace UI.ViewModels.Taller
                     btnClientesVisible = true;
                     btnFuncionariosVisible = true;
                     btnCategoriaVisible = true;
-                    btnSubcategoriaVisible = true;
                     break;
             }
         }
