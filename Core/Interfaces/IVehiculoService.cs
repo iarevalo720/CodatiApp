@@ -13,5 +13,7 @@ namespace Core.Interfaces
         public Task CrearVehiculo(Vehiculo vehiculo, string userId);
         public Task<IEnumerable<Categoria>> GetCategoria();
         public Task<IEnumerable<SubCategoriaDTO>> GetSubCategoria(int idCategoria);
+        public Task ActualizarCategoria(Categoria categoria);
+        public Task<Categoria?> ObtenerCategoriaPorId(int id);
     }
 }

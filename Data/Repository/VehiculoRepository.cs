@@ -77,5 +77,13 @@ namespace Data.Repository
         {
             return await _context.Vehiculos.Where(v => v.VehiculoId == id).FirstOrDefaultAsync();
         }
+
+        public async Task ActualizarCategoria(Categoria categoria)
+        {
+            _context.Categoria.Update(categoria);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<Categoria?> ObtenerCategoriaPorId(int id) => await _context.Categoria.Where(c => c.CategoriaId == id).FirstOrDefaultAsync();
     }
 }

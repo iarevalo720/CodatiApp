@@ -71,5 +71,15 @@ namespace Service.Services
         {
             return _vehiculoRepository.ObtenerVehiculoPorId(id);
         }
+
+        public Task ActualizarCategoria(Categoria categoria)
+        {
+            return _vehiculoRepository.ActualizarCategoria(categoria);
+        }
+
+        public Task<Categoria?> ObtenerCategoriaPorId(int id)
+        {
+            return _vehiculoRepository.ObtenerCategoriaPorId(id);
+        }
     }
 }
