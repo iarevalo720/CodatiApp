@@ -18,16 +18,18 @@ namespace Service.Services
             return _vehiculoRepository.ObtenerVehiculosDTO(userId);
         }
 
+        public Task<IEnumerable<MarcaVehiculo>> ObtenerMarcasHabilitadas()
+        {
+            return _vehiculoRepository.ObtenerMarcasHabilitadas();
+        }
         public Task<IEnumerable<MarcaVehiculo>> ObtenerMarcas()
         {
-            var marcas = _vehiculoRepository.ObtenerMarcas();
-            return marcas;
+            return _vehiculoRepository.ObtenerMarcas();
         }
 
         public Task<IEnumerable<ModeloVehiculo>> ObtenerModelosPorMarca(int idMarca)
         {
-            var modelos = _vehiculoRepository.ObtenerModelosPorMarca(idMarca);
-            return modelos;
+            return _vehiculoRepository.ObtenerModelosPorMarca(idMarca);
         }
 
         public async Task CrearVehiculo(Vehiculo vehiculoInsert, string userId)
@@ -99,6 +101,31 @@ namespace Service.Services
         public async Task CrearSubCategoria(SubCategoria subCategoria)
         {
             await _vehiculoRepository.CrearSubCategoria(subCategoria);
+        }
+
+        public async Task ActualizarMarcaVehiculo(MarcaVehiculo marcaVehiculo)
+        {
+            await _vehiculoRepository.ActualizarMarcaVehiculo(marcaVehiculo);
+        }
+
+        public async Task ActualizarModeloVehiculo(ModeloVehiculo modeloVehiculo)
+        {
+            await _vehiculoRepository.ActualizarModeloVehiculo(modeloVehiculo);
+        }
+
+        public async Task CrearMarca(MarcaVehiculo marcaVehiculo)
+        {
+            await _vehiculoRepository.CrearMarca(marcaVehiculo);
+        }
+
+        public async Task CrearModelo(ModeloVehiculo modeloVehiculo)
+        {
+            await _vehiculoRepository.CrearModelo(modeloVehiculo);
+        }
+
+        public async Task<IEnumerable<ModeloVehiculo>> ObtenerModelosHabilitadosPorMarca(int idMarca)
+        {
+            return await _vehiculoRepository.ObtenerModelosHabilitadosPorMarca(idMarca);
         }
     }
 }

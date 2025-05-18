@@ -9,5 +9,14 @@ namespace Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MarcaVehiculoId { get; set; }
         public string? Nombre { get; set; }
+        public string? Habilitado { get; set; }
+        [NotMapped]
+        public string? TxtBtnCambiarEstadoMarca 
+        { 
+            get
+            {
+                return Habilitado == "si" ? "Inhabilitar" : "Habilitar";
+            }
+        }
     }
 }
