@@ -13,5 +13,6 @@ namespace Core.Entities
 
         [ForeignKey("MarcaVehiculoId")]
         public virtual MarcaVehiculo? MarcaVehiculo { get; set; }
+        public string? Habilitado { get; set; }
     }
 }

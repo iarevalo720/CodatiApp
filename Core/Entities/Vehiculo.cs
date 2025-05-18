@@ -19,5 +19,6 @@ namespace Core.Entities
         public string? UserId { get; set; }
         public string? Kilometraje { get; set; }
         public string? Transmision { get; set; }
+        public string? Habilitado { get; set; }
     }
 }

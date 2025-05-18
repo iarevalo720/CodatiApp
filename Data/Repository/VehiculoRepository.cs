@@ -39,12 +39,12 @@ namespace Data.Repository
 
         public async Task<IEnumerable<MarcaVehiculo>> ObtenerMarcas()
         {
-            return await _context.MarcaVehiculos.ToListAsync();
+            return await _context.MarcaVehiculos.Where(ma => ma.Habilitado == "si").ToListAsync();
         }
 
         public async Task<IEnumerable<ModeloVehiculo>> ObtenerModelosPorMarca(int idMarca)
         {
-            return await _context.ModeloVehiculos.Where(mo => mo.MarcaVehiculoId == idMarca).ToListAsync();
+            return await _context.ModeloVehiculos.Where(mo => mo.MarcaVehiculoId == idMarca).Where(mo => mo.Habilitado == "si").ToListAsync();
         }
 
         public async Task AddVehiculo(Vehiculo vehiculo)
@@ -55,12 +55,12 @@ namespace Data.Repository
 
         public async Task<IEnumerable<Vehiculo>> ObtenerVehiculos(string userId)
         {
-            return await _context.Vehiculos.Where(v => v.UserId == userId).ToListAsync();
+            return await _context.Vehiculos.Where(v => v.UserId == userId).Where(v => v.Habilitado == "si").ToListAsync();
         }
 
         public async Task<IEnumerable<Categoria>> GetCategoria()
         {
-            return await _context.Categoria.ToListAsync();
+            return await _context.Categoria.Where(c => c.Habilitado == "si").ToListAsync();
         }
         public async Task<IEnumerable<SubCategoriaDTO>> GetSubCategoria(int idCategoria)
         {

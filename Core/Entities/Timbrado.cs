@@ -14,5 +14,6 @@ namespace Core.Entities
         public int PuntoEstablecimiento { get; set; }
         public string PuntoExpedicion { get; set; }
         public int NumeroSecuencial { get; set; }
+        public string? Habilitado { get; set; }
     }
 }
