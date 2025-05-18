@@ -3,10 +3,56 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UI.Views.Taller.T_marcas"
              Title="T_marcas">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="*, auto"
+          MaximumWidthRequest="500">
+        <ScrollView Grid.Row="0">
+            <CollectionView Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            ItemsSource="{Binding ListaMarcas}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*, auto">
+                            <VerticalStackLayout Grid.Row="0">
+                                <Label Text="{Binding MarcaVehiculoId, StringFormat='#{0}'}"
+                                       Margin="0,20,0,0"/>
+                                <Label Text="{Binding Nombre}"
+                                       FontAttributes="Bold"/>
+                                <Label Text="{Binding Habilitado, StringFormat='Habilitado: {0}'}"/>
+                            </VerticalStackLayout>
+                            <HorizontalStackLayout Grid.Row="1"
+                                                   Spacing="5"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="End">
+                                <Button Text="Modelos"
+                                        Clicked="BtnIrModelos"
+                                        FontSize="12"
+                                        WidthRequest="100"/>
+                                <Button Text="Renombrar"
+                                        Clicked="BtnCambiarNombreMarca"
+                                        FontSize="12"
+                                        WidthRequest="100"/>
+                                <Button Text="{Binding TxtBtnCambiarEstadoMarca}"
+                                        FontSize="12"
+                                        Clicked="BtnCambiarEstadoMarca"
+                                        WidthRequest="100"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Grid Grid.Row="1" 
+              Margin="0, 0, 0,20"
+              ColumnDefinitions="*, auto"
+              ColumnSpacing="10">
+            <Entry Placeholder="Nombre de la nueva marca"
+                   Text="{Binding txtNombreMarca}"
+                   Grid.Column="0"/>
+            <Button Text="Crear Marca"
+                    Clicked="BtnAgregarMarca"
+                    FontSize="12"
+                    Grid.Column="1"/>
+        </Grid>
+    </Grid>
 </ContentPage>

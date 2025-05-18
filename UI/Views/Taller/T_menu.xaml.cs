@@ -49,4 +49,9 @@ public partial class T_menu : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(T_categorias)}");
     }
+
+    private async void BtnIrMarcas(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(T_marcas)}");
+    }
 }

@@ -14,5 +14,13 @@ namespace Core.Entities
         [ForeignKey("MarcaVehiculoId")]
         public virtual MarcaVehiculo? MarcaVehiculo { get; set; }
         public string? Habilitado { get; set; }
+        [NotMapped]
+        public string? TxtBtnCambiarEstadoModelo
+        {
+            get
+            {
+                return Habilitado == "si" ? "Inhabilitar" : "Habilitar";
+            }
+        }
     }
 }

@@ -37,7 +37,7 @@ namespace Data.Repository
             return vehiculo;
         }
 
-        public async Task<IEnumerable<MarcaVehiculo>> ObtenerMarcas()
+        public async Task<IEnumerable<MarcaVehiculo>> ObtenerMarcasHabilitadas()
         {
             return await _context.MarcaVehiculos.Where(ma => ma.Habilitado == "si").ToListAsync();
         }
@@ -108,6 +108,35 @@ namespace Data.Repository
         public async Task CrearSubCategoria(SubCategoria subCategoria)
         {
             await _context.SubCategoria.AddAsync(subCategoria);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<MarcaVehiculo>> ObtenerMarcas()
+        {
+            return await _context.MarcaVehiculos.ToListAsync();
+        }
+
+        public async Task ActualizarMarcaVehiculo(MarcaVehiculo marcaVehiculo)
+        {
+            _context.MarcaVehiculos.Update(marcaVehiculo);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task ActualizarModeloVehiculo(ModeloVehiculo modeloVehiculo)
+        {
+            _context.ModeloVehiculos.Update(modeloVehiculo);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CrearMarca(MarcaVehiculo marcaVehiculo)
+        {
+            await _context.MarcaVehiculos.AddAsync(marcaVehiculo);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CrearModelo(ModeloVehiculo modeloVehiculo)
+        {
+            await _context.ModeloVehiculos.AddAsync(modeloVehiculo);
             await _context.SaveChangesAsync();
         }
     }

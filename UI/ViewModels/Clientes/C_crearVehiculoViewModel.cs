@@ -61,7 +61,7 @@ namespace UI.ViewModels.Clientes
 
         private async void CargarMarcas()
         {
-            Marcas = (await _vehiculoService.ObtenerMarcas()).ToList();
+            Marcas = (await _vehiculoService.ObtenerMarcasHabilitadas()).ToList();
         }
 
         private async Task GuardarVehiculo()

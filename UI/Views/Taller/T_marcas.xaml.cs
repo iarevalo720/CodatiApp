@@ -11,4 +11,43 @@ public partial class T_marcas : ContentPage
         _viewModel = viewModel;
         BindingContext = _viewModel;
     }
+
+    protected async override void OnAppearing()
+    {
+        base.OnAppearing();
+        await _viewModel.ObtenerTodasMarcas();
+    }
+
+    private void BtnIrModelos(object sender, EventArgs e)
+    {
+
+    }
+
+    private async void BtnCambiarNombreMarca(object sender, EventArgs e)
+    {
+        int marcaId = ObtenerMarcaId((Button)sender);
+        await _viewModel.CambiarNombreMarca(marcaId);
+    }
+
+    private async void BtnCambiarEstadoMarca(object sender, EventArgs e)
+    {
+        if (await DisplayAlert("Cambiar estado", "Esta seguro de cambiar el estado de la marca del vehiculo?", "Si", "No"))
+        {
+            int marcaId = ObtenerMarcaId((Button)sender);
+            await _viewModel.CambiarEstadoMarca(marcaId);
+        }
+    }
+
+    private async void BtnAgregarMarca(object sender, EventArgs e)
+    {
+        if (await DisplayAlert("Registrar marca", "Esta seguro de registrar una nueva marca de vehiculo?", "Si", "No"))
+        {
+            await _viewModel.CrearNuevaMarca();
+        }
+    }
+    private int ObtenerMarcaId(object sender)
+    {
+        Grid grid = (Grid)((Button)sender).Parent.Parent;
+        return int.Parse(((Label)((VerticalStackLayout)grid.Children.FirstOrDefault()).Children.FirstOrDefault()).Text.Substring(1));
+    }
 }
