@@ -122,5 +122,10 @@ namespace Service.Services
         {
             await _vehiculoRepository.CrearModelo(modeloVehiculo);
         }
+
+        public async Task<IEnumerable<ModeloVehiculo>> ObtenerModelosHabilitadosPorMarca(int idMarca)
+        {
+            return await _vehiculoRepository.ObtenerModelosHabilitadosPorMarca(idMarca);
+        }
     }
 }

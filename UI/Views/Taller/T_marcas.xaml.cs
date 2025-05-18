@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UI.ViewModels.Taller;
 
 namespace UI.Views.Taller;
@@ -18,9 +19,10 @@ public partial class T_marcas : ContentPage
         await _viewModel.ObtenerTodasMarcas();
     }
 
-    private void BtnIrModelos(object sender, EventArgs e)
+    private async void BtnIrModelos(object sender, EventArgs e)
     {
-
+        string route = $"{nameof(T_modelos)}?marcaId={ObtenerMarcaId((Button)sender)}";
+        await Shell.Current.GoToAsync(route);
     }
 
     private async void BtnCambiarNombreMarca(object sender, EventArgs e)

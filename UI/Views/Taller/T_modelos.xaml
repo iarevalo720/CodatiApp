@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Taller.T_modelos"
+             Title="T_modelos">
+    <Grid RowDefinitions="*, auto"
+          MaximumWidthRequest="500">
+        <ScrollView Grid.Row="0">
+            <CollectionView Grid.Row="2"
+                        Grid.Column="0"
+                        Grid.ColumnSpan="2"
+                        ItemsSource="{Binding ListaModelos}"
+                        MaximumWidthRequest="500">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*, auto">
+                            <VerticalStackLayout Grid.Row="0">
+                                <Label Text="{Binding ModeloVehiculoId, StringFormat='#{0}'}"
+                                   Margin="0,20,0,0"/>
+                                <Label Text="{Binding Nombre}"
+                                   FontAttributes="Bold"/>
+                                <Label Text="{Binding Habilitado, StringFormat='Habilitado: {0}'}"/>
+                            </VerticalStackLayout>
+                            <HorizontalStackLayout Grid.Row="1"
+                                               Spacing="5"
+                                               HorizontalOptions="End"
+                                               VerticalOptions="End">
+                                <Button Text="Renombrar"
+                                    Clicked="BtnCambiarNombreModelo"
+                                    FontSize="12"
+                                    WidthRequest="100"/>
+                                <Button Text="{Binding TxtBtnCambiarEstadoModelo}"
+                                    FontSize="12"
+                                    Clicked="BtnCambiarEstadoModelo"
+                                    WidthRequest="100"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Grid Grid.Row="1" 
+              Margin="0, 0, 0,20"
+              ColumnDefinitions="*, auto"
+              ColumnSpacing="10">
+            <Entry Placeholder="Nombre del nuevo modelo de vehiculo"
+                   Text="{Binding txtNombreModelo}"
+                   Grid.Column="0"/>
+            <Button Text="Registrar modelo"
+                    Clicked="BtnAgregarModelo"
+                    FontSize="12"
+                    Grid.Column="1"/>
+        </Grid>
+    </Grid>
+</ContentPage>

@@ -11,6 +11,7 @@ namespace Core.Interfaces
         public Task<IEnumerable<MarcaVehiculo>> ObtenerMarcasHabilitadas();
         public Task<IEnumerable<MarcaVehiculo>> ObtenerMarcas();
         public Task<IEnumerable<ModeloVehiculo>> ObtenerModelosPorMarca(int idMarca);
+        public Task<IEnumerable<ModeloVehiculo>> ObtenerModelosHabilitadosPorMarca(int idMarca);
         public Task AddVehiculo(Vehiculo vehiculo);
         public Task<IEnumerable<Categoria>> GetCategoria();
         public Task<IEnumerable<SubCategoriaDTO>> GetSubCategoria(int idCategoria);

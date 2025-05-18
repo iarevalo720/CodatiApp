@@ -44,7 +44,7 @@ namespace Data.Repository
 
         public async Task<IEnumerable<ModeloVehiculo>> ObtenerModelosPorMarca(int idMarca)
         {
-            return await _context.ModeloVehiculos.Where(mo => mo.MarcaVehiculoId == idMarca).Where(mo => mo.Habilitado == "si").ToListAsync();
+            return await _context.ModeloVehiculos.Where(mo => mo.MarcaVehiculoId == idMarca).ToListAsync();
         }
 
         public async Task AddVehiculo(Vehiculo vehiculo)
@@ -138,6 +138,11 @@ namespace Data.Repository
         {
             await _context.ModeloVehiculos.AddAsync(modeloVehiculo);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<ModeloVehiculo>> ObtenerModelosHabilitadosPorMarca(int idMarca)
+        {
+            return await _context.ModeloVehiculos.Where(mo => mo.MarcaVehiculoId == idMarca).Where(mo => mo.Habilitado == "si").ToListAsync();
         }
     }
 }
