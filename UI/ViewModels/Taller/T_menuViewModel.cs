@@ -11,6 +11,7 @@ namespace UI.ViewModels.Taller
         public bool btnClientesVisible { get; set; }
         public bool btnFuncionariosVisible { get; set; }
         public bool btnCategoriaVisible { get; set; }
+        public bool btnMarcasVisible { get; set; }
         public string? TxtOrdenesAVerificar { get; set; }
 
         public T_menuViewModel(IOrderService orderService)
@@ -30,6 +31,7 @@ namespace UI.ViewModels.Taller
                     btnClientesVisible = false;
                     btnFuncionariosVisible = false;
                     btnCategoriaVisible = false;
+                    btnMarcasVisible = false;
                     break;
 
                 case "Secretaria":
@@ -37,6 +39,7 @@ namespace UI.ViewModels.Taller
                     btnClientesVisible = true;
                     btnFuncionariosVisible = false;
                     btnCategoriaVisible = true;
+                    btnMarcasVisible = true;
                     break;
 
                 case "admin":
@@ -44,6 +47,7 @@ namespace UI.ViewModels.Taller
                     btnClientesVisible = true;
                     btnFuncionariosVisible = true;
                     btnCategoriaVisible = true;
+                    btnMarcasVisible = true;
                     break;
             }
         }

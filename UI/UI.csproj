@@ -131,6 +131,9 @@
 	  <MauiXaml Update="Views\Taller\T_gestionOrdenDetalle.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Taller\T_marcas.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Taller\T_menu.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

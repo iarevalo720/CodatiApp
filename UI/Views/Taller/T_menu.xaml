@@ -63,6 +63,10 @@
             <Button Text="Categorias"
                     IsVisible="{Binding btnCategoriaVisible}"
                     Clicked="BtnIrCategorias"/>
+
+            <Button Text="Marcas"
+                    IsVisible="{Binding btnMarcasVisible}"
+                    Clicked="BtnIrMarcas"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout
