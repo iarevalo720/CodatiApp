@@ -34,6 +34,14 @@ public partial class T_servicios : ContentPage
         }
     }
 
+    private async void BtnAgregarServicio(object sender, EventArgs e)
+    {
+        if (await DisplayAlert("Crear servicio", "Esta seguro de crear un servicio?", "Si", "No"))
+        {
+            await _viewModel.CrearNuevaSubCategoria(categoriaId);
+        }
+    }
+
     private int ObtenerServicioId(object sender)
     {
         Grid grid = (Grid)((Button)sender).Parent.Parent;

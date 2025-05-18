@@ -8,6 +8,7 @@ namespace UI.ViewModels.Taller
     {
         private readonly IVehiculoService _vehiculoService;
         public IEnumerable<Categoria> ListaCategorias { get; set; } = Enumerable.Empty<Categoria>();
+        public string txtNombreCategoria { get; set; } = string.Empty;
 
         public T_categoriasViewModel(IVehiculoService vehiculoService)
         {
@@ -31,7 +32,7 @@ namespace UI.ViewModels.Taller
                 try
                 {
                     await _vehiculoService.ActualizarCategoria(categoria);
-                    await Shell.Current.DisplayAlert("Exito", "Se ha actualizar exitosamente", "OK");
+                    await Shell.Current.DisplayAlert("Exito", "Se ha actualizado exitosamente", "OK");
                     await ObtenerCategorias();
                 }
                 catch (Exception)
@@ -64,11 +65,37 @@ namespace UI.ViewModels.Taller
         public async Task ObtenerCategorias()
         {
             ListaCategorias = await _vehiculoService.GetCategoria();
+            txtNombreCategoria = string.Empty;
+        }
+
+        public async Task CrearNuevaCategoria()
+        {
+            Categoria categoria = ArmarCategoria(txtNombreCategoria.Trim());
+            try
+            {
+                await _vehiculoService.CrearCategoria(categoria);
+                await Shell.Current.DisplayAlert("Exito", "Categoria creada exitosamente", "OK");
+                await ObtenerCategorias();
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Error", "No se ha podido crear la categoria", "OK");
+                throw;
+            }
         }
 
         private async Task<Categoria?> ObtenerCategoriaPorId(int id)
         {
             return await _vehiculoService.ObtenerCategoriaPorId(id);
+        }
+
+        private Categoria ArmarCategoria(string nombreCategoria)
+        {
+            return new Categoria
+            {
+                Nombre = nombreCategoria,
+                Habilitado = "si",
+            };
         }
     }
 }

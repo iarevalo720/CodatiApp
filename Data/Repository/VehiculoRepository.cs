@@ -98,5 +98,17 @@ namespace Data.Repository
             _context.SubCategoria.Update(subCategoria);
             await _context.SaveChangesAsync();
         }
+
+        public async Task CrearCategoria(Categoria categoria)
+        {
+            await _context.Categoria.AddAsync(categoria);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task CrearSubCategoria(SubCategoria subCategoria)
+        {
+            await _context.SubCategoria.AddAsync(subCategoria);
+            await _context.SaveChangesAsync();
+        }
     }
 }
