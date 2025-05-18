@@ -117,7 +117,7 @@ namespace Data.Migrations
 
                     b.HasKey("CategoriaId");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Categoria", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Comprobante", b =>
@@ -163,7 +163,7 @@ namespace Data.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Comprobantes");
+                    b.ToTable("Comprobantes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.ComprobanteDetalle", b =>
@@ -190,7 +190,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrdenDetalleId");
 
-                    b.ToTable("ComprobanteDetalles");
+                    b.ToTable("ComprobanteDetalles", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaAlias", b =>
@@ -211,7 +211,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CuentasAlias");
+                    b.ToTable("CuentasAlias", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaBancaria", b =>
@@ -244,7 +244,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CuentasBancarias");
+                    b.ToTable("CuentasBancarias", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaCliente", b =>
@@ -273,7 +273,7 @@ namespace Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("CuentasClientes");
+                    b.ToTable("CuentasClientes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.CuentaCobrar", b =>
@@ -306,7 +306,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ComprobanteId");
 
-                    b.ToTable("CuentasCobrar");
+                    b.ToTable("CuentasCobrar", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.HistorialOrden", b =>
@@ -340,7 +340,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrdenId");
 
-                    b.ToTable("HistorialOrdenes");
+                    b.ToTable("HistorialOrdenes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.MarcaVehiculo", b =>
@@ -356,7 +356,7 @@ namespace Data.Migrations
 
                     b.HasKey("MarcaVehiculoId");
 
-                    b.ToTable("MarcaVehiculos");
+                    b.ToTable("MarcaVehiculos", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.ModeloVehiculo", b =>
@@ -377,7 +377,7 @@ namespace Data.Migrations
 
                     b.HasIndex("MarcaVehiculoId");
 
-                    b.ToTable("ModeloVehiculos");
+                    b.ToTable("ModeloVehiculos", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Orden", b =>
@@ -415,7 +415,7 @@ namespace Data.Migrations
 
                     b.HasIndex("VehiculoId");
 
-                    b.ToTable("Ordenes");
+                    b.ToTable("Ordenes", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.OrdenDetalle", b =>
@@ -444,7 +444,7 @@ namespace Data.Migrations
 
                     b.HasIndex("SubCategoriaId");
 
-                    b.ToTable("OrdenDetalles");
+                    b.ToTable("OrdenDetalles", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.OrdenDetalleHistorial", b =>
@@ -471,7 +471,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrdenDetalleId");
 
-                    b.ToTable("OrdenDetalleHistoriales");
+                    b.ToTable("OrdenDetalleHistoriales", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.SubCategoria", b =>
@@ -495,7 +495,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CategoriaId");
 
-                    b.ToTable("SubCategoria");
+                    b.ToTable("SubCategoria", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Timbrado", b =>
@@ -530,7 +530,7 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Timbrados");
+                    b.ToTable("Timbrados", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Transferencia", b =>
@@ -552,7 +552,7 @@ namespace Data.Migrations
 
                     b.HasIndex("CuentaId");
 
-                    b.ToTable("Transferencias");
+                    b.ToTable("Transferencias", (string)null);
                 });
 
             modelBuilder.Entity("Core.Entities.Vehiculo", b =>
@@ -591,7 +591,7 @@ namespace Data.Migrations
 
                     b.HasIndex("ModeloVehiculoId");
 
-                    b.ToTable("Vehiculos");
+                    b.ToTable("Vehiculos", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

@@ -1,7 +1,6 @@
 ﻿using Core.DTOs;
 using Core.Entities;
 using Core.Interfaces;
-using Data;
 
 namespace Service.Services
 {
@@ -90,6 +89,16 @@ namespace Service.Services
         public async Task ActualizarSubCategoria(SubCategoria subCategoria)
         {
             await _vehiculoRepository.ActualizarSubCategoria(subCategoria);
+        }
+
+        public async Task CrearCategoria(Categoria categoria)
+        {
+            await _vehiculoRepository.CrearCategoria(categoria);
+        }
+
+        public async Task CrearSubCategoria(SubCategoria subCategoria)
+        {
+            await _vehiculoRepository.CrearSubCategoria(subCategoria);
         }
     }
 }

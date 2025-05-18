@@ -45,4 +45,11 @@ public partial class T_categorias : ContentPage
             await _viewModel.CambiarEstadoCategoria(categoriaId);
         }
     }
+    private async void BtnAgregarCategoria(object sender, EventArgs e)
+    {
+        if (await DisplayAlert("Crear categoria", "Esta seguro de crear una categoria?", "Si", "No"))
+        {
+            await _viewModel.CrearNuevaCategoria();
+        }
+    }
 }

@@ -17,5 +17,7 @@ namespace Core.Interfaces
         public Task ActualizarCategoria(Categoria categoria);
         public Task<Categoria?> ObtenerCategoriaPorId(int id);
         public Task ActualizarSubCategoria(SubCategoria subCategoria);
+        public Task CrearCategoria(Categoria categoria);
+        public Task CrearSubCategoria(SubCategoria subCategoria);
     }
 }

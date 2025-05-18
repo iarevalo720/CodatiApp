@@ -9,6 +9,8 @@ namespace UI.ViewModels.Taller
     {
         private readonly IVehiculoService _vehiculoService;
         public IEnumerable<SubCategoria> ListaServicios { get; set; } = Enumerable.Empty<SubCategoria>();
+        public string txtNombreServicio { get; set; } = string.Empty;
+
         public T_serviciosViewModel(IVehiculoService vehiculoService)
         {
             _vehiculoService = vehiculoService;
@@ -16,6 +18,7 @@ namespace UI.ViewModels.Taller
         public async Task ObtenerServiciosPorCategoriaId(int categoriaId)
         {
             ListaServicios = await _vehiculoService.ObtenerSubCategoriasPorCategoriaId(categoriaId);
+            txtNombreServicio = string.Empty;
         }
 
         public async Task CambiarEstadoServicio(int servicioId)
@@ -49,6 +52,22 @@ namespace UI.ViewModels.Taller
             }
         }
 
+        public async Task CrearNuevaSubCategoria(int categoriaId)
+        {
+            SubCategoria subCategoria = ArmarSubCategoria(txtNombreServicio.Trim(), categoriaId);
+            try
+            {
+                await _vehiculoService.CrearSubCategoria(subCategoria);
+                await Shell.Current.DisplayAlert("Exito", "Servicio creado exitosamente", "OK");
+                await ObtenerServiciosPorCategoriaId(categoriaId);
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Error", "No se ha podido crear el servicio", "OK");
+                throw;
+            }
+        }
+
         private async Task GuardarServicio(SubCategoria subCategoria)
         {
             try
@@ -62,6 +81,16 @@ namespace UI.ViewModels.Taller
                 await Shell.Current.DisplayAlert("Error", "No se ha podido actualizar el servicio", "OK");
                 throw;
             }
+        }
+
+        private SubCategoria ArmarSubCategoria(string nombreSubCategoria, int categoriaId)
+        {
+            return new SubCategoria
+            {
+                Nombre = nombreSubCategoria.Trim(),
+                Habilitado = "si",
+                CategoriaId = categoriaId
+            };
         }
     }
 }
