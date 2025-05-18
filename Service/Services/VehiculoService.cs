@@ -81,5 +81,15 @@ namespace Service.Services
         {
             return _vehiculoRepository.ObtenerCategoriaPorId(id);
         }
+
+        public Task<IEnumerable<SubCategoria>> ObtenerSubCategoriasPorCategoriaId(int categoriaId)
+        {
+            return _vehiculoRepository.GetSubCategoriasPorCategoriaId(categoriaId);
+        }
+
+        public async Task ActualizarSubCategoria(SubCategoria subCategoria)
+        {
+            await _vehiculoRepository.ActualizarSubCategoria(subCategoria);
+        }
     }
 }

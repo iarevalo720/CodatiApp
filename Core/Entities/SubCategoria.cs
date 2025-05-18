@@ -13,5 +13,13 @@ namespace Core.Entities
         [ForeignKey("CategoriaId")]
         public virtual Categoria? Categoria { get; set; }
         public string? Habilitado { get; set; }
+        [NotMapped]
+        public string? TxtBtnCambiarEstadoServicio
+        {
+            get
+            {
+                return Habilitado == "si" ? "Inhabilitar" : "Habilitar";
+            }
+        }
     }
 }

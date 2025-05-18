@@ -24,7 +24,7 @@
                                                HorizontalOptions="End"
                                                VerticalOptions="End">
                             <Button Text="Servicios"
-                                    Clicked="BtnIrDetalles"
+                                    Clicked="BtnIrServicios"
                                     FontSize="12"
                                     WidthRequest="100"/>
                             <Button Text="Renombrar"

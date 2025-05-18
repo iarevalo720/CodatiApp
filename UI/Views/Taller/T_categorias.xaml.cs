@@ -18,9 +18,11 @@ public partial class T_categorias : ContentPage
         await _viewModel.ObtenerCategorias();
     }
 
-    private void BtnIrDetalles(object sender, EventArgs e)
+    private async void BtnIrServicios(object sender, EventArgs e)
     {
-
+        int categoriaId = ObtenerCategoriaId((Button)sender);
+        var ruta = $"{nameof(T_servicios)}?categoriaId={categoriaId}";
+        await Shell.Current.GoToAsync(ruta);
     }
 
     private int ObtenerCategoriaId(object sender)

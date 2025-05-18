@@ -15,5 +15,7 @@ namespace Core.Interfaces
         public Task<IEnumerable<SubCategoriaDTO>> GetSubCategoria(int idCategoria);
         public Task ActualizarCategoria(Categoria categoria);
         public Task<Categoria?> ObtenerCategoriaPorId(int id);
+        public Task<IEnumerable<SubCategoria>> ObtenerSubCategoriasPorCategoriaId(int categoriaId);
+        public Task ActualizarSubCategoria(SubCategoria subCategoria);
     }
 }
