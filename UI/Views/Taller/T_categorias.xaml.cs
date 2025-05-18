@@ -25,8 +25,8 @@ public partial class T_categorias : ContentPage
 
     private int ObtenerCategoriaId(object sender)
     {
-        VerticalStackLayout verticalStackLayout = (VerticalStackLayout)((Button)sender).Parent.Parent;
-        return int.Parse(((Label)verticalStackLayout.Children.FirstOrDefault()).Text.Substring(1));
+        Grid grid = (Grid)((Button)sender).Parent.Parent;
+        return int.Parse(((Label)((VerticalStackLayout)grid.Children.FirstOrDefault()).Children.FirstOrDefault()).Text.Substring(1));
     }
 
     private async void BtnCambiarNombreCategoria(object sender, EventArgs e)

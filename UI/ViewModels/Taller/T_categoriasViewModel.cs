@@ -1,7 +1,6 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
 using PropertyChanged;
-using System.Threading.Tasks;
 namespace UI.ViewModels.Taller
 {
     [AddINotifyPropertyChangedInterface]
@@ -32,6 +31,7 @@ namespace UI.ViewModels.Taller
                 try
                 {
                     await _vehiculoService.ActualizarCategoria(categoria);
+                    await Shell.Current.DisplayAlert("Exito", "Se ha actualizar exitosamente", "OK");
                     await ObtenerCategorias();
                 }
                 catch (Exception)
