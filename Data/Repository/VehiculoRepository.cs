@@ -85,5 +85,18 @@ namespace Data.Repository
         }
 
         public async Task<Categoria?> ObtenerCategoriaPorId(int id) => await _context.Categoria.Where(c => c.CategoriaId == id).FirstOrDefaultAsync();
+
+        public async Task<IEnumerable<SubCategoria>> GetSubCategoriasPorCategoriaId(int idCategoria)
+        {
+            return await _context.SubCategoria
+                .Where(x => x.CategoriaId == idCategoria)
+                .ToListAsync();
+        }
+
+        public async Task ActualizarSubCategoria(SubCategoria subCategoria)
+        {
+            _context.SubCategoria.Update(subCategoria);
+            await _context.SaveChangesAsync();
+        }
     }
 }

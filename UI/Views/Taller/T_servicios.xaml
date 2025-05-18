@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UI.Views.Taller.T_categorias"
-             Title="T_categorias">
+             x:Class="UI.Views.Taller.T_servicios"
+             Title="T_servicios">
     <ScrollView>
         <CollectionView Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
-                        ItemsSource="{Binding ListaCategorias}"
+                        ItemsSource="{Binding ListaServicios}"
                         MaximumWidthRequest="500">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <Grid ColumnDefinitions="*, auto">
                         <VerticalStackLayout Grid.Row="0">
-                            <Label Text="{Binding CategoriaId, StringFormat='#{0}'}"
+                            <Label Text="{Binding SubCategoriaId, StringFormat='#{0}'}"
                                    Margin="0,20,0,0"/>
                             <Label Text="{Binding Nombre}"
                                    FontAttributes="Bold"/>
@@ -23,17 +23,13 @@
                                                Spacing="5"
                                                HorizontalOptions="End"
                                                VerticalOptions="End">
-                            <Button Text="Servicios"
-                                    Clicked="BtnIrServicios"
-                                    FontSize="12"
-                                    WidthRequest="100"/>
                             <Button Text="Renombrar"
-                                    Clicked="BtnCambiarNombreCategoria"
+                                    Clicked="BtnCambiarNombreServicio"
                                     FontSize="12"
                                     WidthRequest="100"/>
-                            <Button Text="{Binding TxtBtnCambiarEstadoCategoria}"
+                            <Button Text="{Binding TxtBtnCambiarEstadoServicio}"
                                     FontSize="12"
-                                    Clicked="BtnCambiarEstadoCategoria"
+                                    Clicked="BtnCambiarEstadoServicio"
                                     WidthRequest="100"/>
                         </HorizontalStackLayout>
                     </Grid>
