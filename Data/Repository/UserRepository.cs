@@ -1,30 +1,22 @@
-﻿using Core.DTOs;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _context;
 
-        public UserRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext appDbContext)
+        public UserRepository(UserManager<ApplicationUser> userManager, AppDbContext appDbContext)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
             _context = appDbContext;
         }
 
-        public async Task<ApplicationUser> ValidarEmail(string email)
+        public async Task<ApplicationUser?> ValidarEmail(string email)
         {
             return await _userManager.FindByEmailAsync(email);
         }

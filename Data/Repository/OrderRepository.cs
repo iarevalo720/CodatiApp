@@ -92,7 +92,7 @@ namespace Data.Repository
                     EstadoOrden = orden.Estado,
                     ListaOrdenDetalleResumenes = orden.OrdenDetalles.Select(od => new OrdenDetalleResumen
                     {
-                        OrdenDetalleId = od.Id,
+                        Id = od.Id,
                         OrdenDetalleName = od.SubCategoria?.Nombre,
                         OrdenDetalleMonto = od.Precio,
                         OrdenDetalleEstado = od.Estado

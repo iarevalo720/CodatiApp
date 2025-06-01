@@ -50,22 +50,21 @@ namespace UI.ViewModels.Taller
         {
             if (OrdenCompleto.EstadoOrden == "FINALIZADO")
             {
-                BtnFinalizarOrdenEnabled = false;
                 BtnCrearComprobanteEnabled = true;
                 BtnCancelarOrdenEnabled = false;
             }
             else if (OrdenCompleto.EstadoOrden == "CANCELADO" || OrdenCompleto.EstadoOrden == "RECHAZADO")
             {
-                BtnFinalizarOrdenEnabled = false;
                 BtnCrearComprobanteEnabled = false;
                 BtnCancelarOrdenEnabled = false;
             }
             else
             {
-                BtnFinalizarOrdenEnabled = true;
                 BtnCrearComprobanteEnabled = false;
                 BtnCancelarOrdenEnabled = true;
             }
+
+            BtnFinalizarOrdenEnabled = HabilitarBtnFinalizarOrden();
         }
 
         public async Task ActualizarOrdenCabecera(int ordenId)
@@ -127,6 +126,19 @@ namespace UI.ViewModels.Taller
                     await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
                 }
             }
+        }
+
+        private bool HabilitarBtnFinalizarOrden()
+        {
+            foreach (OrdenDetalleResumen ordenDetalle in OrdenCompleto.ListaOrdenDetalleResumenes)
+            {
+                if (ordenDetalle.OrdenDetalleEstado != "TERMINADO")
+                {
+                    return false;
+                }
+            }
+
+            return true;
         }
     }
 }

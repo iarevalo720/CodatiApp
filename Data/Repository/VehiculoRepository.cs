@@ -22,7 +22,7 @@ namespace Data.Repository
                 .ThenInclude(mv => mv.MarcaVehiculo)
                 .Select(v => new VehiculoDTO
                 {
-                    VehiculoId = v.VehiculoId,
+                    Id = v.Id,
                     Matricula = v.Matricula,
                     Anio = v.Anio,
                     Color = v.Color,
@@ -60,22 +60,22 @@ namespace Data.Repository
 
         public async Task<IEnumerable<Categoria>> GetCategoria()
         {
+            return await _context.Categoria.ToListAsync();
+        }
+
+        public async Task<IEnumerable<Categoria>> GetCategoriasHabilitadas()
+        {
             return await _context.Categoria.Where(c => c.Habilitado == "si").ToListAsync();
         }
-        public async Task<IEnumerable<SubCategoriaDTO>> GetSubCategoria(int idCategoria)
+
+        public async Task<IEnumerable<SubCategoria>> GetSubCategoria(int idCategoria)
         {
-            return await _context.SubCategoria
-                .Where(x => x.CategoriaId == idCategoria)
-                .Select(x => new SubCategoriaDTO
-                {
-                    SubCategoriaId = x.SubCategoriaId,
-                    Nombre = x.Nombre,
-                }).ToListAsync();
+            return await _context.SubCategoria.ToListAsync();
         }
 
         public async Task<Vehiculo> ObtenerVehiculoPorId(int id)
         {
-            return await _context.Vehiculos.Where(v => v.VehiculoId == id).FirstOrDefaultAsync();
+            return await _context.Vehiculos.Where(v => v.Id == id).FirstOrDefaultAsync();
         }
 
         public async Task ActualizarCategoria(Categoria categoria)
@@ -143,6 +143,17 @@ namespace Data.Repository
         public async Task<IEnumerable<ModeloVehiculo>> ObtenerModelosHabilitadosPorMarca(int idMarca)
         {
             return await _context.ModeloVehiculos.Where(mo => mo.MarcaVehiculoId == idMarca).Where(mo => mo.Habilitado == "si").ToListAsync();
+        }
+
+        public async Task<IEnumerable<SubCategoriaDTO>> GetSubCategoriasHabilitadas(int idCategoria)
+        {
+            return await _context.SubCategoria
+            .Where(x => x.CategoriaId == idCategoria)
+            .Select(x => new SubCategoriaDTO
+            {
+                SubCategoriaId = x.Id,
+                Nombre = x.Nombre,
+            }).ToListAsync();
         }
     }
 }

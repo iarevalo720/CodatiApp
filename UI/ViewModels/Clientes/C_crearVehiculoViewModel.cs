@@ -51,17 +51,17 @@ namespace UI.ViewModels.Clientes
 
         public void ObtenerModelosPorMarca()
         {
-            CargarModelosPorMarca(SelectedMarca.MarcaVehiculoId);
+            CargarModelosPorMarca(SelectedMarca.Id);
         }
 
         private async Task CargarModelosPorMarca(int? marcaId)
         {
-            if (marcaId.HasValue) Modelos = (await _vehiculoService.ObtenerModelosHabilitadosPorMarca(marcaId.Value)).ToList();
+            if (marcaId.HasValue) Modelos = (await _vehiculoService.ObtenerModelosPorMarca(marcaId.Value)).ToList();
         }
 
         private async void CargarMarcas()
         {
-            Marcas = (await _vehiculoService.ObtenerMarcasHabilitadas()).ToList();
+            Marcas = (await _vehiculoService.ObtenerMarcas()).ToList();
         }
 
         private async Task GuardarVehiculo()

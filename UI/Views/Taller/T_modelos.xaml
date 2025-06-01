@@ -15,7 +15,7 @@
                     <DataTemplate>
                         <Grid ColumnDefinitions="*, auto">
                             <VerticalStackLayout Grid.Row="0">
-                                <Label Text="{Binding ModeloVehiculoId, StringFormat='#{0}'}"
+                                <Label Text="{Binding Id, StringFormat='#{0}'}"
                                    Margin="0,20,0,0"/>
                                 <Label Text="{Binding Nombre}"
                                    FontAttributes="Bold"/>

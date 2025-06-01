@@ -24,15 +24,13 @@ namespace CodatiApp.Migrations
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
-                    // Configurar cadena de conexión. Puedes obtenerla del archivo de configuración.
-                    //var connectionString = "postgresql://root:mdfuf1KnBFTrCRaKaQpG3oLRb5YK4TX3@dpg-d079j3s9c44c739qa7hg-a.oregon-postgres.render.com/test_database_xmim";
 
                     var connectionString =
-                      "Host=dpg-d079j3s9c44c739qa7hg-a.oregon-postgres.render.com;"
+                      "Host=dpg-d0p4c58dl3ps73afq3r0-a.oregon-postgres.render.com;"
                     + "Port=5432;"
-                    + "Database=test_database_xmim;"
+                    + "Database=test_jwgf;"
                     + "Username=root;"
-                    + "Password=mdfuf1KnBFTrCRaKaQpG3oLRb5YK4TX3;"
+                    + "Password=VMZitaHtWnrBrk9jDtwQm7kLnda4voSB;"
                     + "SSL Mode=Require;"
                     + "Trust Server Certificate=true;";
 

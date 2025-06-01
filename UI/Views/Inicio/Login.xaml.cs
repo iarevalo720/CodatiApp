@@ -47,9 +47,18 @@ public partial class Login : ContentPage
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "El usuario está inhabilitado, por favor contactese con el taller", "OK");
             }
+            else if (ex.Message == "campos_vacios")
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Email/contraseña vacia", "OK");
+            }
+            else if (ex.Message == "credenciales_invalidos" || ex.Message == "usuario_no_encontrado")
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Email/contraseña invalidos", "OK");
+            }
             else
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                Console.WriteLine($"Error {ex.Message}");
             }
         }
     }

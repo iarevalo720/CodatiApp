@@ -2,7 +2,7 @@
 {
     public class VehiculoDTO
     {
-        public int VehiculoId { get; set; }
+        public int Id { get; set; }
         public string? Matricula { get; set; }
         public string? Anio { get; set; }
         public string? Color { get; set; }
