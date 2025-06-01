@@ -67,6 +67,7 @@ namespace UI
             builder.Services.AddTransient<T_servicios>();
             builder.Services.AddTransient<T_marcas>();
             builder.Services.AddTransient<T_modelos>();
+            builder.Services.AddTransient<T_timbrado>();
 
             builder.Services.AddTransient<C_menu>();
             builder.Services.AddTransient<C_acercaDe>();
@@ -91,6 +92,7 @@ namespace UI
             builder.Services.AddTransient<T_serviciosViewModel>();
             builder.Services.AddTransient<T_marcasViewModel>();
             builder.Services.AddTransient<T_modelosViewModel>();
+            builder.Services.AddTransient<T_timbradoViewModel>();
 
             //Services & Repositories
             builder.Services.AddScoped<IUserService, UserService>();

@@ -20,5 +20,8 @@ namespace Core.Entities
         public virtual ApplicationUser? Usuario { get; set; }
         [ForeignKey("VehiculoId")]
         public virtual Vehiculo? Vehiculo { get; set; }
+        public int? IdTimbrado { get; set; }
+        [ForeignKey("IdTimbrado")]
+        public virtual Timbrado? Timbrado { get; set; }
     }
 }
