@@ -12,6 +12,7 @@ using UI.Views.Inicio;
 using UI.Views.Taller;
 using UI.Views.Clientes;
 using UI.ViewModels.Clientes;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace UI
 {
@@ -46,16 +47,24 @@ namespace UI
                 });
             });
 
+            // Configuración de Data Protection (CRÍTICO)
+            string keysDirectory = Path.Combine(FileSystem.AppDataDirectory, "dataprotection_keys");
+            builder.Services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(keysDirectory))
+                .SetApplicationName("CodatiApp");
+
             builder.Services.AddIdentityCore<ApplicationUser>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
             }).AddRoles<IdentityRole>()
-              .AddEntityFrameworkStores<AppDbContext>();
+              .AddEntityFrameworkStores<AppDbContext>()
+              .AddDefaultTokenProviders();
 
             //Views
             builder.Services.AddTransient<Login>();
+            builder.Services.AddTransient<ActivarCuenta>();
             builder.Services.AddTransient<T_menu>();
             builder.Services.AddTransient<T_ordenes>();
             builder.Services.AddTransient<T_ordenDetalle>();
@@ -77,6 +86,7 @@ namespace UI
 
             //ViewModels
             builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<ActivarCuentaViewModel>();
             builder.Services.AddTransient<T_menuViewModel>();
             builder.Services.AddTransient<T_ordenesViewModel>();
             builder.Services.AddTransient<T_ordenDetalleViewModel>();
@@ -101,6 +111,7 @@ namespace UI
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IVehiculoService, VehiculoService>();
             builder.Services.AddScoped<IVehiculoRepository, VehiculoRepository>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 #if DEBUG

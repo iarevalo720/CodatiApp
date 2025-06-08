@@ -19,7 +19,6 @@ namespace UI.ViewModels.Inicio
 
         public async Task Login()
         {
-
             if (string.IsNullOrWhiteSpace(Correo) || string.IsNullOrWhiteSpace(Contrasena))
             {
                 throw new Exception("campos_vacios");
@@ -27,6 +26,9 @@ namespace UI.ViewModels.Inicio
 
             UserSession user = await _service.Login(Correo, Contrasena);
             await GuardarCredenciales(user);
+
+            Correo = string.Empty;
+            Contrasena = string.Empty;
         }
 
         public async Task GuardarCredenciales(UserSession user)

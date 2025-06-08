@@ -10,21 +10,13 @@ namespace CodatiApp.Migrations
     {
         public static void Main(string[] args)
         {
-            // Configuración del host (esto es útil para utilizar las herramientas de EF Core)
             var host = CreateHostBuilder(args).Build();
-            // Aquí podrías ejecutar comandos o simplemente dejarlo preparado para EF
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureAppConfiguration((hostingContext, config) =>
-                {
-                    // Agregamos la configuración, por ejemplo, usando appsettings.json.
-                    config.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-                })
                 .ConfigureServices((hostContext, services) =>
                 {
-
                     var connectionString =
                       "Host=dpg-d0p4c58dl3ps73afq3r0-a.oregon-postgres.render.com;"
                     + "Port=5432;"
@@ -37,7 +29,6 @@ namespace CodatiApp.Migrations
                     // Registrar el DbContext en el contenedor DI con el TFM compatible.
                     services.AddDbContext<AppDbContext>(options =>
                         options.UseNpgsql(connectionString));
-
                 });
     }
 }

@@ -27,17 +27,29 @@ namespace UI.ViewModels.Taller
         public bool BtnBuscarEnabled { get; set; } = true;
         public bool BtnModificarEnabled { get; set; } = false;
         public bool BtnInhabilitarEnabled { get; set; } = false;
+        public bool BtnCrearClienteEnabled { get; set; } = true;
+        public bool BtnCrearClienteVisible { get; set; } = false;
+        public bool BtnRestablecerContrasenaEnabled { get; set; } = false;
+        public bool BtnRestablecerContrasenaVisible { get; set; } = false;
 
         public T_clienteViewModel(IUserService userService)
         {
             _userService = userService;
+            BtnCrearClienteVisible = DeviceInfo.Platform == DevicePlatform.WinUI;
+            BtnRestablecerContrasenaVisible = DeviceInfo.Platform == DevicePlatform.WinUI;
         }
 
         public async Task GuardarCambiosUsuario()
         {
             try
             {
-                validarCamposVacios();
+                bool esCamposValidos = validarCamposVacios();
+
+                if (!esCamposValidos)
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "Primero complete todos los campos", "OK");
+                    return;
+                }
 
                 User.Name = TxtNombre;
                 User.Email = TxtCorreo;
@@ -85,6 +97,8 @@ namespace UI.ViewModels.Taller
             BtnBuscarEnabled = false;
             BtnModificarEnabled = true;
             BtnInhabilitarEnabled = true;
+            BtnCrearClienteEnabled = false;
+            BtnRestablecerContrasenaEnabled = true;
 
             if (User.Habilitado?.ToLower() == "si")
             {
@@ -114,22 +128,23 @@ namespace UI.ViewModels.Taller
             BtnBuscarEnabled = true;
             BtnModificarEnabled = false;
             BtnInhabilitarEnabled = false;
+            BtnCrearClienteEnabled = true;
+            BtnRestablecerContrasenaEnabled = false;
         }
 
-        private async void validarCamposVacios()
+        private bool validarCamposVacios()
         {
-
-            if (string.IsNullOrWhiteSpace(TxtNombre) || string.IsNullOrWhiteSpace(TxtCorreo) || string.IsNullOrWhiteSpace(TxtTelefono) || string.IsNullOrWhiteSpace(TxtDireccion))
+            if (string.IsNullOrWhiteSpace(TxtNombre) || string.IsNullOrWhiteSpace(TxtCorreo) || string.IsNullOrWhiteSpace(TxtTelefono) || string.IsNullOrWhiteSpace(TxtDireccion) || string.IsNullOrWhiteSpace(TxtCI))
             {
-                await Shell.Current.DisplayAlert("Información", "Complete todos los campos", "OK");
-                return;
+                return false;
             }
+
+            return true;
         }
 
         public async Task CambiarEstadoCliente()
         {
             bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea cambiar el estado del usuario?", "Sí", "No");
-
             if (!confirmar) return;
 
             try
@@ -150,6 +165,65 @@ namespace UI.ViewModels.Taller
             {
                 await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
                 return;
+            }
+        }
+
+        public async Task CrearCliente()
+        {
+            bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea crear el cliente?", "Sí", "No");
+            if (!confirmar) return;
+
+            bool esCamposValidos = validarCamposVacios();
+            if (!esCamposValidos)
+            {
+                await Shell.Current.DisplayAlert("Informacion", "Primero complete todos los campos", "OK");
+                return;
+            }
+
+            try
+            {
+                if(await _userService.ExisteEmail(TxtCorreo.Trim()))
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "El correo ingresado ya existe, por favor, asigna un correo distinto", "OK");
+                    return;
+                }
+
+                if (await _userService.ExisteCi(TxtCI.Trim()))
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "La cédula ingresada ya existe, por favor, verifique a qué CI corresponde", "OK");
+                    return;
+                }
+
+                await _userService.CrearCliente(TxtCI.Trim(), TxtNombre.Trim(), TxtCorreo.Trim(), TxtTelefono.Trim(), TxtDireccion.Trim());
+
+                await Shell.Current.DisplayAlert("Exito", "Cliente creado exitosamente", "OK");
+                LimpiarCampos();
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                Console.WriteLine("Error al crear cliente: " + ex.Message);
+            }
+        }
+
+        public async Task RestablecerContrasena()
+        {
+            bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea restablecer la contraseña del usuario?", "Sí", "No");
+            if (!confirmar) return;
+            try
+            {
+                if (string.IsNullOrWhiteSpace(TxtCI))
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "Primero debe buscar al usuario por su cédula", "OK");
+                    return;
+                }
+                await _userService.RestablecerContrasena(TxtCI.Trim());
+                await Shell.Current.DisplayAlert("Exito", "Contraseña restablecida exitosamente, se ha enviado un correo al usuario con la nueva contraseña", "OK");
+            }
+            catch (Exception ex)
+            {
+                await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                Console.WriteLine("Error al restablecer contraseña: " + ex.Message);
             }
         }
     }

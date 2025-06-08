@@ -40,5 +40,26 @@ namespace Data.Repository
         {
             await _userManager.UpdateAsync(user);
         }
+
+        public async Task<IdentityResult> CrearCliente(ApplicationUser applicationUser, string password)
+        {
+            return await _userManager.CreateAsync(applicationUser, password);
+        }
+
+        public async Task AsignarRol(ApplicationUser user, string roleName)
+        {
+            await _userManager.AddToRoleAsync(user, roleName);
+        }
+
+        public async Task<IdentityResult> ActualizarContrasena(ApplicationUser user, string contrasenaActual, string nuevaContrasena)
+        {
+            return await _userManager.ChangePasswordAsync(user, contrasenaActual, nuevaContrasena);
+        }
+
+        public async Task<IdentityResult> RestablecerContrasena(ApplicationUser user, string nuevaContrasena)
+        {
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return await _userManager.ResetPasswordAsync(user, token, nuevaContrasena);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace Core.Entities
     {
         public string? Name { get; set; }
         public string? Habilitado { get; set; }
+        public string? EsActivadoPrimeraVez { get; set; }
         public string? NroDocumento { get; set; }
         public string? Direccion { get; set; }
         [Column(TypeName = "timestamp without time zone")]
