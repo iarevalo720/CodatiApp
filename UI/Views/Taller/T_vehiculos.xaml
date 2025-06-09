@@ -43,7 +43,7 @@
                     <VerticalStackLayout
                         Padding="10, 20">
 
-                        <Label Text="{Binding VehiculoId, StringFormat='#{0}'}"
+                        <Label Text="{Binding Id, StringFormat='#{0}'}"
                                 FontSize="15"/>
 
                         <HorizontalStackLayout Spacing="5">
