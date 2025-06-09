@@ -16,6 +16,7 @@ namespace UI.ViewModels.Taller
         public string TxtTelefono { get; set; } = string.Empty;
         public string TxtDireccion { get; set; } = string.Empty;
         public string TxtUsuarioHabilitado { get; set; } = string.Empty;
+        public string TxtUsuarioActivadoPrimeraVez { get; set; } = string.Empty;
 
         public bool TxtCIEnabled { get; set; } = true;
         public bool TxtNombreEnabled { get; set; } = false;
@@ -87,6 +88,7 @@ namespace UI.ViewModels.Taller
             TxtTelefono = User.PhoneNumber;
             TxtDireccion = User.Direccion;
             TxtUsuarioHabilitado = User.Habilitado;
+            TxtUsuarioActivadoPrimeraVez = User.EsActivadoPrimeraVez;
 
             TxtCIEnabled = false;
             TxtNombreEnabled = true;
@@ -118,6 +120,7 @@ namespace UI.ViewModels.Taller
             TxtTelefono = string.Empty;
             TxtDireccion = string.Empty;
             TxtUsuarioHabilitado = string.Empty;
+            TxtUsuarioActivadoPrimeraVez = string.Empty;
 
             TxtCIEnabled = true;
             TxtNombreEnabled = false;
