@@ -139,5 +139,15 @@ namespace Service.Services
         {
             return await _vehiculoRepository.GetSubCategoriasHabilitadas(idCategoria);
         }
+
+        public async Task ActualizarVehiculo(Vehiculo vehiculo)
+        {
+            await _vehiculoRepository.ActualizarVehiculo(vehiculo);
+        }
+
+        public async Task<IEnumerable<VehiculoDTO?>> ObtenerVehiculosDTOHabilitados(string userId)
+        {
+            return await _vehiculoRepository.ObtenerVehiculosDTOHabilitados(userId);
+        }
     }
 }

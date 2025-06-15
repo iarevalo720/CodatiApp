@@ -25,7 +25,7 @@ namespace UI.ViewModels.Clientes
                 return;
             }
 
-            IEnumerable<VehiculoDTO> lista = await _service.ObtenerVehiculosDTO(userId);
+            IEnumerable<VehiculoDTO> lista = await _service.ObtenerVehiculosDTOHabilitados(userId);
             Vehiculos = lista;
         }
     }

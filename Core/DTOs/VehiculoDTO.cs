@@ -1,4 +1,6 @@
-﻿namespace Core.DTOs
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Core.DTOs
 {
     public class VehiculoDTO
     {
@@ -11,5 +13,14 @@
         public string? Transmision { get; set; }
         public string? ModeloVehiculoNombre { get; set; }
         public string? MarcaVehiculoNombre { get; set; }
+        public string? Habilitado { get; set; }
+        [NotMapped]
+        public string? TxtBtnCambiarEstadoVehiculo
+        {
+            get
+            {
+                return Habilitado == "si" ? "Inhabilitar" : "Habilitar";
+            }
+        }
     }
 }

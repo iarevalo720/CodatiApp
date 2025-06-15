@@ -11,6 +11,8 @@ namespace Core.Entities
         public string? Descripcion { get; set; }
         public string? Fecha { get; set; }
         public string? Hora { get; set; }
+        public string? NombreUsuario { get; set; }
+        public string? IdUsuario { get; set; }
         public int OrdenDetalleId { get; set; }
         [ForeignKey("OrdenDetalleId")]
         public virtual OrdenDetalle? OrdenDetalle { get; set; }

@@ -67,6 +67,12 @@
             <Button Text="Marcas"
                     IsVisible="{Binding btnMarcasVisible}"
                     Clicked="BtnIrMarcas"/>
+            
+            <Button Text="Funcionarios"
+                    IsEnabled="false"/>
+            
+            <Button Text="Timbrados"
+                    IsEnabled="false"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout

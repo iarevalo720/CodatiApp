@@ -8,17 +8,15 @@
                          MaximumWidthRequest="500">
         <Picker Title="Selecciona la marca"
                 ItemsSource="{Binding Marcas}"
-                ItemDisplayBinding="{Binding Nombre}"
                 SelectedItem="{Binding SelectedMarca}"/>
 
         <Picker Title="Seleccionar Modelo"
                 ItemsSource="{Binding Modelos}"
-                ItemDisplayBinding="{Binding Nombre}"
                 SelectedItem="{Binding Vehiculo.ModeloVehiculo}"/>
 
         <Picker Title="Seleccionar Transmision"
-                ItemsSource="{Binding Transmision}"
-                SelectedItem="{Binding CurrentTransmion}"/>
+                ItemsSource="{Binding ListaTransmision}"
+                SelectedItem="{Binding TransmisionSelected}"/>
 
         <Entry Placeholder="Matricula"
                Text="{Binding Vehiculo.Matricula}"

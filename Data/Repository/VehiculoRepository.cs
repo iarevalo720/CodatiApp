@@ -30,7 +30,8 @@ namespace Data.Repository
                     Kilometraje = v.Kilometraje,
                     Transmision = v.Transmision,
                     ModeloVehiculoNombre = v.ModeloVehiculo.Nombre,
-                    MarcaVehiculoNombre = v.ModeloVehiculo.MarcaVehiculo.Nombre
+                    MarcaVehiculoNombre = v.ModeloVehiculo.MarcaVehiculo.Nombre,
+                    Habilitado = v.Habilitado
                 })
                 .ToListAsync();
 
@@ -154,6 +155,36 @@ namespace Data.Repository
                 SubCategoriaId = x.Id,
                 Nombre = x.Nombre,
             }).ToListAsync();
+        }
+
+        public async Task ActualizarVehiculo(Vehiculo vehiculo)
+        {
+            _context.Vehiculos.Update(vehiculo);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<VehiculoDTO?>> ObtenerVehiculosDTOHabilitados(string userId)
+        {
+            var vehiculo = await _context.Vehiculos
+                .Where(v => v.UserId == userId && v.Habilitado.ToLower() == "si")
+                .Include(v => v.ModeloVehiculo)
+                .ThenInclude(mv => mv.MarcaVehiculo)
+                .Select(v => new VehiculoDTO
+                {
+                    Id = v.Id,
+                    Matricula = v.Matricula,
+                    Anio = v.Anio,
+                    Color = v.Color,
+                    FechaAlta = v.FechaAlta,
+                    Kilometraje = v.Kilometraje,
+                    Transmision = v.Transmision,
+                    ModeloVehiculoNombre = v.ModeloVehiculo.Nombre,
+                    MarcaVehiculoNombre = v.ModeloVehiculo.MarcaVehiculo.Nombre,
+                    Habilitado = v.Habilitado
+                })
+                .ToListAsync();
+
+            return vehiculo;
         }
     }
 }

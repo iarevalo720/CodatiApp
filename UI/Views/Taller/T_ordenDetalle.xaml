@@ -48,6 +48,8 @@
                               RowDefinitions="auto, auto, auto, 20"
                               BackgroundColor="#2a2a2a"
                               Padding="15,10">
+                            <Label Text="{Binding Id, StringFormat='#{0}'}"
+                                   IsVisible="False"/>
                             <Label Grid.Row="0"
                                    Grid.Column="0"
                                    Text="{Binding OrdenDetalleName}"
@@ -65,8 +67,7 @@
                                     Grid.RowSpan="2"
                                     Grid.Column="1"
                                     Text="GESTIONAR"
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:T_ordenDetalleViewModel}}, Path=IrGestionarOrdenDetalleCommand}"
-                                    CommandParameter="{Binding OrdenDetalleId}"
+                                    Clicked="btnIrGestionordenDetalle"
                                     VerticalOptions="Center"/>
                             <Frame Grid.Row="3"
                                    Grid.Column="0"

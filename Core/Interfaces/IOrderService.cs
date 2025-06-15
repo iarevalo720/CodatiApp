@@ -11,7 +11,7 @@ namespace Core.Interfaces
         public Task RechazarOrden(int ordenId, string idUsuario, string comentarioRechazo);
         public Task<OrdenCompletoDTO> ObtenerOrdenCompleto(int idOrden);
         public Task<bool> ActualizarEstadoOrdenCabecera(string estado, string idUsuario, int ordenId);
-        public Task GuardarObservacionOrdenDetalle(int ordenDetalleId, string observacion, string estadoActual, int costo);
+        public Task GuardarObservacionOrdenDetalle(int ordenDetalleId, string observacion, string estadoActual, int costo, string nombreUsuario, string idUsuario);
         public Task<OrdenDetalleCompletoDTO> ObtenerOrdenDetalleCompleto(int ordenDetalleId);
         public Task CrearOrden(Orden orden);
         public Task CrearOrdenDetalle(int idOrden, List<int> listaSubCategoriaId);

@@ -88,7 +88,7 @@ namespace Service.Services
             }
         }
 
-        public async Task GuardarObservacionOrdenDetalle(int ordenDetalleId, string observacion, string estadoActual, int costo)
+        public async Task GuardarObservacionOrdenDetalle(int ordenDetalleId, string observacion, string estadoActual, int costo, string nombreUsuario, string idUsuario)
         {
             OrdenDetalle? ordenDetalle = await _orderRepository.GetOrdenDetalle(ordenDetalleId);
             if (ordenDetalle == null) throw new Exception("No se encontró el detalle de la orden");
@@ -104,7 +104,9 @@ namespace Service.Services
                     Descripcion = estadoActual,
                     Fecha = DateTime.Now.ToString("dd/MM/yyyy"),
                     Hora = DateTime.Now.ToString("HH:mm"),
-                    OrdenDetalleId = ordenDetalleId
+                    OrdenDetalleId = ordenDetalleId,
+                    NombreUsuario = nombreUsuario,
+                    IdUsuario = idUsuario
                 };
                 await _orderRepository.GuardarOrdenDetalleHistorial(ordenDetalleHistorial);
             }
@@ -119,7 +121,9 @@ namespace Service.Services
                     Descripcion = $"Costo del servicio: {costo}",
                     Fecha = DateTime.Now.ToString("dd/MM/yyyy"),
                     Hora = DateTime.Now.ToString("HH:mm"),
-                    OrdenDetalleId = ordenDetalleId
+                    OrdenDetalleId = ordenDetalleId,
+                    NombreUsuario = nombreUsuario,
+                    IdUsuario = idUsuario
                 };
                 await _orderRepository.GuardarOrdenDetalleHistorial(ordenDetalleHistorial);
             }
@@ -131,7 +135,9 @@ namespace Service.Services
                     Descripcion = observacion,
                     Fecha = DateTime.Now.ToString("dd/MM/yyyy"),
                     Hora = DateTime.Now.ToString("HH:mm"),
-                    OrdenDetalleId = ordenDetalleId
+                    OrdenDetalleId = ordenDetalleId,
+                    NombreUsuario = nombreUsuario,
+                    IdUsuario = idUsuario
                 };
                 await _orderRepository.GuardarOrdenDetalleHistorial(ordenDetalleHistorial);
             }

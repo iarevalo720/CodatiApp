@@ -52,6 +52,9 @@
 
                     <Label Text="Usuario Habilitado:"/>
                     <Label Text="{Binding TxtUsuarioHabilitado}"/>
+
+                    <Label Text="Usuario Activado:"/>
+                    <Label Text="{Binding TxtUsuarioActivadoPrimeraVez}"/>
                 </VerticalStackLayout>
             </VerticalStackLayout>
         </ScrollView>

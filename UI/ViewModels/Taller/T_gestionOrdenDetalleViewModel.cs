@@ -38,7 +38,10 @@ namespace UI.ViewModels.Taller
         {
             try
             {
-                await _ordenService.GuardarObservacionOrdenDetalle(ordenDetalleId, TxtObservacion, EstadoActual, TxtCosto);
+                string nombreUsuario = await SecureStorage.GetAsync("nombre");
+                string idUsuario = await SecureStorage.GetAsync("id");
+
+                await _ordenService.GuardarObservacionOrdenDetalle(ordenDetalleId, TxtObservacion, EstadoActual, TxtCosto, nombreUsuario, idUsuario);
 
                 await Application.Current.MainPage.DisplayAlert("Exito", "Observacion guardado exitosamente", "OK");
                 await ActualizarOrdenDetalleCompleto(ordenDetalleId);

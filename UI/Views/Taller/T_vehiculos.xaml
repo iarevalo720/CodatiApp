@@ -83,15 +83,26 @@
                                    FontSize="15"/>
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Spacing="3"
-                                               Margin="0,0,0, 20">
+                        <HorizontalStackLayout Spacing="3">
                             <Label Text="Transmision: "
                                    TextColor="Gray"/>
                             <Label Text="{Binding Transmision}"
                                    FontSize="15"/>
                         </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Spacing="3"
+                                               Margin="0,0,0,20">
+                            <Label Text="Vehiculo Habilitado: "
+                                   TextColor="Gray"/>
+                            <Label Text="{Binding Habilitado}"
+                                   FontSize="15"/>
+                        </HorizontalStackLayout>
+
                         <Button Text="Modificar"
-                                Clicked="BtnIrModificarVehiculo"/>
+                                Clicked="BtnIrModificarVehiculo"
+                                Margin="0,0,0,10"/>
+                        <Button Text="{Binding TxtBtnCambiarEstadoVehiculo}"
+                                Clicked="BtnCambiarEstadoVehiculo"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
