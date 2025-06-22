@@ -49,5 +49,50 @@ namespace UI.ViewModels.Taller
 
             TransmisionSelected = Vehiculo.Transmision;
         }
+
+        public async Task CargarModelosPorMarca()
+        {
+            ModeloSelected = new ModeloVehiculo();
+            Modelos = (await _vehiculoService.ObtenerModelosHabilitadosPorMarca(MarcaSelected.Id)).ToList();
+        }
+
+        public async Task ModificarVehiculo()
+        {
+            if (!SonCamposValidos())
+            {
+                await Shell.Current.DisplayAlert("Informacion", "Por favor, complete todos campos primero", "OK");
+                return;
+            }
+
+            try
+            {
+                Vehiculo.Transmision = TransmisionSelected;
+                Vehiculo.ModeloVehiculoId = ModeloSelected.Id;
+                Vehiculo.ModeloVehiculo = ModeloSelected;
+
+                await _vehiculoService.ActualizarVehiculo(Vehiculo);
+
+                await Shell.Current.DisplayAlert("Exito", "Se ha actualizado el vehículo exitosamente", "OK");
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo mas tarde", "OK");
+            }
+        }
+
+        private bool SonCamposValidos()
+        {
+            if (string.IsNullOrWhiteSpace(Vehiculo.Matricula) ||
+                string.IsNullOrWhiteSpace(Vehiculo.Anio) ||
+                string.IsNullOrWhiteSpace(Vehiculo.Color) ||
+                string.IsNullOrWhiteSpace(Vehiculo.Kilometraje) ||
+                string.IsNullOrWhiteSpace(TransmisionSelected) ||
+                MarcaSelected == null ||
+                ModeloSelected == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

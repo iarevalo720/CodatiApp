@@ -18,6 +18,24 @@ public partial class T_modificarVehiculo : ContentPage
         base.OnAppearing();
         await _viewModel.ObtenervehiculoPorId(vehiculoId);
     }
+
+    private async void PickerMarca_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        try
+        {
+            await _viewModel.CargarModelosPorMarca();
+        }
+        catch (Exception ex)
+        {
+            await Shell.Current.DisplayAlert("Error", $"Ocurrió un error al cargar los modelos: {ex.Message}", "OK");
+            throw;
+        }
+    }
+
+    private async void BtnGuardarVehiculoClicked(object sender, EventArgs e)
+    {
+        await _viewModel.ModificarVehiculo();
+    }
     //private void BtnLimpiarCampos(object sender, EventArgs e)
     //{
     //    _viewModel.LimpiarCampos();

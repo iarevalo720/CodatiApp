@@ -76,7 +76,7 @@
             </CollectionView>
 
             <Button 
-                Text="Agergar vehiculo" 
+                Text="Registrar vehiculo"
                 Clicked="BtnIrCrearVehiculo"/>
         </VerticalStackLayout>
     </ScrollView>

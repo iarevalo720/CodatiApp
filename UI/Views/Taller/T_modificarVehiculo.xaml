@@ -9,7 +9,8 @@
         <Picker Title="Selecciona la marca"
                 ItemsSource="{Binding Marcas}"
                 ItemDisplayBinding="{Binding Nombre}"
-                SelectedItem="{Binding MarcaSelected}"/>
+                SelectedItem="{Binding MarcaSelected}"
+                SelectedIndexChanged="PickerMarca_SelectedIndexChanged"/>
 
         <Picker Title="Seleccionar Modelo"
                 ItemsSource="{Binding Modelos}"
@@ -43,7 +44,7 @@
                x:Name="txtKilometraje"/>
 
 
-        <Button Command="{Binding GuardarVehiculoCommand}"
+        <Button Clicked="BtnGuardarVehiculoClicked"
                 Text="Modificar"/>
     </VerticalStackLayout>
 </ContentPage>

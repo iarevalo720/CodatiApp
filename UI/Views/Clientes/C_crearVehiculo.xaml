@@ -15,7 +15,7 @@
         <Picker Title="Seleccionar Modelo"
                 ItemsSource="{Binding Modelos}"
                 ItemDisplayBinding="{Binding Nombre}"
-                SelectedItem="{Binding Vehiculo.ModeloVehiculo}"/>
+                SelectedItem="{Binding SelectedModelo}"/>
 
         <Picker Title="Seleccionar Transmision"
                 ItemsSource="{Binding Transmision}"
@@ -44,7 +44,7 @@
                x:Name="txtKilometraje"/>
 
 
-        <Button Command="{Binding GuardarVehiculoCommand}"
-                Text="Crear"/>
+        <Button Clicked="BtnRegistrarVehiculo"
+                Text="Registrar"/>
     </VerticalStackLayout>
 </ContentPage>

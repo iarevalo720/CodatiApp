@@ -12,8 +12,13 @@ public partial class C_crearVehiculo : ContentPage
         BindingContext = _viewModel;
     }
 
-    private void PickerMarcas_SelectedIndexChanged(object sender, EventArgs e)
+    private async void PickerMarcas_SelectedIndexChanged(object sender, EventArgs e)
     {
-        _viewModel.ObtenerModelosPorMarca();
+        await _viewModel.CargarModelosPorMarca();
+    }
+
+    private async void BtnRegistrarVehiculo(object sender, EventArgs e)
+    {
+        await _viewModel.GuardarVehiculo();
     }
 }
