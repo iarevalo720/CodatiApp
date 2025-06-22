@@ -28,7 +28,7 @@ public partial class Login : ContentPage
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 
-                case "mecanico":
+                case "Mecanico":
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 

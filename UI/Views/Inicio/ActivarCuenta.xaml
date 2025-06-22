@@ -5,13 +5,6 @@
              Title="ActivarCuenta">
     <VerticalStackLayout>
         <Entry
-            x:Name="TxtCodigoActivacion"
-            Text="{Binding CodigoActivacion}"
-            Placeholder="Código de Activación"
-            Keyboard="Text"
-            Margin="0, 10, 0, 0"/>
-
-        <Entry
             x:Name="TxtCorreo"
             Text="{Binding Correo}"
             Placeholder="Correo Electrónico"
@@ -19,9 +12,16 @@
             Margin="0, 10, 0, 0"/>
 
         <Entry
+            x:Name="TxtCodigoActivacion"
+            Text="{Binding CodigoActivacion}"
+            Placeholder="Código de Activación"
+            Keyboard="Text"
+            Margin="0, 10, 0, 0"/>
+
+        <Entry
             x:Name="TxtContrasena"
             Text="{Binding Contrasena}"
-            Placeholder="Nueva Contraseña"
+            Placeholder="Nueva Contraseña (Minimo 6 carácteres)"
             IsPassword="True"
             Margin="0, 10, 0, 0"/>
 

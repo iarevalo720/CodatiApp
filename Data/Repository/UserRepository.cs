@@ -41,7 +41,7 @@ namespace Data.Repository
             await _userManager.UpdateAsync(user);
         }
 
-        public async Task<IdentityResult> CrearCliente(ApplicationUser applicationUser, string password)
+        public async Task<IdentityResult> CrearUsuario(ApplicationUser applicationUser, string password)
         {
             return await _userManager.CreateAsync(applicationUser, password);
         }
@@ -60,6 +60,11 @@ namespace Data.Repository
         {
             string token = await _userManager.GeneratePasswordResetTokenAsync(user);
             return await _userManager.ResetPasswordAsync(user, token, nuevaContrasena);
+        }
+
+        public async Task EliminarRolUsuario(ApplicationUser user, string roleName)
+        {
+            await _userManager.RemoveFromRoleAsync(user, roleName);
         }
     }
 }

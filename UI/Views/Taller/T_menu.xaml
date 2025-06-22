@@ -41,7 +41,7 @@
                     ZIndex="2"/>
             </Grid>
 
-            <Label Text="Referenciales"
+            <Label Text="Gestiones"
                    FontSize="Medium"/>
 
             <Button Text="Ordenes"
@@ -56,10 +56,6 @@
                     IsVisible="{Binding btnVehiculosVisible}"
                     Clicked="BtnIrVehiculos"/>
 
-            <Button Text="Funcionarios"
-                    IsVisible="{Binding btnFuncionariosVisible}"
-                    IsEnabled="False"/>
-
             <Button Text="Categorias"
                     IsVisible="{Binding btnCategoriaVisible}"
                     Clicked="BtnIrCategorias"/>
@@ -69,7 +65,8 @@
                     Clicked="BtnIrMarcas"/>
             
             <Button Text="Funcionarios"
-                    IsEnabled="false"/>
+                    IsVisible="{Binding btnFuncionariosVisible}"
+                    Clicked="BtnIrFuncionarios"/>
             
             <Button Text="Timbrados"
                     IsEnabled="false"/>

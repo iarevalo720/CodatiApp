@@ -6,6 +6,8 @@ namespace Core.Interfaces
     public interface IVehiculoRepository
     {
         public Task<IEnumerable<VehiculoDTO?>> ObtenerVehiculosDTO(string userId);
+        public Task<VehiculoDTO?> ObtenerVehiculoDTOById(int id);
+        public Task<int> ObtenerIdMarcaByModeloId(int idModelo);
         public Task<IEnumerable<VehiculoDTO?>> ObtenerVehiculosDTOHabilitados(string userId);
         public Task<IEnumerable<Vehiculo>> ObtenerVehiculos(string userId);
         public Task<Vehiculo> ObtenerVehiculoPorId(int id);

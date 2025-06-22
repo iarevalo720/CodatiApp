@@ -54,4 +54,9 @@ public partial class T_menu : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(T_marcas)}");
     }
+
+    private async void BtnIrFuncionarios(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(T_funcionarios)}");
+    }
 }

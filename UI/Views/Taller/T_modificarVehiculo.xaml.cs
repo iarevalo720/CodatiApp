@@ -1,4 +1,3 @@
-using Core.Entities;
 using UI.ViewModels.Taller;
 
 namespace UI.Views.Taller;

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="UI.Views.Taller.T_funcionarios"
+             Title="T_funcionarios">
+    <Grid
+        ColumnDefinitions="*"
+        RowDefinitions="*, 220"
+        MaximumWidthRequest="500"
+        Padding="30">
+        <ScrollView>
+
+            <VerticalStackLayout Grid.Row="0">
+                <HorizontalStackLayout
+                    HorizontalOptions="End"
+                    Spacing="10"
+                    Margin="0, 0, 0, 40">
+                    <Entry
+                        Text="{Binding TxtCI}"
+                        Placeholder="Cedula"
+                        WidthRequest="140"
+                        IsEnabled="{Binding TxtCIEnabled}"/>
+                    <Button 
+                        Text="Buscar"
+                        Clicked="BtnBuscarFuncionario"
+                        WidthRequest="80"
+                        HeightRequest="43"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        IsEnabled="{Binding BtnBuscarEnabled}"/>
+                    <Button 
+                        Text="Limpiar"
+                        Clicked="BtnLimpiarCampos"
+                        WidthRequest="80"
+                        HeightRequest="43"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"/>
+                </HorizontalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Nombre"/>
+                    <Entry Text="{Binding TxtNombre}"/>
+
+                    <Label Text="Correo"/>
+                    <Entry Text="{Binding TxtCorreo}"/>
+
+                    <Label Text="Telefono"/>
+                    <Entry Text="{Binding TxtTelefono}"/>
+
+                    <Label Text="Direccion"/>
+                    <Entry Text="{Binding TxtDireccion}"/>
+
+                    <Picker Title="Rol del funcionario"
+                            ItemsSource="{Binding ListaRolesFuncionarios}"
+                            SelectedItem="{Binding RolFuncionarioSelected}"/>
+
+                    <Label Text="Usuario Habilitado:"/>
+                    <Label Text="{Binding TxtUsuarioHabilitado}"/>
+
+                    <Label Text="Usuario Activado:"/>
+                    <Label Text="{Binding TxtUsuarioActivadoPrimeraVez}"/>
+                </VerticalStackLayout>
+            </VerticalStackLayout>
+        </ScrollView>
+
+        <VerticalStackLayout
+            Grid.Row="1"
+            VerticalOptions="End"
+            Spacing="10">
+            <Button Text="CREAR FUNCIONARIO"
+                    IsEnabled="{Binding BtnCrearFuncionarioEnabled}"
+                    IsVisible="{Binding BtnCrearFuncionarioVisible}"
+                    Clicked="BtnCrearFuncionario"/>
+            <Button Text="RESTABLECER CONTRASEÑA"
+                    Clicked="BtnRestablecerContrasena"
+                    IsEnabled="{Binding BtnRestablecerContrasenaEnabled}"
+                    IsVisible="{Binding BtnRestablecerContrasenaVisible}"/>
+            <Button Text="MODIFICAR"
+                    IsEnabled="{Binding BtnModificarEnabled}"
+                    Clicked="BtnGuardarCambiosUsuario"/>
+            <Button Text="{Binding TxtBtnCambiarEstadoFuncionario}"
+                    IsEnabled="{Binding BtnInhabilitarEnabled}"
+                    Clicked="BtnCambiarEstadoFuncionario"/>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

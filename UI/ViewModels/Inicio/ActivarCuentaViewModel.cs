@@ -28,6 +28,12 @@ namespace UI.ViewModels.Inicio
                 return;
             }
 
+            if (Contrasena.Trim().Length < 6)
+            {
+                await Shell.Current.DisplayAlert("Infornacion", "La contraseña debe tener más de 5 caracteres", "OK");
+                return;
+            }
+
             if (Contrasena.Trim() != ConfirmarContrasena.Trim())
             {
                 await Shell.Current.DisplayAlert("Infornacion", "Las contraseñas no coinciden", "OK");

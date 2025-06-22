@@ -186,5 +186,37 @@ namespace Data.Repository
 
             return vehiculo;
         }
+
+        public async Task<VehiculoDTO?> ObtenerVehiculoDTOById(int id)
+        {
+            var vehiculo = await _context.Vehiculos
+                .Where(v => v.Id == id)
+                .Include(v => v.ModeloVehiculo)
+                .ThenInclude(mv => mv.MarcaVehiculo)
+                .Select(v => new VehiculoDTO
+                {
+                    Id = v.Id,
+                    Matricula = v.Matricula,
+                    Anio = v.Anio,
+                    Color = v.Color,
+                    FechaAlta = v.FechaAlta,
+                    Kilometraje = v.Kilometraje,
+                    Transmision = v.Transmision,
+                    ModeloVehiculoNombre = v.ModeloVehiculo.Nombre,
+                    MarcaVehiculoNombre = v.ModeloVehiculo.MarcaVehiculo.Nombre,
+                    Habilitado = v.Habilitado
+                })
+                .FirstOrDefaultAsync();
+
+            return vehiculo;
+        }
+
+        public async Task<int> ObtenerIdMarcaByModeloId(int idModelo)
+        {
+            return await _context.ModeloVehiculos
+                .Where(m => m.Id == idModelo)
+                .Select(m => m.MarcaVehiculoId)
+                .FirstOrDefaultAsync();
+        }
     }
 }

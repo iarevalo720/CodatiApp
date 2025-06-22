@@ -15,7 +15,7 @@ public partial class T_cliente : ContentPage
 
     private async void BtnBuscarCliente(object sender, EventArgs e)
     {
-		await _viewModel.ObtenerUsuario(_viewModel.TxtCI);
+		await _viewModel.ObtenerUsuario();
     }
 
     private void BtnLimpiarCampos(object sender, EventArgs e)

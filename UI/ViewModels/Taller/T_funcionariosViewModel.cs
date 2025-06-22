@@ -1,15 +1,16 @@
-﻿using Core.Entities;
+﻿using Core.DTOs;
+using Core.Entities;
 using Core.Interfaces;
 using PropertyChanged;
 
 namespace UI.ViewModels.Taller
 {
-
     [AddINotifyPropertyChangedInterface]
-    public class T_clienteViewModel
+    public class T_funcionariosViewModel
     {
         private readonly IUserService _userService;
-        public ApplicationUser? User { get; set; }
+        public List<string> ListaRolesFuncionarios { get; set; }
+        public ApplicationUser? User { get; set; } = new ApplicationUser();
         public string TxtCI { get; set; } = string.Empty;
         public string TxtNombre { get; set; } = string.Empty;
         public string TxtCorreo { get; set; } = string.Empty;
@@ -17,27 +18,118 @@ namespace UI.ViewModels.Taller
         public string TxtDireccion { get; set; } = string.Empty;
         public string TxtUsuarioHabilitado { get; set; } = string.Empty;
         public string TxtUsuarioActivadoPrimeraVez { get; set; } = string.Empty;
+        public string RolFuncionarioSelected { get; set; } = string.Empty;
+        public string RolActualFuncionario { get; set; } = string.Empty;
 
         public bool TxtCIEnabled { get; set; } = true;
         public bool TxtNombreEnabled { get; set; } = false;
         public bool TxtCorreoEnabled { get; set; } = false;
         public bool TxtTelefonoEnabled { get; set; } = false;
         public bool TxtDireccionEnabled { get; set; } = false;
-        public string TxtBtnCambiarEstadoCliente { get; set; } = "INHABILITAR";
+        public string TxtBtnCambiarEstadoFuncionario { get; set; } = "INHABILITAR";
 
         public bool BtnBuscarEnabled { get; set; } = true;
         public bool BtnModificarEnabled { get; set; } = false;
         public bool BtnInhabilitarEnabled { get; set; } = false;
-        public bool BtnCrearClienteEnabled { get; set; } = true;
-        public bool BtnCrearClienteVisible { get; set; } = false;
+        public bool BtnCrearFuncionarioEnabled { get; set; } = true;
+        public bool BtnCrearFuncionarioVisible { get; set; } = false;
         public bool BtnRestablecerContrasenaEnabled { get; set; } = false;
         public bool BtnRestablecerContrasenaVisible { get; set; } = false;
 
-        public T_clienteViewModel(IUserService userService)
+        public T_funcionariosViewModel(IUserService userService)
         {
             _userService = userService;
-            BtnCrearClienteVisible = DeviceInfo.Platform == DevicePlatform.WinUI;
+
+            ListaRolesFuncionarios = new List<string>
+            {
+                "Mecanico",
+                "Secretaria"
+            };
+
+            BtnCrearFuncionarioVisible = DeviceInfo.Platform == DevicePlatform.WinUI;
             BtnRestablecerContrasenaVisible = DeviceInfo.Platform == DevicePlatform.WinUI;
+        }
+
+        public async Task ObtenerFuncionario()
+        {
+            if (string.IsNullOrWhiteSpace(TxtCI))
+            {
+                await Shell.Current.DisplayAlert("Información", "Agregue un número de cédula", "OK");
+                return;
+            }
+
+            User = await _userService.ObtenerUsuarioPorCi(TxtCI);
+            if (User is null)
+            {
+                await Shell.Current.DisplayAlert("Error", "No se encontró el usuario", "OK");
+                return;
+            }
+
+            if (!await _userService.EsRolFuncionarioValido(User))
+            {
+                await Shell.Current.DisplayAlert("Error", "El usuario indicado no es un funcionario", "OK");
+                return;
+            }
+
+
+
+            var rolActual = (await _userService.ObtenerRolesUsuario(User)).FirstOrDefault();
+
+            RolFuncionarioSelected = rolActual;
+            RolActualFuncionario = rolActual;
+
+            TxtCI = User.NroDocumento;
+            TxtNombre = User.Name;
+            TxtCorreo = User.Email;
+            TxtTelefono = User.PhoneNumber;
+            TxtDireccion = User.Direccion;
+            TxtUsuarioHabilitado = User.Habilitado;
+            TxtUsuarioActivadoPrimeraVez = User.EsActivadoPrimeraVez;
+
+            TxtCIEnabled = false;
+            TxtNombreEnabled = true;
+            TxtCorreoEnabled = true;
+            TxtTelefonoEnabled = true;
+            TxtDireccionEnabled = true;
+
+            BtnBuscarEnabled = false;
+            BtnModificarEnabled = true;
+            BtnInhabilitarEnabled = true;
+            BtnCrearFuncionarioEnabled = false;
+            BtnRestablecerContrasenaEnabled = true;
+
+            if (User.Habilitado?.ToLower() == "si")
+            {
+                TxtBtnCambiarEstadoFuncionario = "INHABILITAR";
+            }
+            else
+            {
+                TxtBtnCambiarEstadoFuncionario = "HABILITAR";
+            }
+        }
+
+        public void LimpiarCampos()
+        {
+            TxtCI = string.Empty;
+            TxtNombre = string.Empty;
+            TxtCorreo = string.Empty;
+            TxtTelefono = string.Empty;
+            TxtDireccion = string.Empty;
+            TxtUsuarioHabilitado = string.Empty;
+            RolFuncionarioSelected = string.Empty;
+            TxtUsuarioActivadoPrimeraVez = string.Empty;
+
+            TxtCIEnabled = true;
+            TxtNombreEnabled = false;
+            TxtCorreoEnabled = false;
+            TxtTelefonoEnabled = false;
+            TxtDireccionEnabled = false;
+
+            BtnBuscarEnabled = true;
+            BtnModificarEnabled = false;
+            BtnInhabilitarEnabled = false;
+            BtnCrearFuncionarioEnabled = true;
+            BtnRestablecerContrasenaEnabled = false;
         }
 
         public async Task GuardarCambiosUsuario()
@@ -58,6 +150,14 @@ namespace UI.ViewModels.Taller
                 User.Direccion = TxtDireccion;
 
                 await _userService.GuardarCambiosUsuario(User);
+
+                if (RolActualFuncionario != RolFuncionarioSelected)
+                {
+                    await _userService.CambiarRolUsuario(User, RolActualFuncionario, RolFuncionarioSelected);
+                }
+
+                LimpiarCampos();
+
                 await Shell.Current.DisplayAlert("Exito", "Datos actualiazados exitosamente", "OK");
             }
             catch (Exception)
@@ -67,87 +167,9 @@ namespace UI.ViewModels.Taller
             }
         }
 
-        public async Task ObtenerUsuario()
+        public async Task CambiarEstadoFuncionario()
         {
-            if (string.IsNullOrWhiteSpace(TxtCI))
-            {
-                await Shell.Current.DisplayAlert("Información", "Agregue un número de cédula", "OK");
-                return;
-            }
-
-            User = await _userService.ObtenerUsuarioPorCi(TxtCI);
-            if (User is null)
-            {
-                await Shell.Current.DisplayAlert("Error", "No se encontró el usuario", "OK");
-                return;
-            }
-
-            TxtCI = User.NroDocumento;
-            TxtNombre = User.Name;
-            TxtCorreo = User.Email;
-            TxtTelefono = User.PhoneNumber;
-            TxtDireccion = User.Direccion;
-            TxtUsuarioHabilitado = User.Habilitado;
-            TxtUsuarioActivadoPrimeraVez = User.EsActivadoPrimeraVez;
-
-            TxtCIEnabled = false;
-            TxtNombreEnabled = true;
-            TxtCorreoEnabled = true;
-            TxtTelefonoEnabled = true;
-            TxtDireccionEnabled = true;
-
-            BtnBuscarEnabled = false;
-            BtnModificarEnabled = true;
-            BtnInhabilitarEnabled = true;
-            BtnCrearClienteEnabled = false;
-            BtnRestablecerContrasenaEnabled = true;
-
-            if (User.Habilitado?.ToLower() == "si")
-            {
-                TxtBtnCambiarEstadoCliente = "INHABILITAR";
-            }
-            else
-            {
-                TxtBtnCambiarEstadoCliente = "HABILITAR";
-            }
-        }
-
-        public void LimpiarCampos()
-        {
-            TxtCI = string.Empty;
-            TxtNombre = string.Empty;
-            TxtCorreo = string.Empty;
-            TxtTelefono = string.Empty;
-            TxtDireccion = string.Empty;
-            TxtUsuarioHabilitado = string.Empty;
-            TxtUsuarioActivadoPrimeraVez = string.Empty;
-
-            TxtCIEnabled = true;
-            TxtNombreEnabled = false;
-            TxtCorreoEnabled = false;
-            TxtTelefonoEnabled = false;
-            TxtDireccionEnabled = false;
-
-            BtnBuscarEnabled = true;
-            BtnModificarEnabled = false;
-            BtnInhabilitarEnabled = false;
-            BtnCrearClienteEnabled = true;
-            BtnRestablecerContrasenaEnabled = false;
-        }
-
-        private bool validarCamposVacios()
-        {
-            if (string.IsNullOrWhiteSpace(TxtNombre) || string.IsNullOrWhiteSpace(TxtCorreo) || string.IsNullOrWhiteSpace(TxtTelefono) || string.IsNullOrWhiteSpace(TxtDireccion) || string.IsNullOrWhiteSpace(TxtCI))
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public async Task CambiarEstadoCliente()
-        {
-            bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea cambiar el estado del usuario?", "Sí", "No");
+            bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea cambiar el estado del funcionario?", "Sí", "No");
             if (!confirmar) return;
 
             try
@@ -161,8 +183,8 @@ namespace UI.ViewModels.Taller
                     User.Habilitado = "si";
                 }
                 await _userService.GuardarCambiosUsuario(User);
-                await Shell.Current.DisplayAlert("Exito", "Estado del usuario actualizado exitosamente", "OK");
-                await ObtenerUsuario();
+                await Shell.Current.DisplayAlert("Exito", "Estado del funcionario actualizado exitosamente", "OK");
+                await ObtenerFuncionario();
             }
             catch (Exception)
             {
@@ -171,9 +193,9 @@ namespace UI.ViewModels.Taller
             }
         }
 
-        public async Task CrearCliente()
+        public async Task CrearFuncionario()
         {
-            bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea crear el cliente?", "Sí", "No");
+            bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea crear el funcionario?", "Sí", "No");
             if (!confirmar) return;
 
             bool esCamposValidos = validarCamposVacios();
@@ -185,7 +207,7 @@ namespace UI.ViewModels.Taller
 
             try
             {
-                if(await _userService.ExisteEmail(TxtCorreo.Trim()))
+                if (await _userService.ExisteEmail(TxtCorreo.Trim()))
                 {
                     await Shell.Current.DisplayAlert("Informacion", "El correo ingresado ya existe, por favor, asigna un correo distinto", "OK");
                     return;
@@ -197,7 +219,7 @@ namespace UI.ViewModels.Taller
                     return;
                 }
 
-                await _userService.CrearCliente(TxtCI.Trim(), TxtNombre.Trim(), TxtCorreo.Trim(), TxtTelefono.Trim(), TxtDireccion.Trim());
+                await _userService.CrearFuncionario(TxtCI.Trim(), TxtNombre.Trim(), TxtCorreo.Trim(), TxtTelefono.Trim(), TxtDireccion.Trim(), RolFuncionarioSelected.Trim());
 
                 await Shell.Current.DisplayAlert("Exito", "Cliente creado exitosamente", "OK");
                 LimpiarCampos();
@@ -225,9 +247,27 @@ namespace UI.ViewModels.Taller
             }
             catch (Exception ex)
             {
+                if (ex.Message == "usuario_inexistente")
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "No existe una cuenta con esa cedula", "OK");
+                    return;
+                }
+
                 await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
                 Console.WriteLine("Error al restablecer contraseña: " + ex.Message);
             }
+
+            LimpiarCampos();
+        }
+
+        private bool validarCamposVacios()
+        {
+            if (string.IsNullOrWhiteSpace(TxtNombre) || string.IsNullOrWhiteSpace(TxtCorreo) || string.IsNullOrWhiteSpace(TxtTelefono) || string.IsNullOrWhiteSpace(TxtDireccion) || string.IsNullOrWhiteSpace(TxtCI))
+            {
+                return false;
+            }
+
+            return true;
         }
     }
 }

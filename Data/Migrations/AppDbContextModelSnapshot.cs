@@ -47,6 +47,9 @@ namespace Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
 
+                    b.Property<string>("EsActivadoPrimeraVez")
+                        .HasColumnType("text");
+
                     b.Property<string>("Habilitado")
                         .HasColumnType("text");
 
@@ -129,7 +132,6 @@ namespace Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FechaEmision")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("IdUsuario")
@@ -139,14 +141,12 @@ namespace Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("NumeroComprobante")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("OrdenId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Ruc")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("TimbradoId")
@@ -202,11 +202,9 @@ namespace Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Tipo")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Valor")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -223,23 +221,18 @@ namespace Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("NombreEntidad")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NombreTitular")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NroCuenta")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("NroDocumento")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("TipoDocumento")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -262,7 +255,6 @@ namespace Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("EsAlias")
-                        .IsRequired()
                         .HasMaxLength(1)
                         .HasColumnType("character varying(1)");
 
@@ -288,15 +280,12 @@ namespace Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("Estado")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FechaPagado")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("TipoDePago")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int?>("TransferenciaId")
@@ -318,19 +307,15 @@ namespace Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Descripcion")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Fecha")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Hora")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("IdUsuario")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("OrdenId")
@@ -345,11 +330,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Entities.MarcaVehiculo", b =>
                 {
-                    b.Property<int>("MarcaVehiculoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("MarcaVehiculoId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Habilitado")
                         .HasColumnType("text");
@@ -357,18 +342,18 @@ namespace Data.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("text");
 
-                    b.HasKey("MarcaVehiculoId");
+                    b.HasKey("Id");
 
                     b.ToTable("MarcaVehiculos");
                 });
 
             modelBuilder.Entity("Core.Entities.ModeloVehiculo", b =>
                 {
-                    b.Property<int>("ModeloVehiculoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ModeloVehiculoId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Habilitado")
                         .HasColumnType("text");
@@ -379,7 +364,7 @@ namespace Data.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("text");
 
-                    b.HasKey("ModeloVehiculoId");
+                    b.HasKey("Id");
 
                     b.HasIndex("MarcaVehiculoId");
 
@@ -403,6 +388,9 @@ namespace Data.Migrations
                     b.Property<string>("FechaCreacion")
                         .HasColumnType("text");
 
+                    b.Property<int?>("IdTimbrado")
+                        .HasColumnType("integer");
+
                     b.Property<string>("IdUsuario")
                         .HasColumnType("text");
 
@@ -416,6 +404,8 @@ namespace Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("IdTimbrado");
 
                     b.HasIndex("IdUsuario");
 
@@ -470,6 +460,12 @@ namespace Data.Migrations
                     b.Property<string>("Hora")
                         .HasColumnType("text");
 
+                    b.Property<string>("IdUsuario")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NombreUsuario")
+                        .HasColumnType("text");
+
                     b.Property<int>("OrdenDetalleId")
                         .HasColumnType("integer");
 
@@ -482,11 +478,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Entities.SubCategoria", b =>
                 {
-                    b.Property<int>("SubCategoriaId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("SubCategoriaId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CategoriaId")
                         .HasColumnType("integer");
@@ -497,7 +493,7 @@ namespace Data.Migrations
                     b.Property<string>("Nombre")
                         .HasColumnType("text");
 
-                    b.HasKey("SubCategoriaId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
 
@@ -513,18 +509,15 @@ namespace Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FechaFin")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("FechaInicio")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("Habilitado")
                         .HasColumnType("text");
 
                     b.Property<string>("Numero")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("NumeroSecuencial")
@@ -534,7 +527,9 @@ namespace Data.Migrations
                         .HasColumnType("integer");
 
                     b.Property<string>("PuntoExpedicion")
-                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("TimbradoActivo")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -551,7 +546,6 @@ namespace Data.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Comprobante")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<int>("CuentaId")
@@ -566,11 +560,11 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Entities.Vehiculo", b =>
                 {
-                    b.Property<int>("VehiculoId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("VehiculoId"));
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Anio")
                         .HasColumnType("text");
@@ -599,7 +593,7 @@ namespace Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("text");
 
-                    b.HasKey("VehiculoId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ModeloVehiculoId");
 
@@ -824,6 +818,10 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Core.Entities.Orden", b =>
                 {
+                    b.HasOne("Core.Entities.Timbrado", "Timbrado")
+                        .WithMany()
+                        .HasForeignKey("IdTimbrado");
+
                     b.HasOne("Core.Entities.ApplicationUser", "Usuario")
                         .WithMany()
                         .HasForeignKey("IdUsuario")
@@ -834,6 +832,8 @@ namespace Data.Migrations
                         .HasForeignKey("VehiculoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Timbrado");
 
                     b.Navigation("Usuario");
 

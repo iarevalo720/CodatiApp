@@ -149,5 +149,15 @@ namespace Service.Services
         {
             return await _vehiculoRepository.ObtenerVehiculosDTOHabilitados(userId);
         }
+
+        public async Task<VehiculoDTO?> ObtenerVehiculosDTOById(int id)
+        {
+            return await _vehiculoRepository.ObtenerVehiculoDTOById(id);
+        }
+
+        public async Task<int> ObtenerMarcaIdByModeloId(int modeloId)
+        {
+            return await _vehiculoRepository.ObtenerIdMarcaByModeloId(modeloId);
+        }
     }
 }

@@ -58,6 +58,7 @@ namespace UI
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredUniqueChars = 0;
             }).AddRoles<IdentityRole>()
               .AddEntityFrameworkStores<AppDbContext>()
               .AddDefaultTokenProviders();
@@ -77,6 +78,7 @@ namespace UI
             builder.Services.AddTransient<T_marcas>();
             builder.Services.AddTransient<T_modelos>();
             builder.Services.AddTransient<T_timbrado>();
+            builder.Services.AddTransient<T_funcionarios>();
 
             builder.Services.AddTransient<C_menu>();
             builder.Services.AddTransient<C_acercaDe>();
@@ -103,6 +105,7 @@ namespace UI
             builder.Services.AddTransient<T_marcasViewModel>();
             builder.Services.AddTransient<T_modelosViewModel>();
             builder.Services.AddTransient<T_timbradoViewModel>();
+            builder.Services.AddTransient<T_funcionariosViewModel>();
 
             //Services & Repositories
             builder.Services.AddScoped<IUserService, UserService>();

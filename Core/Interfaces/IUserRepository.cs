@@ -10,8 +10,9 @@ namespace Core.Interfaces
         public Task<IList<string>> ObtenerRoles(ApplicationUser user);
         public Task<ApplicationUser?> ObtenerUsuarioPorCI(string ci);
         public Task GuardarCambiosUsuario(ApplicationUser user);
-        public Task<IdentityResult> CrearCliente(ApplicationUser applicationUser, string password);
+        public Task<IdentityResult> CrearUsuario(ApplicationUser applicationUser, string password);
         public Task AsignarRol(ApplicationUser user, string roleName);
+        public Task EliminarRolUsuario(ApplicationUser user, string roleName);
         public Task<IdentityResult> ActualizarContrasena(ApplicationUser user, string contrasenaActual, string nuevaContrasena);
         public Task<IdentityResult> RestablecerContrasena(ApplicationUser user, string nuevaContrasena);
     }

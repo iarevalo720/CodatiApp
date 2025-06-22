@@ -22,12 +22,47 @@ namespace Service.Services
             string nuevoPassword = GenerarPassword(nombre);
             ApplicationUser nuevoUsuario = ArmarUsuario(ci, nombre, correo, telefono, direccion, nuevoPassword);
 
-            var resultado = await _userRepository.CrearCliente(nuevoUsuario, nuevoPassword);
+            var resultado = await _userRepository.CrearUsuario(nuevoUsuario, nuevoPassword);
             if (!resultado.Succeeded)
             {
                 throw new Exception("Error: " + resultado.Errors.FirstOrDefault());
             }
             await _userRepository.AsignarRol(nuevoUsuario, "Cliente");
+
+            var mensaje = new BodyBuilder
+            {
+                HtmlBody = $@"
+                    <h1>¡Hola {nuevoUsuario.Name}!</h1>
+                    <p>Tu cuenta ha sido creada con éxito.</p>
+                    <p><strong>Contraseña temporal:</strong> {nuevoPassword}</p>
+                    <p>De momento su cuenta se encuentra inactiva, para activarlo, por favor, cambie su contraseña desde la app CODATI, en el botón 'Activar cuenta por primera vez'.</p>
+                "
+            };
+
+            var asunto = "Bienvenido a nuestro taller";
+
+            try
+            {
+                await _emailService.EnviarEmail(correo, nombre, nuevoPassword, mensaje, asunto);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error al enviar el correo de bienvenida: " + ex.Message);
+                throw new Exception($"Error: {ex}");
+            }
+        }
+
+        public async Task CrearFuncionario(string ci, string nombre, string correo, string telefono, string direccion, string rol)
+        {
+            string nuevoPassword = GenerarPassword(nombre);
+            ApplicationUser nuevoUsuario = ArmarUsuario(ci, nombre, correo, telefono, direccion, nuevoPassword);
+
+            var resultado = await _userRepository.CrearUsuario(nuevoUsuario, nuevoPassword);
+            if (!resultado.Succeeded)
+            {
+                throw new Exception("Error: " + resultado.Errors.FirstOrDefault());
+            }
+            await _userRepository.AsignarRol(nuevoUsuario, rol);
 
             var mensaje = new BodyBuilder
             {
@@ -155,6 +190,7 @@ namespace Service.Services
             {
                 foreach (var error in resultado.Errors)
                 {
+                    throw new Exception($"{error.Description}");
                     Console.WriteLine($"Error al cambiar la contrasena de la cuenta: {error.Description}");
                 }
             }
@@ -198,6 +234,26 @@ namespace Service.Services
             {
                 Console.WriteLine("Error al restablecer la contrasena: " + ex.Message);
             }
+        }
+
+        public async Task<bool> EsRolFuncionarioValido(ApplicationUser user)
+        {
+            IList<string> rolesFuncionario = await _userRepository.ObtenerRoles(user);
+
+            if (rolesFuncionario.FirstOrDefault() == "Mecanico" || rolesFuncionario.FirstOrDefault() == "Secretaria") { return true; }
+
+            return false;
+        }
+
+        public async Task<IList<string>> ObtenerRolesUsuario(ApplicationUser user)
+        {
+            return await _userRepository.ObtenerRoles(user);
+        }
+
+        public async Task CambiarRolUsuario(ApplicationUser user, string anteriorRol, string nuevoRol)
+        {
+            await _userRepository.EliminarRolUsuario(user, anteriorRol);
+            await _userRepository.AsignarRol(user, nuevoRol);
         }
     }
 }
