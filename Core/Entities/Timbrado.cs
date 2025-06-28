@@ -13,7 +13,8 @@ namespace Core.Entities
         public string? FechaFin { get; set; } = string.Empty;
         public int PuntoEstablecimiento { get; set; }
         public int PuntoExpedicion { get; set; }
-        public int NumeroSecuencial { get; set; }
+        public int NumeroSecuencialActual { get; set; }
+        public int NumeroSecuencialMaximo { get; set; }
         public string? EsHabilitado { get; set; }
         public string? TimbradoActivo { get; set; }
     }
