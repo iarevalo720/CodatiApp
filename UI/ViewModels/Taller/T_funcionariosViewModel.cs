@@ -43,7 +43,7 @@ namespace UI.ViewModels.Taller
             ListaRolesFuncionarios = new List<string>
             {
                 "Mecanico",
-                "Secretaria"
+                "Secretario"
             };
 
             BtnCrearFuncionarioVisible = DeviceInfo.Platform == DevicePlatform.WinUI;
@@ -73,17 +73,16 @@ namespace UI.ViewModels.Taller
 
 
 
-            var rolActual = (await _userService.ObtenerRolesUsuario(User)).FirstOrDefault();
+            RolFuncionarioSelected = (await _userService.ObtenerRolesUsuario(User)).FirstOrDefault();
 
-            RolFuncionarioSelected = rolActual;
-            RolActualFuncionario = rolActual;
+            RolActualFuncionario = RolFuncionarioSelected;
 
             TxtCI = User.NroDocumento;
             TxtNombre = User.Name;
             TxtCorreo = User.Email;
             TxtTelefono = User.PhoneNumber;
             TxtDireccion = User.Direccion;
-            TxtUsuarioHabilitado = User.Habilitado;
+            TxtUsuarioHabilitado = User.EsHabilitado;
             TxtUsuarioActivadoPrimeraVez = User.EsActivadoPrimeraVez;
 
             TxtCIEnabled = false;
@@ -98,7 +97,7 @@ namespace UI.ViewModels.Taller
             BtnCrearFuncionarioEnabled = false;
             BtnRestablecerContrasenaEnabled = true;
 
-            if (User.Habilitado?.ToLower() == "si")
+            if (User.EsHabilitado?.ToLower() == "si")
             {
                 TxtBtnCambiarEstadoFuncionario = "INHABILITAR";
             }
@@ -174,13 +173,13 @@ namespace UI.ViewModels.Taller
 
             try
             {
-                if (User.Habilitado == "si")
+                if (User.EsHabilitado == "si")
                 {
-                    User.Habilitado = "no";
+                    User.EsHabilitado = "no";
                 }
                 else
                 {
-                    User.Habilitado = "si";
+                    User.EsHabilitado = "si";
                 }
                 await _userService.GuardarCambiosUsuario(User);
                 await Shell.Current.DisplayAlert("Exito", "Estado del funcionario actualizado exitosamente", "OK");
