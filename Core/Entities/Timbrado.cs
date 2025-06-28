@@ -8,13 +8,13 @@ namespace Core.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string? Numero { get; set; } = string.Empty;
+        public string? NumeroTimbrado { get; set; } = string.Empty;
         public string? FechaInicio { get; set; } = string.Empty;
         public string? FechaFin { get; set; } = string.Empty;
         public int PuntoEstablecimiento { get; set; }
-        public string? PuntoExpedicion { get; set; }
+        public int PuntoExpedicion { get; set; }
         public int NumeroSecuencial { get; set; }
-        public string? Habilitado { get; set; }
+        public string? EsHabilitado { get; set; }
         public string? TimbradoActivo { get; set; }
     }
 }
