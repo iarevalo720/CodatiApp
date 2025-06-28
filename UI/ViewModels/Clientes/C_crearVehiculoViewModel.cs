@@ -2,7 +2,6 @@
 using Core.Interfaces;
 using PropertyChanged;
 using System.Diagnostics;
-using System.Windows.Input;
 
 namespace UI.ViewModels.Clientes
 {
