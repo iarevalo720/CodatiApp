@@ -87,7 +87,7 @@ namespace UI.ViewModels.Taller
             TxtCorreo = User.Email;
             TxtTelefono = User.PhoneNumber;
             TxtDireccion = User.Direccion;
-            TxtUsuarioHabilitado = User.Habilitado;
+            TxtUsuarioHabilitado = User.EsHabilitado;
             TxtUsuarioActivadoPrimeraVez = User.EsActivadoPrimeraVez;
 
             TxtCIEnabled = false;
@@ -102,7 +102,7 @@ namespace UI.ViewModels.Taller
             BtnCrearClienteEnabled = false;
             BtnRestablecerContrasenaEnabled = true;
 
-            if (User.Habilitado?.ToLower() == "si")
+            if (User.EsHabilitado?.ToLower() == "si")
             {
                 TxtBtnCambiarEstadoCliente = "INHABILITAR";
             }
@@ -152,13 +152,13 @@ namespace UI.ViewModels.Taller
 
             try
             {
-                if (User.Habilitado == "si")
+                if (User.EsHabilitado == "si")
                 {
-                    User.Habilitado = "no";
+                    User.EsHabilitado = "no";
                 }
                 else
                 {
-                    User.Habilitado = "si";
+                    User.EsHabilitado = "si";
                 }
                 await _userService.GuardarCambiosUsuario(User);
                 await Shell.Current.DisplayAlert("Exito", "Estado del usuario actualizado exitosamente", "OK");

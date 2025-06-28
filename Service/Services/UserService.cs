@@ -101,7 +101,7 @@ namespace Service.Services
             if (!esPasswordValido) throw new Exception("credenciales_invalidos");
 
             if (user.EsActivadoPrimeraVez?.ToLower() != "si") throw new Exception("usuario_no_activo");
-            if (user.Habilitado?.ToLower() != "si") throw new Exception("usuario_inhabilitado");
+            if (user.EsHabilitado?.ToLower() != "si") throw new Exception("usuario_inhabilitado");
 
             var rolesUsuario = await _userRepository.ObtenerRoles(user);
             var userSession = new UserSession(user.Id, user.Name, user.Email, rolesUsuario.First());
@@ -145,7 +145,7 @@ namespace Service.Services
                 PasswordHash = contrasena,
                 UserName = correo,
                 CreatedAt = DateTime.Now,
-                Habilitado = "no",
+                EsHabilitado = "no",
                 EsActivadoPrimeraVez = "no"
             };
         }
@@ -178,7 +178,7 @@ namespace Service.Services
             }
 
             usuario.EsActivadoPrimeraVez = "si";
-            usuario.Habilitado = "si";
+            usuario.EsHabilitado = "si";
 
             IdentityResult resultado = await _userRepository.ActualizarContrasena(usuario, codigoActivacion, contrasena);
 
@@ -240,7 +240,7 @@ namespace Service.Services
         {
             IList<string> rolesFuncionario = await _userRepository.ObtenerRoles(user);
 
-            if (rolesFuncionario.FirstOrDefault() == "Mecanico" || rolesFuncionario.FirstOrDefault() == "Secretaria") { return true; }
+            if (rolesFuncionario.FirstOrDefault() == "Mecanico" || rolesFuncionario.FirstOrDefault() == "Secretario") { return true; }
 
             return false;
         }
