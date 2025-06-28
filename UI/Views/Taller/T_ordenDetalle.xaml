@@ -67,6 +67,7 @@
                                     Grid.RowSpan="2"
                                     Grid.Column="1"
                                     Text="GESTIONAR"
+                                    IsEnabled="{Binding BindingContext.btnIrGestionarOrdenDetalleEnabled, Source={RelativeSource AncestorType={x:Type ContentPage}}}"
                                     Clicked="btnIrGestionordenDetalle"
                                     VerticalOptions="Center"/>
                             <Frame Grid.Row="3"

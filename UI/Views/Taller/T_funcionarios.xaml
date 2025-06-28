@@ -51,6 +51,7 @@
                     <Entry Text="{Binding TxtDireccion}"/>
 
                     <Picker Title="Rol del funcionario"
+                            x:Name="pickerRoles"
                             ItemsSource="{Binding ListaRolesFuncionarios}"
                             SelectedItem="{Binding RolFuncionarioSelected}"/>
 

@@ -56,11 +56,11 @@
                     IsVisible="{Binding btnVehiculosVisible}"
                     Clicked="BtnIrVehiculos"/>
 
-            <Button Text="Categorias"
+            <Button Text="Categorias de las órdenes"
                     IsVisible="{Binding btnCategoriaVisible}"
                     Clicked="BtnIrCategorias"/>
 
-            <Button Text="Marcas"
+            <Button Text="Marcas de vehículos"
                     IsVisible="{Binding btnMarcasVisible}"
                     Clicked="BtnIrMarcas"/>
             

@@ -1,6 +1,7 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
 using PropertyChanged;
+using System.Runtime.CompilerServices;
 using UI.Views.Taller;
 
 namespace UI.ViewModels.Taller
@@ -18,6 +19,7 @@ namespace UI.ViewModels.Taller
         public bool BtnCancelarOrdenEnabled { get; set; }
         public bool BtnCrearComprobanteVisible { get; set; }
         public bool btnCambiarEstadoOrdenCabeceraEnabled { get; set; }
+        public bool btnIrGestionarOrdenDetalleEnabled { get; set; }
         public List<string> EstadoDisponibles => ListaEstadosOrdenDTO.ListaEstados;
 
         //COMANDOS
@@ -32,6 +34,8 @@ namespace UI.ViewModels.Taller
 
         public async Task CargarOrdenCompletoAsync(int ordenId)
         {
+            RestringirAccesos();
+
             var listaOrdenCompleto = await _ordenService.ObtenerOrdenCompleto(ordenId);
             OrdenCompleto = listaOrdenCompleto;
             EstadoActual = OrdenCompleto.EstadoOrden;
@@ -139,6 +143,22 @@ namespace UI.ViewModels.Taller
             }
 
             return true;
+        }
+
+        private async void RestringirAccesos()
+        {
+            string rol = await SecureStorage.GetAsync("rol");
+
+            if (rol != "Mecanico")
+            {
+                btnCambiarEstadoOrdenCabeceraEnabled = false;
+                btnIrGestionarOrdenDetalleEnabled = false;
+            }
+            else
+            {
+                btnCambiarEstadoOrdenCabeceraEnabled = true;
+                btnIrGestionarOrdenDetalleEnabled = true;
+            }
         }
     }
 }

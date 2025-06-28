@@ -51,7 +51,8 @@ namespace Service.Services
                 Kilometraje = vehiculoInsert.Kilometraje,
                 ModeloVehiculoId = vehiculoInsert.ModeloVehiculo.Id,
                 FechaAlta = DateTime.Now.ToString("dd/MM/yyyy"),
-                UserId = userId
+                UserId = userId,
+                Habilitado = vehiculoInsert.Habilitado
             };
         }
 
