@@ -24,7 +24,7 @@ public partial class Login : ContentPage
 
             switch (rol)
             {
-                case "admin":
+                case "Admin":
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 
@@ -32,7 +32,7 @@ public partial class Login : ContentPage
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 
-                case "Secretaria":
+                case "Secretario":
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 

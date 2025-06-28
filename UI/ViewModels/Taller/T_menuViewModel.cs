@@ -36,7 +36,7 @@ namespace UI.ViewModels.Taller
                     btnMarcasVisible = false;
                     break;
 
-                case "Secretaria":
+                case "Secretario":
                     btnOrdenesVisible = true;
                     btnClientesVisible = true;
                     btnVehiculosVisible = true;
