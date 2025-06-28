@@ -40,8 +40,12 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Padding="10" BackgroundColor="#333">
-                        <Label Text="{Binding FechaCompleta}"
+                        <HorizontalStackLayout Spacing="5">
+                            <Label Text="{Binding Fecha}"
                                    TextColor="#aaa"/>
+                            <Label Text="{Binding Hora}"
+                                   TextColor="#aaa"/>
+                        </HorizontalStackLayout>
                         <Label Text="{Binding Descripcion}"/>
                     </StackLayout>
                 </DataTemplate>

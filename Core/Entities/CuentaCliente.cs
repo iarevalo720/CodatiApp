@@ -9,7 +9,7 @@ namespace Core.Entities
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         [MaxLength(1)]
-        public string EsAlias { get; set; } = string.Empty;
+        public string? EsAlias { get; set; } = string.Empty;
         public int? AliasId { get; set; }
         public int? CuentaId { get; set; }
         public virtual ApplicationUser? User { get; set; }

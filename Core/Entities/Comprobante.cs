@@ -8,9 +8,9 @@ namespace Core.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string FechaEmision { get; set; } = string.Empty;
-        public string Ruc { get; set; } = string.Empty;
-        public string NumeroComprobante { get; set; } = string.Empty;
+        public string? FechaEmision { get; set; } = string.Empty;
+        public string? Ruc { get; set; } = string.Empty;
+        public string? NumeroComprobante { get; set; } = string.Empty;
         public int MontoTotal { get; set; }
         public int TimbradoId { get; set; }
         public int OrdenId { get; set; }

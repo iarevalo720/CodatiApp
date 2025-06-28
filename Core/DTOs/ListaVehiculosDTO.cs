@@ -2,7 +2,7 @@
 {
     public class ListaVehiculosDTO
     {
-        public string Id { get; set; }
-        public string ContenidoVehiculo { get; set; }
+        public string? Id { get; set; }
+        public string? ContenidoVehiculo { get; set; }
     }
 }

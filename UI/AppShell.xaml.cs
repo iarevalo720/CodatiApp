@@ -1,4 +1,5 @@
 ﻿using UI.Views.Clientes;
+using UI.Views.Inicio;
 using UI.Views.Taller;
 
 namespace UI
@@ -9,6 +10,7 @@ namespace UI
         {
             InitializeComponent();
 
+            Routing.RegisterRoute(nameof(ActivarCuenta), typeof(ActivarCuenta));
             Routing.RegisterRoute(nameof(T_menu), typeof(T_menu));
             Routing.RegisterRoute(nameof(T_ordenes), typeof(T_ordenes));
             Routing.RegisterRoute(nameof(T_ordenDetalle), typeof(T_ordenDetalle));
@@ -20,6 +22,8 @@ namespace UI
             Routing.RegisterRoute(nameof(T_servicios), typeof(T_servicios));
             Routing.RegisterRoute(nameof(T_marcas), typeof(T_marcas));
             Routing.RegisterRoute(nameof(T_modelos), typeof(T_modelos));
+            Routing.RegisterRoute(nameof(T_timbrado), typeof(T_timbrado));
+            Routing.RegisterRoute(nameof(T_funcionarios), typeof(T_funcionarios));
 
             Routing.RegisterRoute(nameof(C_menu), typeof(C_menu));
             Routing.RegisterRoute(nameof(C_acercaDe), typeof(C_acercaDe));

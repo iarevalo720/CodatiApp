@@ -24,12 +24,14 @@ namespace Service.Services
         }
         public Task<IEnumerable<MarcaVehiculo>> ObtenerMarcas()
         {
-            return _vehiculoRepository.ObtenerMarcas();
+            var marcas = _vehiculoRepository.ObtenerMarcas();
+            return marcas;
         }
 
         public Task<IEnumerable<ModeloVehiculo>> ObtenerModelosPorMarca(int idMarca)
         {
-            return _vehiculoRepository.ObtenerModelosPorMarca(idMarca);
+            var modelos = _vehiculoRepository.ObtenerModelosPorMarca(idMarca);
+            return modelos;
         }
 
         public async Task CrearVehiculo(Vehiculo vehiculoInsert, string userId)
@@ -47,9 +49,10 @@ namespace Service.Services
                 Anio = vehiculoInsert.Anio,
                 Transmision = vehiculoInsert.Transmision,
                 Kilometraje = vehiculoInsert.Kilometraje,
-                ModeloVehiculoId = vehiculoInsert.ModeloVehiculo.ModeloVehiculoId,
+                ModeloVehiculoId = vehiculoInsert.ModeloVehiculo.Id,
                 FechaAlta = DateTime.Now.ToString("dd/MM/yyyy"),
-                UserId = userId
+                UserId = userId,
+                Habilitado = vehiculoInsert.Habilitado
             };
         }
 
@@ -63,7 +66,7 @@ namespace Service.Services
             return await _vehiculoRepository.GetCategoria();
         }
 
-        public async Task<IEnumerable<SubCategoriaDTO>> GetSubCategoria(int idCategoria)
+        public async Task<IEnumerable<SubCategoria>> GetSubCategoria(int idCategoria)
         {
             return await _vehiculoRepository.GetSubCategoria(idCategoria);
         }
@@ -126,6 +129,36 @@ namespace Service.Services
         public async Task<IEnumerable<ModeloVehiculo>> ObtenerModelosHabilitadosPorMarca(int idMarca)
         {
             return await _vehiculoRepository.ObtenerModelosHabilitadosPorMarca(idMarca);
+        }
+
+        public async Task<IEnumerable<Categoria>> GetCategoriasHabilitadas()
+        {
+            return await _vehiculoRepository.GetCategoriasHabilitadas();
+        }
+
+        public async Task<IEnumerable<SubCategoriaDTO>> GetSubCategoriasHabilitadas(int idCategoria)
+        {
+            return await _vehiculoRepository.GetSubCategoriasHabilitadas(idCategoria);
+        }
+
+        public async Task ActualizarVehiculo(Vehiculo vehiculo)
+        {
+            await _vehiculoRepository.ActualizarVehiculo(vehiculo);
+        }
+
+        public async Task<IEnumerable<VehiculoDTO?>> ObtenerVehiculosDTOHabilitados(string userId)
+        {
+            return await _vehiculoRepository.ObtenerVehiculosDTOHabilitados(userId);
+        }
+
+        public async Task<VehiculoDTO?> ObtenerVehiculosDTOById(int id)
+        {
+            return await _vehiculoRepository.ObtenerVehiculoDTOById(id);
+        }
+
+        public async Task<int> ObtenerMarcaIdByModeloId(int modeloId)
+        {
+            return await _vehiculoRepository.ObtenerIdMarcaByModeloId(modeloId);
         }
     }
 }

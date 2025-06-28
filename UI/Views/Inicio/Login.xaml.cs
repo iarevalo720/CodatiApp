@@ -24,15 +24,15 @@ public partial class Login : ContentPage
 
             switch (rol)
             {
-                case "admin":
+                case "Admin":
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 
-                case "mecanico":
+                case "Mecanico":
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 
-                case "Secretaria":
+                case "Secretario":
                     await Shell.Current.GoToAsync($"{nameof(T_menu)}");
                     break;
 
@@ -47,10 +47,28 @@ public partial class Login : ContentPage
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "El usuario está inhabilitado, por favor contactese con el taller", "OK");
             }
+            else if (ex.Message == "usuario_no_activo")
+            {
+                await Application.Current.MainPage.DisplayAlert("Informacion", "La cuenta no está activa, por favor active su cuenta", "OK");
+            }
+            else if (ex.Message == "campos_vacios")
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Email/contraseña vacia", "OK");
+            }
+            else if (ex.Message == "credenciales_invalidos" || ex.Message == "usuario_no_encontrado")
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Email/contraseña invalidos", "OK");
+            }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", $"Ha ocurrido un error, por favor intentelo más tarde: {ex.Message}", "OK");
+                Console.WriteLine($"Error {ex.Message}");
             }
         }
+    }
+
+    private async void BtnActivarCuenta(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(ActivarCuenta)}");
     }
 }

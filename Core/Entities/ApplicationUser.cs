@@ -6,7 +6,8 @@ namespace Core.Entities
     public class ApplicationUser : IdentityUser
     {
         public string? Name { get; set; }
-        public string? Habilitado { get; set; }
+        public string? EsHabilitado { get; set; }
+        public string? EsActivadoPrimeraVez { get; set; }
         public string? NroDocumento { get; set; }
         public string? Direccion { get; set; }
         [Column(TypeName = "timestamp without time zone")]

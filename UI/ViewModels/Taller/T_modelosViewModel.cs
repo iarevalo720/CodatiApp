@@ -25,7 +25,7 @@ namespace UI.ViewModels.Taller
             string respuesta = await Shell.Current.DisplayPromptAsync("Renombrar modelo", "Desea renombrar el modelo del vehiculo? Asigne su nuevo nombre", "Renombrar", "Cancelar");
             if (!string.IsNullOrWhiteSpace(respuesta))
             {
-                ModeloVehiculo? modeloVehiculo = ListaModelos.FirstOrDefault(x => x.ModeloVehiculoId == modeloId);
+                ModeloVehiculo? modeloVehiculo = ListaModelos.FirstOrDefault(x => x.Id == modeloId);
                 if (modeloVehiculo == null)
                 {
                     await Shell.Current.DisplayAlert("Error", "No se ha podido obtener el modelo del vehiculo", "OK");
@@ -38,7 +38,7 @@ namespace UI.ViewModels.Taller
 
         public async Task CambiarEstadoModelo(int modeloId)
         {
-            ModeloVehiculo? modeloVehiculo = ListaModelos.FirstOrDefault(x => x.ModeloVehiculoId == modeloId);
+            ModeloVehiculo? modeloVehiculo = ListaModelos.FirstOrDefault(x => x.Id == modeloId);
 
             if (modeloVehiculo == null)
             {

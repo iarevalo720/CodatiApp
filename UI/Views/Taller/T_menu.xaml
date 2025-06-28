@@ -41,7 +41,7 @@
                     ZIndex="2"/>
             </Grid>
 
-            <Label Text="Referenciales"
+            <Label Text="Gestiones"
                    FontSize="Medium"/>
 
             <Button Text="Ordenes"
@@ -56,17 +56,20 @@
                     IsVisible="{Binding btnVehiculosVisible}"
                     Clicked="BtnIrVehiculos"/>
 
-            <Button Text="Funcionarios"
-                    IsVisible="{Binding btnFuncionariosVisible}"
-                    IsEnabled="False"/>
-
-            <Button Text="Categorias"
+            <Button Text="Categorias de las órdenes"
                     IsVisible="{Binding btnCategoriaVisible}"
                     Clicked="BtnIrCategorias"/>
 
-            <Button Text="Marcas"
+            <Button Text="Marcas de vehículos"
                     IsVisible="{Binding btnMarcasVisible}"
                     Clicked="BtnIrMarcas"/>
+            
+            <Button Text="Funcionarios"
+                    IsVisible="{Binding btnFuncionariosVisible}"
+                    Clicked="BtnIrFuncionarios"/>
+            
+            <Button Text="Timbrados"
+                    IsEnabled="false"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="UI.Views.Taller.T_cliente"
-             Title="Ver Cliente">
+             x:Class="UI.Views.Taller.T_funcionarios"
+             Title="T_funcionarios">
     <Grid
         ColumnDefinitions="*"
         RowDefinitions="*, 220"
@@ -22,7 +22,7 @@
                         IsEnabled="{Binding TxtCIEnabled}"/>
                     <Button 
                         Text="Buscar"
-                        Clicked="BtnBuscarCliente"
+                        Clicked="BtnBuscarFuncionario"
                         WidthRequest="80"
                         HeightRequest="43"
                         VerticalOptions="Center"
@@ -50,6 +50,11 @@
                     <Label Text="Direccion"/>
                     <Entry Text="{Binding TxtDireccion}"/>
 
+                    <Picker Title="Rol del funcionario"
+                            x:Name="pickerRoles"
+                            ItemsSource="{Binding ListaRolesFuncionarios}"
+                            SelectedItem="{Binding RolFuncionarioSelected}"/>
+
                     <Label Text="Usuario Habilitado:"/>
                     <Label Text="{Binding TxtUsuarioHabilitado}"/>
 
@@ -63,10 +68,10 @@
             Grid.Row="1"
             VerticalOptions="End"
             Spacing="10">
-            <Button Text="CREAR CLIENTE"
-                    IsEnabled="{Binding BtnCrearClienteEnabled}"
-                    IsVisible="{Binding BtnCrearClienteVisible}"
-                    Clicked="BtnCrearCliente"/>
+            <Button Text="CREAR FUNCIONARIO"
+                    IsEnabled="{Binding BtnCrearFuncionarioEnabled}"
+                    IsVisible="{Binding BtnCrearFuncionarioVisible}"
+                    Clicked="BtnCrearFuncionario"/>
             <Button Text="RESTABLECER CONTRASEÑA"
                     Clicked="BtnRestablecerContrasena"
                     IsEnabled="{Binding BtnRestablecerContrasenaEnabled}"
@@ -74,9 +79,9 @@
             <Button Text="MODIFICAR"
                     IsEnabled="{Binding BtnModificarEnabled}"
                     Clicked="BtnGuardarCambiosUsuario"/>
-            <Button Text="{Binding TxtBtnCambiarEstadoCliente}"
+            <Button Text="{Binding TxtBtnCambiarEstadoFuncionario}"
                     IsEnabled="{Binding BtnInhabilitarEnabled}"
-                    Clicked="BtnCambiarEstadoCliente"/>
+                    Clicked="BtnCambiarEstadoFuncionario"/>
         </VerticalStackLayout>
     </Grid>
 </ContentPage>

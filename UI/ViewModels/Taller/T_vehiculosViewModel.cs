@@ -53,5 +53,40 @@ namespace UI.ViewModels.Taller
                 throw;
             }
         }
+
+        public async Task CambiarEstadoVehiculo(int vehiculoId)
+        {
+            try
+            {
+                bool confirmar = await Shell.Current.DisplayAlert("Confirmación", "¿Está seguro de que desea cambiar el estado del vehiculo?", "Sí", "No");
+                if (!confirmar) return;
+
+                Vehiculo vehiculo = await _vehiculoService.ObtenerVehiculoPorId(vehiculoId);
+
+                if (vehiculo == null)
+                {
+                    await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo mas tarde", "OK");
+                    return;
+                }
+
+                if (vehiculo.Habilitado.ToLower() == "si")
+                {
+                    vehiculo.Habilitado = "no";
+                }
+                else
+                {
+                    vehiculo.Habilitado = "si";
+                }
+
+                await _vehiculoService.ActualizarVehiculo(vehiculo);
+                await Shell.Current.DisplayAlert("Exito", "Se ha modificado el estado del vehiculo", "OK");
+                await BtnBuscarVehiculo();
+            }
+            catch (Exception)
+            {
+                await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo mas tarde", "OK");
+                return;
+            }
+        }
     }
 }

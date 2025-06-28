@@ -12,6 +12,7 @@ using UI.Views.Inicio;
 using UI.Views.Taller;
 using UI.Views.Clientes;
 using UI.ViewModels.Clientes;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace UI
 {
@@ -31,15 +32,7 @@ namespace UI
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                //var connectionString = "Host=localhost;Database=db_taller;Username=postgres;Password=258364";
-                var connectionString =
-                  "Host=dpg-d079j3s9c44c739qa7hg-a.oregon-postgres.render.com;"
-                + "Port=5432;"
-                + "Database=test_database_xmim;"
-                + "Username=root;"
-                + "Password=mdfuf1KnBFTrCRaKaQpG3oLRb5YK4TX3;"
-                + "SSL Mode=Require;"
-                + "Trust Server Certificate=true;";
+                var connectionString = "Host=localhost;Database=db_codati;Username=postgres;Password=258364";
 
                 options.UseNpgsql(connectionString, npgsqlOptions =>
                 {
@@ -47,22 +40,24 @@ namespace UI
                 });
             });
 
-            //Add identity
-            //builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddSignInManager()
-            //    .AddRoles<IdentityRole>();
+            string keysDirectory = Path.Combine(FileSystem.AppDataDirectory, "dataprotection_keys");
+            builder.Services.AddDataProtection()
+                .PersistKeysToFileSystem(new DirectoryInfo(keysDirectory))
+                .SetApplicationName("CodatiApp");
 
             builder.Services.AddIdentityCore<ApplicationUser>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredUniqueChars = 0;
             }).AddRoles<IdentityRole>()
-              .AddEntityFrameworkStores<AppDbContext>();
+              .AddEntityFrameworkStores<AppDbContext>()
+              .AddDefaultTokenProviders();
 
             //Views
             builder.Services.AddTransient<Login>();
+            builder.Services.AddTransient<ActivarCuenta>();
             builder.Services.AddTransient<T_menu>();
             builder.Services.AddTransient<T_ordenes>();
             builder.Services.AddTransient<T_ordenDetalle>();
@@ -74,6 +69,8 @@ namespace UI
             builder.Services.AddTransient<T_servicios>();
             builder.Services.AddTransient<T_marcas>();
             builder.Services.AddTransient<T_modelos>();
+            builder.Services.AddTransient<T_timbrado>();
+            builder.Services.AddTransient<T_funcionarios>();
 
             builder.Services.AddTransient<C_menu>();
             builder.Services.AddTransient<C_acercaDe>();
@@ -83,6 +80,7 @@ namespace UI
 
             //ViewModels
             builder.Services.AddTransient<LoginViewModel>();
+            builder.Services.AddTransient<ActivarCuentaViewModel>();
             builder.Services.AddTransient<T_menuViewModel>();
             builder.Services.AddTransient<T_ordenesViewModel>();
             builder.Services.AddTransient<T_ordenDetalleViewModel>();
@@ -98,6 +96,8 @@ namespace UI
             builder.Services.AddTransient<T_serviciosViewModel>();
             builder.Services.AddTransient<T_marcasViewModel>();
             builder.Services.AddTransient<T_modelosViewModel>();
+            builder.Services.AddTransient<T_timbradoViewModel>();
+            builder.Services.AddTransient<T_funcionariosViewModel>();
 
             //Services & Repositories
             builder.Services.AddScoped<IUserService, UserService>();
@@ -106,6 +106,7 @@ namespace UI
             builder.Services.AddScoped<IOrderRepository, OrderRepository>();
             builder.Services.AddScoped<IVehiculoService, VehiculoService>();
             builder.Services.AddScoped<IVehiculoRepository, VehiculoRepository>();
+            builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 #if DEBUG

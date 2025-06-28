@@ -9,9 +9,10 @@ namespace UI.ViewModels.Taller
         private readonly IOrderService _orderService;
         public bool btnOrdenesVisible { get; set; }
         public bool btnClientesVisible { get; set; }
-        public bool btnFuncionariosVisible { get; set; }
+        public bool btnVehiculosVisible { get; set; }
         public bool btnCategoriaVisible { get; set; }
         public bool btnMarcasVisible { get; set; }
+        public bool btnFuncionariosVisible { get; set; }
         public string? TxtOrdenesAVerificar { get; set; }
 
         public T_menuViewModel(IOrderService orderService)
@@ -26,18 +27,20 @@ namespace UI.ViewModels.Taller
             var rol = await SecureStorage.GetAsync("rol");
             switch (rol)
             {
-                case "mecanico":
+                case "Mecanico":
                     btnOrdenesVisible = true;
                     btnClientesVisible = false;
+                    btnVehiculosVisible = false;
                     btnFuncionariosVisible = false;
                     btnCategoriaVisible = false;
                     btnMarcasVisible = false;
                     break;
 
-                case "Secretaria":
+                case "Secretario":
                     btnOrdenesVisible = true;
                     btnClientesVisible = true;
-                    btnFuncionariosVisible = false;
+                    btnVehiculosVisible = true;
+                    btnFuncionariosVisible = true;
                     btnCategoriaVisible = true;
                     btnMarcasVisible = true;
                     break;
@@ -45,6 +48,7 @@ namespace UI.ViewModels.Taller
                 case "admin":
                     btnOrdenesVisible = true;
                     btnClientesVisible = true;
+                    btnVehiculosVisible = true;
                     btnFuncionariosVisible = true;
                     btnCategoriaVisible = true;
                     btnMarcasVisible = true;

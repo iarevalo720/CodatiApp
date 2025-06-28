@@ -34,4 +34,10 @@ public partial class T_vehiculos : ContentPage
         VerticalStackLayout verticalStackLayout = (VerticalStackLayout)((Button)sender).Parent;
         return int.Parse(((Label)verticalStackLayout.Children.FirstOrDefault()).Text.Substring(1));
     }
+
+    private async void BtnCambiarEstadoVehiculo(object sender, EventArgs e)
+    {
+        int vehiculoId = ObtenerNroOrden(sender);
+        await _viewModel.CambiarEstadoVehiculo(vehiculoId);
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
-using System.Windows.Input;
 
 namespace UI.ViewModels.Inicio
 {
@@ -13,10 +12,6 @@ namespace UI.ViewModels.Inicio
         public string? Contrasena { get; set; }
         #endregion
 
-        #region COMANDOS
-        public ICommand LoginCommand { get; }
-        #endregion
-
         public LoginViewModel(IUserService service)
         {
             _service = service;
@@ -24,15 +19,16 @@ namespace UI.ViewModels.Inicio
 
         public async Task Login()
         {
-
             if (string.IsNullOrWhiteSpace(Correo) || string.IsNullOrWhiteSpace(Contrasena))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Email/contraseña vacia", "OK");
-                return;
+                throw new Exception("campos_vacios");
             }
 
-                UserSession user = await _service.Login(Correo, Contrasena);
-                await GuardarCredenciales(user);
+            UserSession user = await _service.Login(Correo, Contrasena);
+            await GuardarCredenciales(user);
+
+            Correo = string.Empty;
+            Contrasena = string.Empty;
         }
 
         public async Task GuardarCredenciales(UserSession user)

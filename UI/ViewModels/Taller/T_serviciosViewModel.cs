@@ -23,7 +23,7 @@ namespace UI.ViewModels.Taller
 
         public async Task CambiarEstadoServicio(int servicioId)
         {
-            SubCategoria? subCategoria = ListaServicios.FirstOrDefault(x => x.SubCategoriaId == servicioId);
+            SubCategoria? subCategoria = ListaServicios.FirstOrDefault(x => x.Id == servicioId);
 
             if (subCategoria == null)
             {
@@ -41,7 +41,7 @@ namespace UI.ViewModels.Taller
             string respuesta = await Shell.Current.DisplayPromptAsync("Renombrar servicio", "Desea renombrar el servicio? Asigne su nuevo nombre", "Renombrar", "Cancelar");
             if (!string.IsNullOrWhiteSpace(respuesta))
             {
-                SubCategoria? subCategoria = ListaServicios.FirstOrDefault(x => x.SubCategoriaId == servicioId);
+                SubCategoria? subCategoria = ListaServicios.FirstOrDefault(x => x.Id == servicioId);
                 if (subCategoria == null)
                 {
                     await Shell.Current.DisplayAlert("Error", "No se ha podido obtener el servicio", "OK");

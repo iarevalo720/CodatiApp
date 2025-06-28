@@ -7,7 +7,7 @@ namespace Core.Entities
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ModeloVehiculoId { get; set; }
+        public int Id { get; set; }
         public string? Nombre { get; set; }
         public int MarcaVehiculoId { get; set; }
 

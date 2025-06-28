@@ -43,13 +43,13 @@ namespace UI.ViewModels.Clientes
         {
             string idUsuario = await SecureStorage.GetAsync("id");
             VehiculosDTO = await _vehiculoService.ObtenerVehiculosDTO(idUsuario);
-            Categorias = await _vehiculoService.GetCategoria();
+            Categorias = await _vehiculoService.GetCategoriasHabilitadas();
             ListadoVehiculos = ListarVehiculos();
         }
 
         public async Task CargarSubCategorias()
         {
-            SubCategorias = await _vehiculoService.GetSubCategoria(SelectedCategoria.CategoriaId);
+            SubCategorias = await _vehiculoService.GetSubCategoriasHabilitadas(SelectedCategoria.CategoriaId);
         }
         public List<ListaVehiculosDTO> ListarVehiculos()
         {
@@ -60,7 +60,7 @@ namespace UI.ViewModels.Clientes
                 listadoVehiculos.Add(
                     new ListaVehiculosDTO
                     {
-                        Id = vehiculo.VehiculoId.ToString(),
+                        Id = vehiculo.Id.ToString(),
                         ContenidoVehiculo = $"{vehiculo.MarcaVehiculoNombre} {vehiculo.ModeloVehiculoNombre} | {vehiculo.Matricula.ToString()} | {vehiculo.Color}"                            
                     }
                 );

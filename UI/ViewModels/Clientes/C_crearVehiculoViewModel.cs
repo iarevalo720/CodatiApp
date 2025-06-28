@@ -2,40 +2,23 @@
 using Core.Interfaces;
 using PropertyChanged;
 using System.Diagnostics;
-using System.Windows.Input;
 
 namespace UI.ViewModels.Clientes
 {
     [AddINotifyPropertyChangedInterface]
     public class C_crearVehiculoViewModel
     {
-        #region COMANDOS
-        public ICommand GuardarVehiculoCommand { get; }
-        public ICommand ObtenerModelosPorMarcaCommander { get; }
-        #endregion
-
         #region PROPIEDADES
+        private readonly IVehiculoService _vehiculoService;
         public Vehiculo Vehiculo { get; set; } = new Vehiculo();
         public List<MarcaVehiculo> Marcas { get; set; } = new List<MarcaVehiculo>();
         public List<ModeloVehiculo> Modelos { get; set; } = new List<ModeloVehiculo>();
         public List<string> Transmision { get; set; } = new List<string>();
         public string CurrentTransmion { get; set; }
-        public MarcaVehiculo SelectedMarca
-        {
-            get => _selectedMarca;
-            set
-            {
-                if (_selectedMarca != value)
-                {
-                    _selectedMarca = value;
-                    ObtenerModelosPorMarcaCommander.Execute(null);
-                }
-            }
-        }
+        public MarcaVehiculo SelectedMarca { get; set; }
+        public ModeloVehiculo SelectedModelo { get; set; }
         #endregion
 
-        private readonly IVehiculoService _vehiculoService;
-        private MarcaVehiculo _selectedMarca;
 
         public C_crearVehiculoViewModel(IVehiculoService vehiculoService)
         {
@@ -44,19 +27,14 @@ namespace UI.ViewModels.Clientes
             Transmision = new List<string> { "AUTOMATICO", "MANUAL" };
             CurrentTransmion = Transmision.FirstOrDefault();
 
-            GuardarVehiculoCommand = new Command(async () => await GuardarVehiculo());
-            ObtenerModelosPorMarcaCommander = new Command(() => ObtenerModelosPorMarca());
             CargarMarcas();
         }
 
-        public void ObtenerModelosPorMarca()
-        {
-            CargarModelosPorMarca(SelectedMarca.MarcaVehiculoId);
-        }
 
-        private async Task CargarModelosPorMarca(int? marcaId)
+        public async Task CargarModelosPorMarca()
         {
-            if (marcaId.HasValue) Modelos = (await _vehiculoService.ObtenerModelosHabilitadosPorMarca(marcaId.Value)).ToList();
+            SelectedModelo = new ModeloVehiculo();
+            Modelos = (await _vehiculoService.ObtenerModelosHabilitadosPorMarca(SelectedMarca.Id)).ToList();
         }
 
         private async void CargarMarcas()
@@ -64,14 +42,24 @@ namespace UI.ViewModels.Clientes
             Marcas = (await _vehiculoService.ObtenerMarcasHabilitadas()).ToList();
         }
 
-        private async Task GuardarVehiculo()
+        public async Task GuardarVehiculo()
         {
             try
             {
+                if (!SonCamposValidos())
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "Por favor, complete todos campos primero", "OK");
+                    return;
+                }
+
                 string userId = await SecureStorage.GetAsync("id");
                 Vehiculo.Transmision = CurrentTransmion;
+                Vehiculo.ModeloVehiculo = SelectedModelo;
+                Vehiculo.ModeloVehiculoId = SelectedModelo.Id;
+                Vehiculo.Habilitado = "si";
+
                 await _vehiculoService.CrearVehiculo(Vehiculo, userId);
-                await Application.Current.MainPage.DisplayAlert("Éxito", "Vehículo creado exitosamente", "OK");
+                await Application.Current.MainPage.DisplayAlert("Éxito", "Vehículo registrado exitosamente", "OK");
                 await Shell.Current.GoToAsync("..");
             }
             catch (Exception ex)
@@ -79,6 +67,21 @@ namespace UI.ViewModels.Clientes
                 Debug.WriteLine(ex);
                 await Application.Current.MainPage.DisplayAlert("Error", "Ocurrio un error, intentelo más tarde", "OK");
             };
+        }
+
+        private bool SonCamposValidos()
+        {
+            if (string.IsNullOrWhiteSpace(Vehiculo.Matricula) ||
+                string.IsNullOrWhiteSpace(Vehiculo.Anio) ||
+                string.IsNullOrWhiteSpace(Vehiculo.Color) ||
+                string.IsNullOrWhiteSpace(Vehiculo.Kilometraje) ||
+                string.IsNullOrWhiteSpace(CurrentTransmion) ||
+                SelectedMarca == null ||
+                SelectedModelo == null)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

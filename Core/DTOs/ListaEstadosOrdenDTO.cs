@@ -7,8 +7,7 @@
             "EN_PROCESO",
             "EN_PAUSA",
             "EN_COLA",
-            "ESPERANDO_VEHICULO",
-            "FINALIZADO"
+            "ESPERANDO_VEHICULO"
         };
     }
 }

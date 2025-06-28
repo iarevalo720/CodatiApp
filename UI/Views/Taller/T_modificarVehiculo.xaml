@@ -9,16 +9,17 @@
         <Picker Title="Selecciona la marca"
                 ItemsSource="{Binding Marcas}"
                 ItemDisplayBinding="{Binding Nombre}"
-                SelectedItem="{Binding SelectedMarca}"/>
+                SelectedItem="{Binding MarcaSelected}"
+                SelectedIndexChanged="PickerMarca_SelectedIndexChanged"/>
 
         <Picker Title="Seleccionar Modelo"
                 ItemsSource="{Binding Modelos}"
                 ItemDisplayBinding="{Binding Nombre}"
-                SelectedItem="{Binding Vehiculo.ModeloVehiculo}"/>
+                SelectedItem="{Binding ModeloSelected}"/>
 
         <Picker Title="Seleccionar Transmision"
-                ItemsSource="{Binding Transmision}"
-                SelectedItem="{Binding CurrentTransmion}"/>
+                ItemsSource="{Binding ListaTransmision}"
+                SelectedItem="{Binding TransmisionSelected}"/>
 
         <Entry Placeholder="Matricula"
                Text="{Binding Vehiculo.Matricula}"
@@ -43,7 +44,7 @@
                x:Name="txtKilometraje"/>
 
 
-        <Button Command="{Binding GuardarVehiculoCommand}"
+        <Button Clicked="BtnGuardarVehiculoClicked"
                 Text="Modificar"/>
     </VerticalStackLayout>
 </ContentPage>

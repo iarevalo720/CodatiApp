@@ -13,7 +13,6 @@ public partial class T_gestionOrdenDetalle : ContentPage
         InitializeComponent();
         _t_gestionOrdenDetalleViewModel = gestionOrdenDetalleViewModel;
         BindingContext = _t_gestionOrdenDetalleViewModel;
-        // Fix: Await the asynchronous method to ensure proper execution flow
     }
 
     protected override async void OnAppearing()

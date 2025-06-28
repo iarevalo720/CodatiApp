@@ -13,9 +13,9 @@ public partial class T_cliente : ContentPage
 		BindingContext = _viewModel;
 	}
 
-    private void BtnBuscarCliente(object sender, EventArgs e)
+    private async void BtnBuscarCliente(object sender, EventArgs e)
     {
-		_viewModel.ObtenerUsuario(_viewModel.TxtCI);
+		await _viewModel.ObtenerUsuario();
     }
 
     private void BtnLimpiarCampos(object sender, EventArgs e)
@@ -31,5 +31,15 @@ public partial class T_cliente : ContentPage
     private async void BtnCambiarEstadoCliente(object sender, EventArgs e)
     {
         await _viewModel.CambiarEstadoCliente();
+    }
+
+    private async void BtnCrearCliente(object sender, EventArgs e)
+    {
+        await _viewModel.CrearCliente();
+    }
+
+    private async void BtnRestablecerContrasena(object sender, EventArgs e)
+    {
+        await _viewModel.RestablecerContrasena();
     }
 }

@@ -6,15 +6,21 @@ namespace Core.Interfaces
     public interface IVehiculoRepository
     {
         public Task<IEnumerable<VehiculoDTO?>> ObtenerVehiculosDTO(string userId);
+        public Task<VehiculoDTO?> ObtenerVehiculoDTOById(int id);
+        public Task<int> ObtenerIdMarcaByModeloId(int idModelo);
+        public Task<IEnumerable<VehiculoDTO?>> ObtenerVehiculosDTOHabilitados(string userId);
         public Task<IEnumerable<Vehiculo>> ObtenerVehiculos(string userId);
         public Task<Vehiculo> ObtenerVehiculoPorId(int id);
         public Task<IEnumerable<MarcaVehiculo>> ObtenerMarcasHabilitadas();
         public Task<IEnumerable<MarcaVehiculo>> ObtenerMarcas();
         public Task<IEnumerable<ModeloVehiculo>> ObtenerModelosPorMarca(int idMarca);
         public Task<IEnumerable<ModeloVehiculo>> ObtenerModelosHabilitadosPorMarca(int idMarca);
+        public Task ActualizarVehiculo(Vehiculo vehiculo);
         public Task AddVehiculo(Vehiculo vehiculo);
         public Task<IEnumerable<Categoria>> GetCategoria();
-        public Task<IEnumerable<SubCategoriaDTO>> GetSubCategoria(int idCategoria);
+        public Task<IEnumerable<Categoria>> GetCategoriasHabilitadas();
+        public Task<IEnumerable<SubCategoria>> GetSubCategoria(int idCategoria);
+        public Task<IEnumerable<SubCategoriaDTO>> GetSubCategoriasHabilitadas(int idCategoria);
         public Task<IEnumerable<SubCategoria>> GetSubCategoriasPorCategoriaId(int idCategoria);
         public Task ActualizarCategoria(Categoria categoria);
         public Task<Categoria?> ObtenerCategoriaPorId(int id);

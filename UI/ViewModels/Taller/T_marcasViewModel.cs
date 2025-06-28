@@ -27,7 +27,7 @@ namespace UI.ViewModels.Taller
             string respuesta = await Shell.Current.DisplayPromptAsync("Renombrar marca", "Desea renombrar la marca del vehiculo? Asigne su nuevo nombre", "Renombrar", "Cancelar");
             if (!string.IsNullOrWhiteSpace(respuesta))
             {
-                MarcaVehiculo? marcaVehiculo = ListaMarcas.FirstOrDefault(m => m.MarcaVehiculoId == marcaId);
+                MarcaVehiculo? marcaVehiculo = ListaMarcas.FirstOrDefault(m => m.Id == marcaId);
 
                 if (marcaVehiculo == null)
                 {
@@ -54,7 +54,7 @@ namespace UI.ViewModels.Taller
         {
             try
             {
-                MarcaVehiculo? marcaVehiculo = ListaMarcas.FirstOrDefault(c => c.MarcaVehiculoId == marcaId);
+                MarcaVehiculo? marcaVehiculo = ListaMarcas.FirstOrDefault(c => c.Id == marcaId);
                 if (marcaVehiculo == null) throw new Exception("marca del vehiculo no encontrado");
                 marcaVehiculo.Habilitado = marcaVehiculo.Habilitado == "si" ? "no" : "si";
                 await _vehiculoService.ActualizarMarcaVehiculo(marcaVehiculo);

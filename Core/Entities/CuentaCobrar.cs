@@ -8,9 +8,9 @@ namespace Core.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        public string Estado { get; set; } = string.Empty;
-        public string FechaPagado { get; set; } = string.Empty;
-        public string TipoDePago { get; set; } = string.Empty;
+        public string? Estado { get; set; } = string.Empty;
+        public string? FechaPagado { get; set; } = string.Empty;
+        public string? TipoDePago { get; set; } = string.Empty;
         public int? TransferenciaId { get; set; }
         public int ComprobanteId { get; set; }
         [ForeignKey("ComprobanteId")]

@@ -1,6 +1,4 @@
 using QuestPDF.Fluent;
-using QuestPDF.Infrastructure;
-using System.Threading.Tasks;
 using UI.Utilities;
 using UI.ViewModels.Taller;
 
@@ -32,7 +30,7 @@ public partial class T_ordenDetalle : ContentPage
 
     private async void btnIrGestionordenDetalle(object sender, EventArgs e)
     {
-        int nroOrdenDetalle = int.Parse(txtOrdenId.Text.Substring(7));
+        int nroOrdenDetalle = ObtenerIdOrdenDetalle(sender);
         var ruta = $"{nameof(T_gestionOrdenDetalle)}?nroOrdenDetalle={nroOrdenDetalle}";
         await Shell.Current.GoToAsync(ruta);
     }
@@ -72,5 +70,11 @@ public partial class T_ordenDetalle : ContentPage
     private async void btnFinalizarOrden(object sender, EventArgs e)
     {
         await _t_ordenDetalleViewModel.FinalizarOrden(nroOrden);
+    }
+
+    private int ObtenerIdOrdenDetalle(object sender)
+    {
+        Grid grid = (Grid)((Button)sender).Parent;
+        return int.Parse(((Label)grid.Children.FirstOrDefault()).Text.Substring(1));
     }
 }

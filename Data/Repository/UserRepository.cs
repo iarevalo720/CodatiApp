@@ -1,30 +1,22 @@
-﻿using Core.DTOs;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Data.Repository
 {
     public class UserRepository : IUserRepository
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly RoleManager<IdentityRole> _roleManager;
         private readonly AppDbContext _context;
 
-        public UserRepository(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, AppDbContext appDbContext)
+        public UserRepository(UserManager<ApplicationUser> userManager, AppDbContext appDbContext)
         {
             _userManager = userManager;
-            _roleManager = roleManager;
             _context = appDbContext;
         }
 
-        public async Task<ApplicationUser> ValidarEmail(string email)
+        public async Task<ApplicationUser?> ValidarEmail(string email)
         {
             return await _userManager.FindByEmailAsync(email);
         }
@@ -47,6 +39,32 @@ namespace Data.Repository
         public async Task GuardarCambiosUsuario(ApplicationUser user)
         {
             await _userManager.UpdateAsync(user);
+        }
+
+        public async Task<IdentityResult> CrearUsuario(ApplicationUser applicationUser, string password)
+        {
+            return await _userManager.CreateAsync(applicationUser, password);
+        }
+
+        public async Task AsignarRol(ApplicationUser user, string roleName)
+        {
+            await _userManager.AddToRoleAsync(user, roleName);
+        }
+
+        public async Task<IdentityResult> ActualizarContrasena(ApplicationUser user, string contrasenaActual, string nuevaContrasena)
+        {
+            return await _userManager.ChangePasswordAsync(user, contrasenaActual, nuevaContrasena);
+        }
+
+        public async Task<IdentityResult> RestablecerContrasena(ApplicationUser user, string nuevaContrasena)
+        {
+            string token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            return await _userManager.ResetPasswordAsync(user, token, nuevaContrasena);
+        }
+
+        public async Task EliminarRolUsuario(ApplicationUser user, string roleName)
+        {
+            await _userManager.RemoveFromRoleAsync(user, roleName);
         }
     }
 }
