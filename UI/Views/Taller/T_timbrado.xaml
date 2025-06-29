@@ -17,8 +17,19 @@
                                 <Label Text="{Binding Id, StringFormat='#{0}'}"
                                        Margin="0,0,0,0" IsVisible="False"/>
                                 <Label Text="{Binding NumeroTimbrado}"
-                                       FontAttributes="Bold"/>
+                                       FontAttributes="Bold"
+                                       Margin="0, 30, 0, 0"/>
 
+                                <HorizontalStackLayout>
+                                    <Label Text="{Binding PuntoEstablecimiento}"/>
+                                    <Label Text="-"/>
+                                    <Label Text="{Binding PuntoExpedicion}"/>
+                                    <Label Text="-"/>
+                                    <Label Text="{Binding NumeroSecuencialMaximoFormateado}"/>
+                                    <Label Text="/" Margin="5, 0, 5, 0"/>
+                                    <Label Text="{Binding NumeroSecuencialActual}" FontAttributes="Bold"/>
+                                </HorizontalStackLayout>
+                                
                                 <HorizontalStackLayout Spacing="7">
                                     <Label Text="{Binding FechaInicio}"/>
                                     <Label Text="-" FontAttributes="Bold"/>
@@ -31,14 +42,15 @@
                                                    Spacing="5"
                                                    HorizontalOptions="End"
                                                    VerticalOptions="End">
-                                <Button Text="Seleccionar"
+                                <Button Text="{Binding TxtBtnSeleccionarTimbrado}"
                                         Clicked="BtnSeleccionarTimbrado"
                                         FontSize="12"
-                                        WidthRequest="100"/>
+                                        IsEnabled="{Binding BtnSeleccionarTimbradoEnabled}"
+                                        WidthRequest="110"/>
                                 <Button Text="{Binding TxtBtnCambiarEstadoTimbrado}"
                                         FontSize="12"
                                         Clicked="BtnCambiarEstadoTimbrado"
-                                        WidthRequest="100"/>
+                                        WidthRequest="110"/>
                             </HorizontalStackLayout>
                         </Grid>
                     </DataTemplate>

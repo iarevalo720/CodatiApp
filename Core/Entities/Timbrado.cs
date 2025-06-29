@@ -25,5 +25,32 @@ namespace Core.Entities
                 return EsHabilitado == "si" ? "Inhabilitar" : "Habilitar";
             }
         }
+
+        [NotMapped]
+        public string? NumeroSecuencialMaximoFormateado
+        {
+            get
+            {
+                return (NumeroSecuencialMaximo.ToString()).PadLeft(7, '0');
+            }
+        }
+
+        [NotMapped]
+        public bool BtnSeleccionarTimbradoEnabled
+        {
+            get
+            {
+                return TimbradoSeleccionado == "si" ? false : true;
+            }
+        }
+
+        [NotMapped]
+        public string TxtBtnSeleccionarTimbrado
+        {
+            get
+            {
+                return TimbradoSeleccionado == "si" ? "Seleccionado" : "Seleccionar";
+            }
+        }
     }
 }

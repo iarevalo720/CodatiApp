@@ -199,5 +199,10 @@ namespace Service.Services
         {
             return await _orderRepository.ObtenerTimbrados();
         }
+
+        public async Task ActualizarTimbrado(Timbrado timbrado)
+        {
+            await _orderRepository.ActualizarTimbrado(timbrado);
+        }
     }
 }

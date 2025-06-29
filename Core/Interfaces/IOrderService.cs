@@ -17,5 +17,6 @@ namespace Core.Interfaces
         public Task CrearOrdenDetalle(int idOrden, List<int> listaSubCategoriaId);
         public Task GuardarTimbrado(string numeroTimbrado, string puntoEstablecimiento, string puntoExpedicion, string numeroSecuencialMaximo, DateTime fechaInicio, DateTime fechaFin);
         public Task<List<Timbrado>> ObtenerTimbrados();
+        public Task ActualizarTimbrado(Timbrado timbrado);
     }
 }

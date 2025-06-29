@@ -19,5 +19,6 @@ namespace Core.Interfaces
         public Task CrearOrdenDetalle(OrdenDetalle ordenDetalle);
         public Task CrearTimbrado(Timbrado timbrado);
         public Task<List<Timbrado>> ObtenerTimbrados();
+        public Task ActualizarTimbrado(Timbrado timbrado);
     }
 }

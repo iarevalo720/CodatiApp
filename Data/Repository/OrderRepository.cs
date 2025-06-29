@@ -190,5 +190,11 @@ namespace Data.Repository
         {
             return await _context.Timbrados.ToListAsync();
         }
+
+        public async Task ActualizarTimbrado(Timbrado timbrado)
+        {
+            _context.Timbrados.Update(timbrado);
+            await _context.SaveChangesAsync();
+        }
     }
 }
