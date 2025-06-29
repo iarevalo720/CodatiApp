@@ -172,5 +172,32 @@ namespace Service.Services
                 OrdenId = idOrden
             };
         }
+
+        public async Task GuardarTimbrado(string numeroTimbrado, string puntoEstablecimiento, string puntoExpedicion, string numeroSecuencialMaximo, DateTime fechaInicio, DateTime fechaFin)
+        {
+            Timbrado nuevoTimbrado = ArmarTimbrado(numeroTimbrado, puntoEstablecimiento, puntoExpedicion, numeroSecuencialMaximo, fechaInicio, fechaFin);
+            await _orderRepository.CrearTimbrado(nuevoTimbrado);
+        }
+
+        private Timbrado ArmarTimbrado(string numeroTimbrado, string puntoEstablecimiento, string puntoExpedicion, string numeroSecuencialMaximo, DateTime fechaInicio, DateTime fechaFin)
+        {
+            return new Timbrado()
+            {
+                NumeroTimbrado = numeroTimbrado,
+                PuntoEstablecimiento = puntoEstablecimiento,
+                PuntoExpedicion = puntoExpedicion,
+                NumeroSecuencialMaximo = int.Parse(numeroSecuencialMaximo),
+                FechaInicio = fechaInicio.ToString("dd/MM/yyyy"),
+                FechaFin = fechaFin.ToString("dd/MM/yyyy"),
+                NumeroSecuencialActual = 0,
+                TimbradoSeleccionado = "no",
+                EsHabilitado = "si"
+            };
+        }
+
+        public async Task<List<Timbrado>> ObtenerTimbrados()
+        {
+            return await _orderRepository.ObtenerTimbrados();
+        }
     }
 }

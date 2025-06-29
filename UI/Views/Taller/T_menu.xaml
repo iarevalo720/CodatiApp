@@ -69,7 +69,8 @@
                     Clicked="BtnIrFuncionarios"/>
             
             <Button Text="Timbrados"
-                    IsEnabled="false"/>
+                    IsVisible="{Binding btnTimbradosVisible}"
+                    Clicked="BtnIrTimbrados"/>
         </VerticalStackLayout>
 
         <VerticalStackLayout

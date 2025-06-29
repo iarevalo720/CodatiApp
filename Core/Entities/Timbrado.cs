@@ -11,11 +11,19 @@ namespace Core.Entities
         public string? NumeroTimbrado { get; set; } = string.Empty;
         public string? FechaInicio { get; set; } = string.Empty;
         public string? FechaFin { get; set; } = string.Empty;
-        public int PuntoEstablecimiento { get; set; }
-        public int PuntoExpedicion { get; set; }
+        public string? PuntoEstablecimiento { get; set; }
+        public string? PuntoExpedicion { get; set; }
         public int NumeroSecuencialActual { get; set; }
         public int NumeroSecuencialMaximo { get; set; }
         public string? EsHabilitado { get; set; }
-        public string? TimbradoActivo { get; set; }
+        public string? TimbradoSeleccionado { get; set; }
+        [NotMapped]
+        public string? TxtBtnCambiarEstadoTimbrado
+        {
+            get
+            {
+                return EsHabilitado == "si" ? "Inhabilitar" : "Habilitar";
+            }
+        }
     }
 }

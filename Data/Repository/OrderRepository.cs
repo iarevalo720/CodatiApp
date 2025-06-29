@@ -179,5 +179,16 @@ namespace Data.Repository
 
             return ordenDetalleCompletoDto;
         }
+
+        public async Task CrearTimbrado(Timbrado timbrado)
+        {
+            await _context.Timbrados.AddAsync(timbrado);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Timbrado>> ObtenerTimbrados()
+        {
+            return await _context.Timbrados.ToListAsync();
+        }
     }
 }

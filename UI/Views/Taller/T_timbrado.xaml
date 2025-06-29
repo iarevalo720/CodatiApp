@@ -3,10 +3,110 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UI.Views.Taller.T_timbrado"
              Title="T_timbrado">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+    <Grid RowDefinitions="*, auto, auto"
+          MaximumWidthRequest="500">
+        <ScrollView Grid.Row="0">
+            <CollectionView Grid.Row="2"
+                            Grid.Column="0"
+                            Grid.ColumnSpan="2"
+                            ItemsSource="{Binding ListaTimbrados}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid ColumnDefinitions="*, auto">
+                            <VerticalStackLayout Grid.Row="0">
+                                <Label Text="{Binding Id, StringFormat='#{0}'}"
+                                       Margin="0,0,0,0" IsVisible="False"/>
+                                <Label Text="{Binding NumeroTimbrado}"
+                                       FontAttributes="Bold"/>
+
+                                <HorizontalStackLayout Spacing="7">
+                                    <Label Text="{Binding FechaInicio}"/>
+                                    <Label Text="-" FontAttributes="Bold"/>
+                                    <Label Text="{Binding FechaFin}"/>
+                                </HorizontalStackLayout>
+
+                                <Label Text="{Binding EsHabilitado, StringFormat='Habilitado: {0}'}"/>
+                            </VerticalStackLayout>
+                            <HorizontalStackLayout Grid.Row="1"
+                                                   Spacing="5"
+                                                   HorizontalOptions="End"
+                                                   VerticalOptions="End">
+                                <Button Text="Seleccionar"
+                                        Clicked="BtnSeleccionarTimbrado"
+                                        FontSize="12"
+                                        WidthRequest="100"/>
+                                <Button Text="{Binding TxtBtnCambiarEstadoTimbrado}"
+                                        FontSize="12"
+                                        Clicked="BtnCambiarEstadoTimbrado"
+                                        WidthRequest="100"/>
+                            </HorizontalStackLayout>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <Grid Grid.Row="1" 
+              Margin="0, 0, 0, 10"
+              ColumnDefinitions="auto, auto, auto, auto, auto, *, auto"
+              ColumnSpacing="10"
+              VerticalOptions="Center">
+            <Entry Placeholder="Nro. Timbrado"
+                   Text="{Binding txtNumeroTimbrado}"
+                   Margin="0, 0, 70, 0"
+                   Grid.Column="0"/>
+            
+            <Entry Placeholder="001"
+                   WidthRequest="50"
+                   MaxLength="3"
+                   Text="{Binding txtPuntoEstablecimiento}"
+                   Grid.Column="1"/>
+            
+            <Label Text="-"
+                   VerticalOptions="Center"
+                   FontSize="25"
+                   Grid.Column="2"/>
+            
+            <Entry Placeholder="001"
+                   WidthRequest="50"
+                   MaxLength="3"
+                   Text="{Binding txtPuntoExpedicion}"
+                   Grid.Column="3"/>
+            
+            <Label Text="-"
+                   VerticalOptions="Center"
+                   FontSize="25"
+                   Grid.Column="4"/>
+
+            <Entry Placeholder="0000050"
+                   Text="{Binding txtNumeroSecuencialMaximo}"
+                   Grid.Column="5"/>
+        </Grid>
+
+        <Grid 
+            Grid.Row="2"
+            ColumnDefinitions="auto, auto, auto, *"
+            ColumnSpacing="10"
+            Margin="0, 0, 0, 15">
+            <DatePicker
+                Grid.Column="0"
+                Format="dd/MM/yyyy"
+                Date="{Binding PickerFechaInicio}"
+                MinimumWidthRequest="120"/>
+            <Label Grid.Column="1"
+                   Text="-"
+                   VerticalOptions="Center"
+                   FontSize="25"
+                   FontAttributes="Bold"/>
+            <DatePicker
+                Grid.Column="2"
+                Format="dd/MM/yyyy"
+                Date="{Binding PickerFechaFin}"
+                MinimumWidthRequest="120"/>
+            
+            <Button Text="Registrar Timbrado"
+                    Clicked="BtnRegistrarTimbrado"
+                    FontSize="12"
+                    Grid.Column="3"/>
+        </Grid>
+    </Grid>
 </ContentPage>
