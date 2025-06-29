@@ -1,15 +1,17 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
+using PropertyChanged;
 
 namespace UI.ViewModels.Inicio
 {
+    [AddINotifyPropertyChangedInterface]
     public class LoginViewModel
     {
         private readonly IUserService _service;
 
         #region PROPIEDADES DE LA UI
-        public string? Correo { get; set; }
-        public string? Contrasena { get; set; }
+        public string? Correo { get; set; } = string.Empty;
+        public string? Contrasena { get; set; } = string.Empty;
         #endregion
 
         public LoginViewModel(IUserService service)
