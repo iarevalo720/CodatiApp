@@ -20,5 +20,6 @@ namespace Core.Interfaces
         public Task CrearTimbrado(Timbrado timbrado);
         public Task<List<Timbrado>> ObtenerTimbrados();
         public Task ActualizarTimbrado(Timbrado timbrado);
+        public Task<Timbrado?> ObtenerTimbradoSeleccionado();
     }
 }

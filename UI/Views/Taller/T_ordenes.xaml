@@ -6,7 +6,7 @@
     <CollectionView ItemsSource="{Binding OrdenResumen}" Margin="20, 20, 20, 0">
         <CollectionView.ItemTemplate>
             <DataTemplate>
-                <Grid RowDefinitions="30, 30, *, *, 100, 60"
+                <Grid RowDefinitions="30, *, *, 100, 60"
                       ColumnDefinitions=".35*, .65*"
                       MaximumWidthRequest="470">
                     <Label Text="{Binding NroOrden, StringFormat='Orden #{0}'}"
@@ -14,7 +14,8 @@
                            Grid.Row="0"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           FontAttributes="Bold"/>
+                           FontAttributes="Bold"
+                           IsVisible="False"/>
                     <Label Text="{Binding Estado}"
                            Grid.Column="1"
                            Grid.Row="0"
@@ -26,12 +27,12 @@
                     <Label Text="{Binding ResumenVehiculo}"
                            FontSize="Medium"
                            VerticalOptions="Center"
-                           Grid.Row="1"
+                           Grid.Row="0"
                            Grid.ColumnSpan="2"/>
 
                     <CollectionView ItemsSource="{Binding SubCategoria}"
                         Margin="0, 30, 0, 20"
-                        Grid.Row="2"
+                        Grid.Row="1"
                         Grid.ColumnSpan="2">
                         <CollectionView.ItemTemplate>
                             <DataTemplate>
@@ -49,17 +50,17 @@
 
                     <VerticalStackLayout
                         Margin="0, 0, 0, 20"
-                        Grid.Row="3"
+                        Grid.Row="2"
                         Grid.Column="0"
                         Grid.ColumnSpan="2">
-                        <Label Text="Observación del cliente:"
+                        <Label Text="{Binding TxtLabelObservacion}"
                                FontSize="Medium"/>
                         <Label Text="{Binding Observacion}"
                                TextColor="#888"
                                FontSize="Small"/>
                     </VerticalStackLayout>
 
-                    <Grid Grid.Row="4"
+                    <Grid Grid.Row="3"
                           Grid.ColumnSpan="2"
                           RowDefinitions="*, *"
                           ColumnDefinitions="*, *"
@@ -87,7 +88,7 @@
                     </Grid>
 
                     <Frame 
-                        Grid.Row="5"
+                        Grid.Row="4"
                         Grid.Column="0"
                         Grid.ColumnSpan="2"
                         Margin="0, 28, 0, 28"

@@ -1,7 +1,8 @@
 ﻿using Core.DTOs;
 using Core.Interfaces;
 using PropertyChanged;
-using System.Runtime.CompilerServices;
+using QuestPDF.Fluent;
+using UI.Utilities;
 using UI.Views.Taller;
 
 namespace UI.ViewModels.Taller
@@ -10,9 +11,9 @@ namespace UI.ViewModels.Taller
     public class T_ordenDetalleViewModel
     {
         private readonly IOrderService _ordenService;
-        public OrdenCompletoDTO OrdenCompleto { get; set; } = new OrdenCompletoDTO(); // Initialize to avoid null
-        public string EstadoActual { get; set; } = string.Empty; // Initialize to avoid null
-        public string EstadoInicial { get; set; } = string.Empty; // Initialize to avoid null
+        public OrdenCompletoDTO OrdenCompleto { get; set; } = new OrdenCompletoDTO();
+        public string EstadoActual { get; set; } = string.Empty;
+        public string EstadoInicial { get; set; } = string.Empty;
         public int TxtCostoTotal { get; set; }
         public bool BtnCrearComprobanteEnabled { get; set; }
         public bool BtnFinalizarOrdenEnabled { get; set; }
@@ -115,21 +116,80 @@ namespace UI.ViewModels.Taller
             var idUsuario = await SecureStorage.GetAsync("id");
             if (EstadoActual == "FINALIZADO")
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "La orden ya se encuentra finalizada", "OK");
+                await Application.Current.MainPage.DisplayAlert("Información", "La orden ya se encuentra finalizada", "OK");
+                return;
             }
-            else
+
+            bool confirmacion = await Application.Current.MainPage.DisplayAlert("Confirmación", "¿Está seguro de que desea finalizar la orden?", "Sí", "No");
+
+            if (!confirmacion)
             {
-                bool cambioExitoso = await _ordenService.ActualizarEstadoOrdenCabecera("FINALIZADO", idUsuario, ordenId);
-                if (cambioExitoso)
+                return; // Si el usuario cancela, no hacemos nada
+            }
+
+            try
+            {
+                await _ordenService.ActualizarEstadoOrdenCabecera(idUsuario, ordenId);
+                
+                await Application.Current.MainPage.DisplayAlert("Exito", "Orden finalizada exitosamente", "OK");
+                await CargarOrdenCompletoAsync(ordenId);
+            }
+            catch (Exception ex)
+            {
+                if (ex.Message == "timbrado_vacio")
                 {
-                    await Application.Current.MainPage.DisplayAlert("Exito", "Orden finalizada exitosamente", "OK");
-                    await CargarOrdenCompletoAsync(ordenId);
+                    await Shell.Current.DisplayAlert("Informacion", "No existe el timbrado seleccionado, por favor, asigne uno antes de finalizar la orden", "Ok");
+                }
+                else if (ex.Message == "timbrado_no_habilitado")
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "El timbrado seleccionado se encuentra inhabilitado, por favor, cambie otro timbrado que se encuentre habilitado", "Ok");
+                }
+                else if (ex.Message == "timbrado_expirado")
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "El timbrado ha vencido, por favor seleccione un timbrado válido o registre un nuevo timbrado legal", "Ok");
+                }
+                else if (ex.Message == "secuencial_maximo_alcanzado")
+                {
+                    await Shell.Current.DisplayAlert("Informacion", "El timbrado seleccionado ha alcanzado el número secuencial máximo, por favor registre un nuevo timbrado legal", "Ok");
                 }
                 else
                 {
                     await Application.Current.MainPage.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
                 }
+                return;
             }
+        }
+
+        public async Task GenerarComprobante()
+        {
+            // 1. Crear el contenido del comprobante
+            var comprobante = new ComprobantePdf
+            {
+                OrdenId = OrdenCompleto.OrdenId.ToString(),
+                Cliente = OrdenCompleto.NombreUsuario,
+                CI = OrdenCompleto.NroDocumento,
+                Fecha = OrdenCompleto.FechaFinalizacionOrden,
+                NumeroComprobante = OrdenCompleto.NumeroFactura,
+                Timbrado = OrdenCompleto.NumeroTimbrado,
+                Vencimiento = OrdenCompleto.FechaFinTimbrado,
+                ListaOrdenDetalles = OrdenCompleto.ListaOrdenDetalleResumenes
+                    .Select(t => (t.OrdenDetalleName, t.OrdenDetalleMonto))
+                    .ToList()
+            };
+
+            // 2. Generar el PDF en memoria (byte[])
+            var documento = comprobante.GeneratePdf();
+
+            // 3. Guardarlo temporalmente en la carpeta de caché
+            var tempFileName = $"comprobante_temp_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            var tempPath = Path.Combine(FileSystem.CacheDirectory, tempFileName);
+            await File.WriteAllBytesAsync(tempPath, documento);
+
+            // 4. Abrirlo con el visor predeterminado del sistema
+            await Launcher.OpenAsync(new OpenFileRequest
+            {
+                File = new ReadOnlyFile(tempPath)
+            });
         }
 
         private bool HabilitarBtnFinalizarOrden()

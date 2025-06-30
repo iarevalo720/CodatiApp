@@ -30,5 +30,13 @@
                 return Estado != "A_VERIFICAR" ? true : false;
             }
         }
+
+        public string? TxtLabelObservacion
+        {
+            get
+            {
+                return String.IsNullOrWhiteSpace(Observacion) ? String.Empty : "Observación del cliente:";
+            }
+        }
     }
 }
