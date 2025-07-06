@@ -84,12 +84,18 @@ namespace Data.Repository
                     return null;
                 }
 
+                Timbrado timbrado = await _context.Timbrados.Where(t => t.NumeroTimbrado == orden.NumeroTimbrado).FirstOrDefaultAsync();
+
                 var ordenCompleto = new OrdenCompletoDTO
                 {
                     OrdenId = orden.Id,
                     NombreUsuario = orden.Usuario?.Name,
                     NroDocumento = orden.Usuario?.NroDocumento,
+                    NumeroFactura = orden.NumeroFactura,
+                    NumeroTimbrado = orden.NumeroTimbrado,
                     EstadoOrden = orden.Estado,
+                    FechaFinTimbrado = timbrado.FechaFin,
+                    FechaFinalizacionOrden = orden.FechaFinalizacion,
                     ListaOrdenDetalleResumenes = orden.OrdenDetalles.Select(od => new OrdenDetalleResumen
                     {
                         Id = od.Id,
@@ -195,6 +201,13 @@ namespace Data.Repository
         {
             _context.Timbrados.Update(timbrado);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Timbrado?> ObtenerTimbradoSeleccionado()
+        {
+            return await _context.Timbrados
+                .Where(t => t.TimbradoSeleccionado == "si")
+                .FirstOrDefaultAsync();
         }
     }
 }

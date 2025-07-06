@@ -204,5 +204,55 @@ namespace Service.Services
         {
             await _orderRepository.ActualizarTimbrado(timbrado);
         }
+
+        public async Task ActualizarEstadoOrdenCabecera(string idUsuario, int ordenId)
+        {
+            Timbrado timbrado = await _orderRepository.ObtenerTimbradoSeleccionado();
+            ValidarTimbrado(timbrado);
+
+            timbrado.NumeroSecuencialActual++;
+
+            Orden orden = await _orderRepository.GetOrdenById(ordenId);
+            orden = ArmarOrdenConTimbrado(timbrado, orden);
+
+            await _orderRepository.GuardarOrden(orden);
+            await _orderRepository.ActualizarTimbrado(timbrado);
+
+            HistorialOrden historialOrden = ArmarHistorialOrden(orden, idUsuario, "FINALIZADO");
+            await _orderRepository.GuardarHistorialOrdenCabecera(historialOrden);
+        }
+
+        private Orden ArmarOrdenConTimbrado(Timbrado timbrado, Orden orden)
+        {
+            orden.Estado = "FINALIZADO";
+            orden.NumeroTimbrado = timbrado.NumeroTimbrado;
+            orden.FechaFinalizacion = DateTime.Now.ToString("dd/MM/yyyy");
+            orden.NumeroFactura = $"{timbrado.PuntoEstablecimiento}-{timbrado.PuntoExpedicion}-{timbrado.NumeroSecuencialActual:D7}";
+
+            return orden;
+        }
+
+        private void ValidarTimbrado(Timbrado timbrado)
+        {
+            if (timbrado == null)
+            {
+                throw new Exception("timbrado_vacio");
+            }
+
+            if (timbrado.EsHabilitado == "no")
+            {
+                throw new Exception("timbrado_no_habilitado");
+            }
+
+            if (DateTime.ParseExact(timbrado.FechaFin, "dd/MM/yyyy", null) <= DateTime.Now)
+            {
+                throw new Exception("timbrado_expirado");
+            }
+
+            if (timbrado.NumeroSecuencialActual >= timbrado.NumeroSecuencialMaximo)
+            {
+                throw new Exception("secuencial_maximo_alcanzado");
+            }
+        }
     }
 }

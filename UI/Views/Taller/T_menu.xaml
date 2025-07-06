@@ -56,7 +56,7 @@
                     IsVisible="{Binding btnVehiculosVisible}"
                     Clicked="BtnIrVehiculos"/>
 
-            <Button Text="Categorias de las órdenes"
+            <Button Text="Servicios de las órdenes"
                     IsVisible="{Binding btnCategoriaVisible}"
                     Clicked="BtnIrCategorias"/>
 
