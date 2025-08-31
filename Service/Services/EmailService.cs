@@ -11,7 +11,7 @@ namespace Service.Services
         private const string SenderEmail = "martinmar1720@gmail.com";
         private const string SenderPassword = "usmk xocr ktvd etnl";
 
-        public async Task EnviarEmail(string recipientEmail, string name, string tempPassword, BodyBuilder mensaje, string asunto)
+        public async Task EnviarEmail(string recipientEmail, string name, BodyBuilder mensaje, string asunto)
         {
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("CODATI SRL", SenderEmail));

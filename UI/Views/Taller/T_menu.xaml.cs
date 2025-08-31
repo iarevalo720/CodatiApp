@@ -64,4 +64,9 @@ public partial class T_menu : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(T_timbrado)}");
     }
+
+    private async void BtnIrInformes(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(T_informe)}");
+    }
 }

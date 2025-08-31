@@ -13,5 +13,6 @@ namespace Core.Entities
         public string? Descripcion { get; set; } = string.Empty;
         public int OrdenId { get; set; }
         public string? IdUsuario { get; set; } = string.Empty;
+        public string? NombreUsuario { get; set; }
     }
 }

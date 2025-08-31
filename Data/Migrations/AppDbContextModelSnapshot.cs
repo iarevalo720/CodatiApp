@@ -50,7 +50,7 @@ namespace Data.Migrations
                     b.Property<string>("EsActivadoPrimeraVez")
                         .HasColumnType("text");
 
-                    b.Property<string>("Habilitado")
+                    b.Property<string>("EsHabilitado")
                         .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
@@ -193,111 +193,6 @@ namespace Data.Migrations
                     b.ToTable("ComprobanteDetalles");
                 });
 
-            modelBuilder.Entity("Core.Entities.CuentaAlias", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Tipo")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Valor")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CuentasAlias");
-                });
-
-            modelBuilder.Entity("Core.Entities.CuentaBancaria", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("NombreEntidad")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NombreTitular")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NroCuenta")
-                        .HasColumnType("text");
-
-                    b.Property<string>("NroDocumento")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TipoDocumento")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CuentasBancarias");
-                });
-
-            modelBuilder.Entity("Core.Entities.CuentaCliente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("AliasId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("CuentaId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("EsAlias")
-                        .HasMaxLength(1)
-                        .HasColumnType("character varying(1)");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("CuentasClientes");
-                });
-
-            modelBuilder.Entity("Core.Entities.CuentaCobrar", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("ComprobanteId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Estado")
-                        .HasColumnType("text");
-
-                    b.Property<string>("FechaPagado")
-                        .HasColumnType("text");
-
-                    b.Property<string>("TipoDePago")
-                        .HasColumnType("text");
-
-                    b.Property<int?>("TransferenciaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ComprobanteId");
-
-                    b.ToTable("CuentasCobrar");
-                });
-
             modelBuilder.Entity("Core.Entities.HistorialOrden", b =>
                 {
                     b.Property<int>("Id")
@@ -316,6 +211,9 @@ namespace Data.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("IdUsuario")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NombreUsuario")
                         .HasColumnType("text");
 
                     b.Property<int>("OrdenId")
@@ -388,6 +286,9 @@ namespace Data.Migrations
                     b.Property<string>("FechaCreacion")
                         .HasColumnType("text");
 
+                    b.Property<string>("FechaFinalizacion")
+                        .HasColumnType("text");
+
                     b.Property<int?>("IdTimbrado")
                         .HasColumnType("integer");
 
@@ -396,6 +297,12 @@ namespace Data.Migrations
 
                     b.Property<int>("MontoTotal")
                         .HasColumnType("integer");
+
+                    b.Property<string>("NumeroFactura")
+                        .HasColumnType("text");
+
+                    b.Property<string>("NumeroTimbrado")
+                        .HasColumnType("text");
 
                     b.Property<string>("ObservacionCliente")
                         .HasColumnType("text");
@@ -508,54 +415,36 @@ namespace Data.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("EsHabilitado")
+                        .HasColumnType("text");
+
                     b.Property<string>("FechaFin")
                         .HasColumnType("text");
 
                     b.Property<string>("FechaInicio")
                         .HasColumnType("text");
 
-                    b.Property<string>("Habilitado")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Numero")
-                        .HasColumnType("text");
-
-                    b.Property<int>("NumeroSecuencial")
+                    b.Property<int>("NumeroSecuencialActual")
                         .HasColumnType("integer");
 
-                    b.Property<int>("PuntoEstablecimiento")
+                    b.Property<int>("NumeroSecuencialMaximo")
                         .HasColumnType("integer");
+
+                    b.Property<string>("NumeroTimbrado")
+                        .HasColumnType("text");
+
+                    b.Property<string>("PuntoEstablecimiento")
+                        .HasColumnType("text");
 
                     b.Property<string>("PuntoExpedicion")
                         .HasColumnType("text");
 
-                    b.Property<string>("TimbradoActivo")
+                    b.Property<string>("TimbradoSeleccionado")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Timbrados");
-                });
-
-            modelBuilder.Entity("Core.Entities.Transferencia", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Comprobante")
-                        .HasColumnType("text");
-
-                    b.Property<int>("CuentaId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CuentaId");
-
-                    b.ToTable("Transferencias");
                 });
 
             modelBuilder.Entity("Core.Entities.Vehiculo", b =>
@@ -776,26 +665,6 @@ namespace Data.Migrations
                     b.Navigation("OrdenDetalle");
                 });
 
-            modelBuilder.Entity("Core.Entities.CuentaCliente", b =>
-                {
-                    b.HasOne("Core.Entities.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Core.Entities.CuentaCobrar", b =>
-                {
-                    b.HasOne("Core.Entities.Comprobante", "Comprobante")
-                        .WithMany()
-                        .HasForeignKey("ComprobanteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Comprobante");
-                });
-
             modelBuilder.Entity("Core.Entities.HistorialOrden", b =>
                 {
                     b.HasOne("Core.Entities.Orden", null)
@@ -879,17 +748,6 @@ namespace Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Categoria");
-                });
-
-            modelBuilder.Entity("Core.Entities.Transferencia", b =>
-                {
-                    b.HasOne("Core.Entities.CuentaCliente", "CuentaCliente")
-                        .WithMany()
-                        .HasForeignKey("CuentaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CuentaCliente");
                 });
 
             modelBuilder.Entity("Core.Entities.Vehiculo", b =>

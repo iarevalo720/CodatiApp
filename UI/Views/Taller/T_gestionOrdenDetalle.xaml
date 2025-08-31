@@ -40,13 +40,29 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <StackLayout Padding="10" BackgroundColor="#333">
-                        <HorizontalStackLayout Spacing="5">
+                        <Grid RowDefinitions="auto, auto"
+                              ColumnDefinitions="auto, auto, *"
+                              ColumnSpacing="10">
+
                             <Label Text="{Binding Fecha}"
-                                   TextColor="#aaa"/>
+                                    TextColor="#aaa"
+                                    Grid.Row="0"
+                                    Grid.Column="0"/>
                             <Label Text="{Binding Hora}"
-                                   TextColor="#aaa"/>
-                        </HorizontalStackLayout>
-                        <Label Text="{Binding Descripcion}"/>
+                                    TextColor="#aaa"
+                                    Grid.Row="0"
+                                    Grid.Column="1"/>
+                            <Label Text="{Binding NombreUsuario}"
+                                    HorizontalOptions="End"
+                                   TextColor="#aaa"
+                                    Grid.Row="0"
+                                    Grid.Column="2"/>
+
+                            <Label Text="{Binding Descripcion}"
+                                   Grid.Row="1"
+                                   Grid.Column="0"
+                                   Grid.ColumnSpan="3"/>
+                        </Grid>
                     </StackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

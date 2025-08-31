@@ -78,7 +78,7 @@
             Spacing="10">
             <Button
                 Text="Informes"
-                IsEnabled="False"/>
+                Clicked="BtnIrInformes"/>
             <Button
                 Text="Cerrar Sesión"
                 Clicked="BtnCerrarSeccion"/>

@@ -24,12 +24,14 @@ namespace UI
             Routing.RegisterRoute(nameof(T_modelos), typeof(T_modelos));
             Routing.RegisterRoute(nameof(T_timbrado), typeof(T_timbrado));
             Routing.RegisterRoute(nameof(T_funcionarios), typeof(T_funcionarios));
+            Routing.RegisterRoute(nameof(T_informe), typeof(T_informe));
 
             Routing.RegisterRoute(nameof(C_menu), typeof(C_menu));
             Routing.RegisterRoute(nameof(C_acercaDe), typeof(C_acercaDe));
             Routing.RegisterRoute(nameof(C_misVehiculos), typeof(C_misVehiculos));
             Routing.RegisterRoute(nameof(C_crearVehiculo), typeof(C_crearVehiculo));
             Routing.RegisterRoute(nameof(C_crearOrden), typeof(C_crearOrden));
+            Routing.RegisterRoute(nameof(C_misOrdenes), typeof(C_misOrdenes));
         }
     }
 }

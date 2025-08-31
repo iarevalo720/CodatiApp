@@ -19,11 +19,6 @@ namespace Data
         public DbSet<Comprobante> Comprobantes { get; set; }
         public DbSet<ComprobanteDetalle> ComprobanteDetalles { get; set; }
         public DbSet<HistorialOrden> HistorialOrdenes { get; set; }
-        public DbSet<CuentaBancaria> CuentasBancarias { get; set; }
-        public DbSet<CuentaAlias> CuentasAlias { get; set; }
-        public DbSet<CuentaCliente> CuentasClientes { get; set; }
-        public DbSet<Transferencia> Transferencias { get; set; }
-        public DbSet<CuentaCobrar> CuentasCobrar { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

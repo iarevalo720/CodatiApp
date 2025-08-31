@@ -4,6 +4,6 @@ namespace Core.Interfaces
 {
     public interface IEmailService
     {
-        public Task EnviarEmail(string recipientEmail, string name, string tempPassword, BodyBuilder mensaje, string asunto);
+        public Task EnviarEmail(string recipientEmail, string name, BodyBuilder mensaje, string asunto);
     }
 }

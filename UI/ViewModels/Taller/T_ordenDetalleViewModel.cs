@@ -21,6 +21,8 @@ namespace UI.ViewModels.Taller
         public bool BtnCrearComprobanteVisible { get; set; }
         public bool btnCambiarEstadoOrdenCabeceraEnabled { get; set; }
         public bool btnIrGestionarOrdenDetalleEnabled { get; set; }
+        public bool PickerEstadoOrdenCabecera { get; set; }
+        public bool txtOrdenFinalizadoEnabled { get; set; }
         public List<string> EstadoDisponibles => ListaEstadosOrdenDTO.ListaEstados;
 
         //COMANDOS
@@ -35,7 +37,7 @@ namespace UI.ViewModels.Taller
 
         public async Task CargarOrdenCompletoAsync(int ordenId)
         {
-            RestringirAccesos();
+            await RestringirAccesos();
 
             var listaOrdenCompleto = await _ordenService.ObtenerOrdenCompleto(ordenId);
             OrdenCompleto = listaOrdenCompleto;
@@ -43,12 +45,13 @@ namespace UI.ViewModels.Taller
             EstadoInicial = EstadoActual;
             TxtCostoTotal = 0;
             VerificarEstadosOrdenDetalle();
-            VerificarEstadoOrdenCabecera();
 
             foreach (var ordenDetalle in OrdenCompleto.ListaOrdenDetalleResumenes)
             {
                 TxtCostoTotal += ordenDetalle.OrdenDetalleMonto;
             }
+
+            VerificarEstadoOrdenCabecera();
         }
 
         private void VerificarEstadoOrdenCabecera()
@@ -57,19 +60,26 @@ namespace UI.ViewModels.Taller
             {
                 BtnCrearComprobanteEnabled = true;
                 BtnCancelarOrdenEnabled = false;
+                txtOrdenFinalizadoEnabled = true;
+
+                BtnFinalizarOrdenEnabled = false;
+                PickerEstadoOrdenCabecera = false;
+                btnCambiarEstadoOrdenCabeceraEnabled = false;
             }
             else if (OrdenCompleto.EstadoOrden == "CANCELADO" || OrdenCompleto.EstadoOrden == "RECHAZADO")
             {
                 BtnCrearComprobanteEnabled = false;
                 BtnCancelarOrdenEnabled = false;
+                BtnFinalizarOrdenEnabled = false;
+                txtOrdenFinalizadoEnabled = false;
             }
             else
             {
                 BtnCrearComprobanteEnabled = false;
                 BtnCancelarOrdenEnabled = true;
+                BtnFinalizarOrdenEnabled = true;
+                txtOrdenFinalizadoEnabled = false;
             }
-
-            BtnFinalizarOrdenEnabled = HabilitarBtnFinalizarOrden();
         }
 
         public async Task ActualizarOrdenCabecera(int ordenId)
@@ -181,7 +191,7 @@ namespace UI.ViewModels.Taller
             var documento = comprobante.GeneratePdf();
 
             // 3. Guardarlo temporalmente en la carpeta de caché
-            var tempFileName = $"comprobante_temp_{DateTime.Now:yyyyMMddHHmmss}.pdf";
+            var tempFileName = $"comprobante_{DateTime.Now:yyyyMMddHHmmss}.pdf";
             var tempPath = Path.Combine(FileSystem.CacheDirectory, tempFileName);
             await File.WriteAllBytesAsync(tempPath, documento);
 
@@ -192,20 +202,7 @@ namespace UI.ViewModels.Taller
             });
         }
 
-        private bool HabilitarBtnFinalizarOrden()
-        {
-            foreach (OrdenDetalleResumen ordenDetalle in OrdenCompleto.ListaOrdenDetalleResumenes)
-            {
-                if (ordenDetalle.OrdenDetalleEstado != "TERMINADO")
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        private async void RestringirAccesos()
+        private async Task RestringirAccesos()
         {
             string rol = await SecureStorage.GetAsync("rol");
 
