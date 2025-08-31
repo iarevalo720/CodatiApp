@@ -120,6 +120,9 @@
 	  <MauiXaml Update="Views\Clientes\C_menu.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\Clientes\C_misOrdenes.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\Clientes\C_misVehiculos.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

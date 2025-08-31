@@ -261,5 +261,10 @@ namespace Service.Services
         {
             return await _orderRepository.ObtenerInformeOrdenes(fechaInicio, fechaFin);
         }
+
+        public async Task<IEnumerable<OrdenResumenDTO>> GetOrdenesPorUsuario(string userId)
+        {
+            return await _orderRepository.GetOrdenesPorUsuario(userId);
+        }
     }
 }

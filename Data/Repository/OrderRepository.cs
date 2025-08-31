@@ -260,5 +260,37 @@ namespace Data.Repository
                 ServiciosMasSolicitados = serviciosCount
             };
         }
+
+        // En Data/Repository/OrderRepository.cs
+        public async Task<IEnumerable<OrdenResumenDTO>> GetOrdenesPorUsuario(string userId)
+        {
+            try
+            {
+                var listadoOrdenResumen = await _context.Ordenes.AsNoTracking()
+                    .Where(o => o.IdUsuario == userId)
+                    .Include(o => o.OrdenDetalles)
+                        .ThenInclude(od => od.SubCategoria)
+                    .Include(o => o.Vehiculo)
+                        .ThenInclude(v => v.ModeloVehiculo)
+                    .OrderByDescending(o => o.FechaCreacion)
+                    .Select(o => new OrdenResumenDTO
+                    {
+                        NroOrden = o.Id.ToString(),
+                        Estado = o.Estado,
+                        Observacion = o.ObservacionCliente,
+                        SubCategoria = o.OrdenDetalles.Select(od => od.SubCategoria.Nombre).ToList(),
+                        ResumenVehiculo = o.Vehiculo.ModeloVehiculo.Nombre + " - " + o.Vehiculo.Anio,
+                        FechaCreacion = o.FechaCreacion,
+                        MensajeRechazo = o.ComentarioRechazo
+                    })
+                    .ToListAsync();
+
+                return listadoOrdenResumen;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
     }
 }

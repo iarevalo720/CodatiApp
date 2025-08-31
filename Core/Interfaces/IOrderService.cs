@@ -20,5 +20,6 @@ namespace Core.Interfaces
         public Task<List<Timbrado>> ObtenerTimbrados();
         public Task ActualizarTimbrado(Timbrado timbrado);
         public Task<InformeOrdenesDTO> ObtenerInformeOrdenes(DateTime fechaInicio, DateTime fechaFin);
+        public Task<IEnumerable<OrdenResumenDTO>> GetOrdenesPorUsuario(string userId);
     }
 }

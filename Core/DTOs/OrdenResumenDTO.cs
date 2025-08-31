@@ -7,6 +7,9 @@
         public string? ResumenVehiculo { get; set; }
         public List<string>? SubCategoria { get; set; }
         public string? Observacion { get; set; }
+        public string? FechaCreacion { get; set; }
+        public string? MensajeRechazo { get; set; }
+
         public bool BtnAceptarEnabled
         {
             get
