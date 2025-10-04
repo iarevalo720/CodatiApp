@@ -9,6 +9,8 @@
             <converters:ListToStringConverter x:Key="ListToStringConverter" />
             <converters:EstadoColorConverter x:Key="EstadoColorConverter" />
             <converters:StringIsNotEmptyConverter x:Key="StringIsNotEmptyConverter" />
+            <converters:ModelosPorMarcaConverter x:Key="ModelosPorMarcaConverter" />
+            <converters:ServiciosPorCategoriaConverter x:Key="ServiciosPorCategoriaConverter" />
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />

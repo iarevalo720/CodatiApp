@@ -11,6 +11,7 @@ namespace UI
             InitializeComponent();
 
             Routing.RegisterRoute(nameof(ActivarCuenta), typeof(ActivarCuenta));
+            Routing.RegisterRoute(nameof(Informaciones), typeof(Informaciones));
             Routing.RegisterRoute(nameof(T_menu), typeof(T_menu));
             Routing.RegisterRoute(nameof(T_ordenes), typeof(T_ordenes));
             Routing.RegisterRoute(nameof(T_ordenDetalle), typeof(T_ordenDetalle));

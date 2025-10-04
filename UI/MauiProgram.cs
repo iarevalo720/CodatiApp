@@ -32,7 +32,8 @@ namespace UI
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                var connectionString = "Host=localhost;Database=db_codati;Username=postgres;Password=258364";
+                //var connectionString = "Host=localhost;Database=db_codati;Username=postgres;Password=258364";
+                var connectionString = "Host=dpg-d3gjumogjchc739rdou0-a.oregon-postgres.render.com;Database=codati_database;Username=root;Password=VyWdvbvw08JjO5r6UNWRUDpSmre2OzXk";
 
                 options.UseNpgsql(connectionString, npgsqlOptions =>
                 {
@@ -58,6 +59,7 @@ namespace UI
             //Views
             builder.Services.AddTransient<Login>();
             builder.Services.AddTransient<ActivarCuenta>();
+            builder.Services.AddTransient<Informaciones>();
             builder.Services.AddTransient<T_menu>();
             builder.Services.AddTransient<T_ordenes>();
             builder.Services.AddTransient<T_ordenDetalle>();
@@ -83,6 +85,7 @@ namespace UI
             //ViewModels
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<ActivarCuentaViewModel>();
+            builder.Services.AddTransient<InformacionesViewModel>();
             builder.Services.AddTransient<T_menuViewModel>();
             builder.Services.AddTransient<T_ordenesViewModel>();
             builder.Services.AddTransient<T_ordenDetalleViewModel>();

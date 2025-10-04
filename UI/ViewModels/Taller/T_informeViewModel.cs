@@ -49,6 +49,7 @@ namespace UI.ViewModels.Taller
                 TotalOrdenes = informe.TotalOrdenes;
                 OrdenesEnProceso = informe.OrdenesEnProceso;
                 OrdenesFinalizadas = informe.OrdenesFinalizadas;
+                OrdenesRechazadas = informe.OrdenesRechazadas;
                 ServiciosMasSolicitados = informe.ServiciosMasSolicitados;
 
                 Console.WriteLine($"Servicios encontrados: {ServiciosMasSolicitados?.Count}");

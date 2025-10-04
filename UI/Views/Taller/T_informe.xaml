@@ -50,18 +50,18 @@
                         <Label Text="Resumen de Órdenes" FontAttributes="Bold" FontSize="18" />
 
                         <Grid ColumnDefinitions="*,*"
-                              RowDefinitions="auto,auto,auto">
-                            <Label Text="Total de Órdenes:" Grid.Column="0" Grid.Row="0"/>
+                              RowDefinitions="auto,auto,auto, auto">
+                            <Label Text="Total de Órdenes:" Grid.Column="0" Grid.Row="0" Margin="0, 0, 0, 20"/>
                             <Label Text="{Binding TotalOrdenes}" Grid.Column="1" FontAttributes="Bold" Grid.Row="0"/>
 
-                            <Label Text="Órdenes Rechazadas:" Grid.Column="0" Grid.Row="0"/>
-                            <Label Text="{Binding OrdenesRechazadas}" Grid.Column="1" FontAttributes="Bold" Grid.Row="0"/>
+                            <Label Text="Órdenes Rechazadas:" Grid.Column="0" Grid.Row="1"/>
+                            <Label Text="{Binding OrdenesRechazadas}" Grid.Column="1" FontAttributes="Bold" Grid.Row="1"/>
 
-                            <Label Text="Órdenes en Proceso:" Grid.Column="0" Grid.Row="1"/>
-                            <Label Text="{Binding OrdenesEnProceso}" Grid.Column="1" Grid.Row="1" FontAttributes="Bold"/>
+                            <Label Text="Órdenes en Proceso:" Grid.Column="0" Grid.Row="2"/>
+                            <Label Text="{Binding OrdenesEnProceso}" Grid.Column="1" Grid.Row="2" FontAttributes="Bold"/>
 
-                            <Label Text="Órdenes Finalizadas:" Grid.Column="0" Grid.Row="2" />
-                            <Label Text="{Binding OrdenesFinalizadas}" Grid.Column="1" Grid.Row="2" FontAttributes="Bold" />
+                            <Label Text="Órdenes Finalizadas:" Grid.Column="0" Grid.Row="3" />
+                            <Label Text="{Binding OrdenesFinalizadas}" Grid.Column="1" Grid.Row="3" FontAttributes="Bold" />
                         </Grid>
                     </VerticalStackLayout>
                 </Frame>
