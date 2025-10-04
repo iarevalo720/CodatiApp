@@ -3,6 +3,7 @@ using Core.Entities;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.ObjectModel;
+using System.Globalization;
 namespace Data.Repository
 {
     public class OrderRepository : IOrderRepository
@@ -179,7 +180,8 @@ namespace Data.Repository
                         Descripcion = odh.Descripcion,
                         Fecha = odh.Fecha,
                         Hora = odh.Hora,
-                        OrdenDetalleId = odh.OrdenDetalleId
+                        OrdenDetalleId = odh.OrdenDetalleId,
+                        NombreUsuario = odh.NombreUsuario
                     }))
             };
 
@@ -208,6 +210,87 @@ namespace Data.Repository
             return await _context.Timbrados
                 .Where(t => t.TimbradoSeleccionado == "si")
                 .FirstOrDefaultAsync();
+        }
+
+        // En Data/Repository/OrderRepository.cs
+        public async Task<InformeOrdenesDTO> ObtenerInformeOrdenes(DateTime fechaInicio, DateTime fechaFin)
+        {
+            // Convertir fechas a formato string para comparar con el formato de la base de datos
+            string fechaInicioStr = fechaInicio.ToString("dd/MM/yyyy");
+            string fechaFinStr = fechaFin.ToString("dd/MM/yyyy");
+
+            var ordenes = await _context.Ordenes
+                .Include(o => o.OrdenDetalles)
+                    .ThenInclude(od => od.SubCategoria)
+                .ToListAsync();
+
+            // Filtrar por rango de fechas
+            var ordenesFiltradas = ordenes.Where(o =>
+            {
+                if (DateTime.TryParseExact(o.FechaCreacion, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime fechaCreacion))
+                {
+                    return fechaCreacion >= fechaInicio && fechaCreacion <= fechaFin;
+                }
+                return false;
+            }).ToList();
+
+            var totalOrdenes = ordenesFiltradas.Count;
+            var ordenesEnProceso = ordenesFiltradas.Count(o => o.Estado == "EN_PROCESO");
+            var ordenesRechazadas = ordenesFiltradas.Count(o => o.Estado == "RECHAZADO");
+            var ordenesFinalizadas = ordenesFiltradas.Count(o => o.Estado == "FINALIZADO");
+
+            // Contar servicios más solicitados
+            var serviciosCount = ordenesFiltradas
+                .SelectMany(o => o.OrdenDetalles)
+                .GroupBy(od => od.SubCategoria.Nombre)
+                .Select(g => new ServicioFrecuenciaDTO
+                {
+                    Servicio = g.Key,
+                    Frecuencia = g.Count()
+                })
+                .OrderByDescending(s => s.Frecuencia)
+                .ToList();
+
+            return new InformeOrdenesDTO
+            {
+                TotalOrdenes = totalOrdenes,
+                OrdenesEnProceso = ordenesEnProceso,
+                OrdenesRechazadas = ordenesRechazadas,
+                OrdenesFinalizadas = ordenesFinalizadas,
+                ServiciosMasSolicitados = serviciosCount
+            };
+        }
+
+        // En Data/Repository/OrderRepository.cs
+        public async Task<IEnumerable<OrdenResumenDTO>> GetOrdenesPorUsuario(string userId)
+        {
+            try
+            {
+                var listadoOrdenResumen = await _context.Ordenes.AsNoTracking()
+                    .Where(o => o.IdUsuario == userId)
+                    .Include(o => o.OrdenDetalles)
+                        .ThenInclude(od => od.SubCategoria)
+                    .Include(o => o.Vehiculo)
+                        .ThenInclude(v => v.ModeloVehiculo)
+                    .OrderByDescending(o => o.FechaCreacion)
+                    .Select(o => new OrdenResumenDTO
+                    {
+                        NroOrden = o.Id.ToString(),
+                        Estado = o.Estado,
+                        Observacion = o.ObservacionCliente,
+                        SubCategoria = o.OrdenDetalles.Select(od => od.SubCategoria.Nombre).ToList(),
+                        ResumenVehiculo = o.Vehiculo.ModeloVehiculo.Nombre + " - " + o.Vehiculo.Anio,
+                        FechaCreacion = o.FechaCreacion,
+                        MensajeRechazo = o.ComentarioRechazo
+                    })
+                    .ToListAsync();
+
+                return listadoOrdenResumen;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
     }
 }

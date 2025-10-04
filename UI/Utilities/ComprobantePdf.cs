@@ -31,28 +31,27 @@ public class ComprobantePdf : IDocument
                 {
                     col.Spacing(10);
 
-                    col.Item().Text("Tu comprobante").Bold().FontSize(16);
-                    col.Item().Text("");
-                    col.Item().Text($"{Fecha}");
-                    col.Item().Text($"Cliente: {Cliente}");
-                    col.Item().Text($"CI: {CI}");
-                    col.Item().Text("");
-                    col.Item().Text($"Nro. Comprobante: {NumeroComprobante}");
-                    col.Item().Text($"Timbrado: {Timbrado} - Vencimiento del timbrado: {Vencimiento}");
-                    col.Item().Text("");
+                    col.Item().Text("CODATI S.R.L.").Bold().FontSize(30).FontColor("#4F3F9B");
+                    col.Item().Text("Tu comprobante").Bold().FontSize(20).FontColor("#4F3F9B");
+                    col.Item().LineHorizontal(1).LineColor("#4F3F9B");
 
-                    col.Item().LineHorizontal(1).LineColor(QuestPDF.Helpers.Colors.Grey.Lighten1);
+                    col.Item().Text($"Fecha de emisión: {Fecha}").FontColor("#4F3F9B");
+                    col.Item().Text($"Cliente: {Cliente}").FontColor("#4F3F9B");
+                    col.Item().Text($"CI: {CI}").FontColor("#4F3F9B");
+                    col.Item().Text($"Nro. Comprobante: {NumeroComprobante}").FontColor("#4F3F9B");
+                    col.Item().Text($"Timbrado: {Timbrado} - Vencimiento del timbrado: {Vencimiento}").FontColor("#4F3F9B");
 
-                    col.Item().Text("");
-                    col.Item().Text($"Trabajo por orden #{OrdenId}").Bold();
+                    col.Item().LineHorizontal(1).LineColor("#4F3F9B");
+
+                    col.Item().Text($"Trabajo por orden #{OrdenId}").Bold().FontColor("#4F3F9B").FontSize(16);
 
                     foreach (var Detalles in ListaOrdenDetalles)
                     {
-                        col.Item().Text($"{Detalles.descripcion}...........{Detalles.monto:N0} Gs.");
+                        col.Item().Text($"{Detalles.descripcion}...........{Detalles.monto:N0} Gs.").FontColor("#4F3F9B");
                     }
 
                     int total = ListaOrdenDetalles.Sum(t => t.monto);
-                    col.Item().Text($"TOTAL: {total:N0} Gs.").Bold();
+                    col.Item().Text($"TOTAL: {total:N0} Gs.").Bold().FontColor("#4F3F9B").FontSize(20);
                 });
         });
     }

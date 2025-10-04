@@ -11,7 +11,7 @@
                              Spacing="10">
             <HorizontalStackLayout Spacing="5" HorizontalOptions="Center">
                 <Label 
-                    Text="Bienvenido/a"
+                    Text="Bienvenido"
                     FontSize="Medium"
                     HorizontalOptions="Center"
                     Margin="0, 0, 0, 50"/>
@@ -26,8 +26,12 @@
                 Clicked="BtnIrVehiculos"/>
 
             <Button
-                Text="Solicitar orden"
+                Text="Solicitar Orden"
                 Clicked="BtnIrOrdenes"/>
+
+            <Button
+                Text="Mis Ordenes"
+                Clicked="BtnIrMisOrdenes"/>
 
             <Button
                 Text="Acerca de"

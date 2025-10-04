@@ -2,86 +2,177 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="UI.Views.Taller.T_menu"
-             NavigationPage.HasBackButton="False"
-             NavigationPage.HasNavigationBar="False"
-             Title="Menu">
-    <Grid
-        ColumnDefinitions="*"
-        RowDefinitions="*, 100"
-        RowSpacing="10"
-        Padding="20, 30"
-        MaximumWidthRequest="500">
+             Title="Panel - Taller"
+             BackgroundColor="{StaticResource PageBackground}"
+             Padding="20"
+             >
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Color x:Key="PageBackground">#F5F7FA</Color>
+            <Color x:Key="CardBackground">#FFFFFF</Color>
+            <Color x:Key="Primary">#4F3F9B</Color>
+            <Color x:Key="Alert">#FF6B6B</Color>
+            <Style x:Key="CardFrameStyle" TargetType="Frame">
+                <Setter Property="CornerRadius" Value="12"/>
+                <Setter Property="HasShadow" Value="True"/>
+                <Setter Property="Padding" Value="12"/>
+                <Setter Property="BackgroundColor" Value="{StaticResource CardBackground}" />
+                <Setter Property="Margin" Value="8" />
+            </Style>
+            <Style x:Key="MenuLabelStyle" TargetType="Label">
+                <Setter Property="FontFamily" Value="OpenSansSemibold"/>
+                <Setter Property="FontSize" Value="15"/>
+                <Setter Property="TextColor" Value="#222"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
-        <VerticalStackLayout
-            Grid.Row="0"
-            VerticalOptions="Start"
-            Spacing="10">
-            <Grid Margin="0, 0, 0, 20" HeightRequest="50" MaximumWidthRequest="300">
-                <RoundRectangle
-                    CornerRadius="10"
-                    Fill="#333"
-                    ZIndex="1"/>
+    <Grid RowDefinitions="Auto, Auto, *, Auto" ColumnDefinitions="*" MaximumWidthRequest="900" HorizontalOptions="Center">
 
-                <Label 
-                    Text="Ordenes a verificar:"
-                    TextColor="#eee"
-                    VerticalOptions="Center"
-                    FontSize="25"
-                    Margin="20, 0, 0, 0"
-                    ZIndex="2"/>
+        <!-- Top: Banner ordenes pendientes -->
+        <Frame Grid.Row="0" Style="{StaticResource CardFrameStyle}">
+            <Grid ColumnDefinitions="*, Auto">
+                <StackLayout Orientation="Vertical" Spacing="2">
+                    <Label Text="Órdenes a verificar" FontFamily="OpenSansRegular" FontSize="13" TextColor="#666"/>
+                    <Label Text="{Binding TxtOrdenesAVerificar}" FontFamily="OpenSansSemibold" FontSize="28" TextColor="#222"/>
+                </StackLayout>
 
-                <Label 
-                    Text="{Binding TxtOrdenesAVerificar}"
-                    FontAttributes="Bold"
-                    FontSize="30"
-                    TextColor="#eee"
-                    VerticalOptions="Center"
-                    HorizontalOptions="End"
-                    Margin="0, 0, 20, 0"
-                    ZIndex="2"/>
+                <!-- Badge / icon -->
+                <Frame BackgroundColor="{StaticResource Alert}" CornerRadius="20" HeightRequest="40" WidthRequest="40" VerticalOptions="Center" HorizontalOptions="End">
+                    <Label Text="!" HorizontalOptions="Center" VerticalOptions="Center" TextColor="White" FontAttributes="Bold"/>
+                </Frame>
             </Grid>
+        </Frame>
 
-            <Label Text="Gestiones"
-                   FontSize="Medium"/>
+        <!-- Sección título -->
+        <Label Grid.Row="1" Text="Gestiones" FontFamily="OpenSansSemibold" FontSize="16" TextColor="#333" Margin="4,6,0,6"/>
 
-            <Button Text="Ordenes"
-                    IsVisible="{Binding btnOrdenesVisible}"
-                    Clicked="BtnIrOrdenes"/>
+        <!-- Grid de tarjetas (2 columnas) -->
+        <ScrollView Grid.Row="2">
+            <Grid ColumnSpacing="8" RowSpacing="8" Padding="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
-            <Button Text="Clientes"
-                    IsVisible="{Binding btnClientesVisible}"
-                    Clicked="BtnIrClientes"/>
+                <!-- Ordenes -->
+                <Frame Grid.Column="0" Style="{StaticResource CardFrameStyle}" IsVisible="{Binding btnOrdenesVisible}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6">
+                        <Image WidthRequest="36" HeightRequest="36">
+                            <Image.Source>
+                                <FontImageSource FontFamily="Icons" Glyph="&#xF0F6;" Size="36" Color="{StaticResource Primary}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="Órdenes" Style="{StaticResource MenuLabelStyle}"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnIrOrdenes" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
 
-            <Button Text="Vehiculos"
-                    IsVisible="{Binding btnVehiculosVisible}"
-                    Clicked="BtnIrVehiculos"/>
+                <!-- Clientes -->
+                <Frame Grid.Column="1" Style="{StaticResource CardFrameStyle}" IsVisible="{Binding btnClientesVisible}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6">
+                        <Image WidthRequest="36" HeightRequest="36">
+                            <Image.Source>
+                                <FontImageSource FontFamily="Icons" Glyph="&#xF0C0;" Size="36" Color="{StaticResource Primary}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="Clientes" Style="{StaticResource MenuLabelStyle}"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnIrClientes" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
 
-            <Button Text="Servicios de las órdenes"
-                    IsVisible="{Binding btnCategoriaVisible}"
-                    Clicked="BtnIrCategorias"/>
+                <!-- Vehiculos -->
+                <Frame Grid.Column="0" Grid.Row="1" Style="{StaticResource CardFrameStyle}" IsVisible="{Binding btnVehiculosVisible}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6">
+                        <Image WidthRequest="36" HeightRequest="36">
+                            <Image.Source>
+                                <FontImageSource FontFamily="Icons" Glyph="&#xF1B9;" Size="36" Color="{StaticResource Primary}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="Vehículos" Style="{StaticResource MenuLabelStyle}"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnIrVehiculos" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
 
-            <Button Text="Marcas de vehículos"
-                    IsVisible="{Binding btnMarcasVisible}"
-                    Clicked="BtnIrMarcas"/>
-            
-            <Button Text="Funcionarios"
-                    IsVisible="{Binding btnFuncionariosVisible}"
-                    Clicked="BtnIrFuncionarios"/>
-            
-            <Button Text="Timbrados"
-                    IsVisible="{Binding btnTimbradosVisible}"
-                    Clicked="BtnIrTimbrados"/>
-        </VerticalStackLayout>
+                <!-- Servicios (categorías) -->
+                <Frame Grid.Column="1" Grid.Row="1" Style="{StaticResource CardFrameStyle}" IsVisible="{Binding btnCategoriaVisible}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6">
+                        <Image WidthRequest="36" HeightRequest="36">
+                            <Image.Source>
+                                <FontImageSource FontFamily="Icons" Glyph="&#xF085;" Size="36" Color="{StaticResource Primary}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="Servicios (Órdenes)" Style="{StaticResource MenuLabelStyle}"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnIrCategorias" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
 
-        <VerticalStackLayout
-            Grid.Row="1"
-            Spacing="10">
-            <Button
-                Text="Informes"
-                IsEnabled="False"/>
-            <Button
-                Text="Cerrar Sesión"
-                Clicked="BtnCerrarSeccion"/>
-        </VerticalStackLayout>
+                <!-- Marcas -->
+                <Frame Grid.Column="0" Grid.Row="2" Style="{StaticResource CardFrameStyle}" IsVisible="{Binding btnMarcasVisible}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6">
+                        <Image WidthRequest="36" HeightRequest="36">
+                            <Image.Source>
+                                <FontImageSource FontFamily="Icons" Glyph="&#xF1B2;" Size="36" Color="{StaticResource Primary}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="Marcas" Style="{StaticResource MenuLabelStyle}"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnIrMarcas" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <!-- Funcionarios -->
+                <Frame Grid.Column="1" Grid.Row="2" Style="{StaticResource CardFrameStyle}" IsVisible="{Binding btnFuncionariosVisible}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6">
+                        <Image WidthRequest="36" HeightRequest="36">
+                            <Image.Source>
+                                <FontImageSource FontFamily="Icons" Glyph="&#xF0C1;" Size="36" Color="{StaticResource Primary}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="Funcionarios" Style="{StaticResource MenuLabelStyle}"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnIrFuncionarios" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+                <!-- Timbrados -->
+                <Frame Grid.Column="0" Grid.Row="3" Style="{StaticResource CardFrameStyle}" IsVisible="{Binding btnTimbradosVisible}">
+                    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="6">
+                        <Image WidthRequest="36" HeightRequest="36">
+                            <Image.Source>
+                                <FontImageSource FontFamily="Icons" Glyph="&#xF02E;" Size="36" Color="{StaticResource Primary}"/>
+                            </Image.Source>
+                        </Image>
+                        <Label Text="Timbrados" Style="{StaticResource MenuLabelStyle}"/>
+                    </VerticalStackLayout>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="BtnIrTimbrados" NumberOfTapsRequired="1"/>
+                    </Frame.GestureRecognizers>
+                </Frame>
+
+            </Grid>
+        </ScrollView>
+
+        <!-- Footer: Informes + Cerrar sesión -->
+        <HorizontalStackLayout Grid.Row="3" Spacing="12" HorizontalOptions="Fill" Padding="0,12,0,0">
+            <Button Text="Informes" FontFamily="OpenSansSemibold" CornerRadius="10"
+              BackgroundColor="{StaticResource Primary}" TextColor="White" HeightRequest="48"
+              Clicked="BtnIrInformes" HorizontalOptions="FillAndExpand"/>
+            <Button Text="Cerrar Sesión" FontFamily="OpenSansSemibold" CornerRadius="10"
+              BackgroundColor="#EEEEEE" TextColor="{StaticResource Primary}" HeightRequest="48"
+              Clicked="BtnCerrarSeccion" HorizontalOptions="FillAndExpand"/>
+        </HorizontalStackLayout>
+
     </Grid>
 </ContentPage>

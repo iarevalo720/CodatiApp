@@ -1,6 +1,7 @@
 ﻿using Core.DTOs;
 using Core.Entities;
 using Core.Interfaces;
+using Data.Repository;
 
 namespace Service.Services
 {
@@ -253,6 +254,17 @@ namespace Service.Services
             {
                 throw new Exception("secuencial_maximo_alcanzado");
             }
+        }
+
+        // En Service/OrderService.cs
+        public async Task<InformeOrdenesDTO> ObtenerInformeOrdenes(DateTime fechaInicio, DateTime fechaFin)
+        {
+            return await _orderRepository.ObtenerInformeOrdenes(fechaInicio, fechaFin);
+        }
+
+        public async Task<IEnumerable<OrdenResumenDTO>> GetOrdenesPorUsuario(string userId)
+        {
+            return await _orderRepository.GetOrdenesPorUsuario(userId);
         }
     }
 }

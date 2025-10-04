@@ -49,6 +49,7 @@ namespace UI.ViewModels.Clientes
 
         public async Task CargarSubCategorias()
         {
+            SubCategorias = new List<SubCategoriaDTO>();
             SubCategorias = await _vehiculoService.GetSubCategoriasHabilitadas(SelectedCategoria.CategoriaId);
         }
         public List<ListaVehiculosDTO> ListarVehiculos()
@@ -71,7 +72,7 @@ namespace UI.ViewModels.Clientes
         {
             try
             {
-                if (SelectedCategoria == null || SelectedSubCategoria == null || ListaSubcategoriaAgregar.Count <= 0 || SelectedVehiculo == null)
+                if (ListaSubcategoriaAgregar.Count <= 0 || SelectedVehiculo == null)
                 {
                     await Application.Current.MainPage.DisplayAlert("Información", "Por favor, complete todos los campos primero", "OK");
                     return;

@@ -225,8 +225,14 @@ namespace UI.ViewModels.Taller
             }
             catch (Exception ex)
             {
-                await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
-                Console.WriteLine("Error al restablecer contraseña: " + ex.Message);
+                if (ex.Message == "usuario_inexistente")
+                {
+                    await Shell.Current.DisplayAlert("Información", "No se encontró el cliente con el CI indicado", "OK");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Error", "Ha ocurrido un error, por favor intentelo más tarde", "OK");
+                }
             }
         }
     }

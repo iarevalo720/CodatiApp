@@ -48,4 +48,9 @@ public partial class C_menu : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(C_acercaDe)}");
     }
+
+    private async void BtnIrMisOrdenes(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(C_misOrdenes)}");
+    }
 }

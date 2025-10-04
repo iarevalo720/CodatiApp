@@ -36,12 +36,4 @@ public partial class T_modificarVehiculo : ContentPage
     {
         await _viewModel.ModificarVehiculo();
     }
-    //private void BtnLimpiarCampos(object sender, EventArgs e)
-    //{
-    //    _viewModel.LimpiarCampos();
-    //}
-    //private async void BtnModificarVehiculo(object sender, EventArgs e)
-    //{
-    //    await _viewModel.ModificarVehiculo();
-    //    await Shell.Current.GoToAsync($"//{nameof(T_vehiculos)}");
 }

@@ -43,7 +43,7 @@ namespace Service.Services
 
             try
             {
-                await _emailService.EnviarEmail(correo, nombre, nuevoPassword, mensaje, asunto);
+                await _emailService.EnviarEmail(correo, nombre, mensaje, asunto);
             }
             catch (Exception ex)
             {
@@ -78,7 +78,7 @@ namespace Service.Services
 
             try
             {
-                await _emailService.EnviarEmail(correo, nombre, nuevoPassword, mensaje, asunto);
+                await _emailService.EnviarEmail(correo, nombre, mensaje, asunto);
             }
             catch (Exception ex)
             {
@@ -228,7 +228,7 @@ namespace Service.Services
                     "
                 };
 
-                await _emailService.EnviarEmail(usuario.Email, usuario.Name, nuevaContrasena, mensaje, asunto);
+                await _emailService.EnviarEmail(usuario.Email, usuario.Name, mensaje, asunto);
             }
             catch (Exception ex)
             {

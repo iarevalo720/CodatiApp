@@ -32,7 +32,8 @@ namespace UI
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                var connectionString = "Host=localhost;Database=db_codati;Username=postgres;Password=258364";
+                //var connectionString = "Host=localhost;Database=db_codati;Username=postgres;Password=258364";
+                var connectionString = "Host=dpg-d3gjumogjchc739rdou0-a.oregon-postgres.render.com;Database=codati_database;Username=root;Password=VyWdvbvw08JjO5r6UNWRUDpSmre2OzXk";
 
                 options.UseNpgsql(connectionString, npgsqlOptions =>
                 {
@@ -58,6 +59,7 @@ namespace UI
             //Views
             builder.Services.AddTransient<Login>();
             builder.Services.AddTransient<ActivarCuenta>();
+            builder.Services.AddTransient<Informaciones>();
             builder.Services.AddTransient<T_menu>();
             builder.Services.AddTransient<T_ordenes>();
             builder.Services.AddTransient<T_ordenDetalle>();
@@ -71,16 +73,19 @@ namespace UI
             builder.Services.AddTransient<T_modelos>();
             builder.Services.AddTransient<T_timbrado>();
             builder.Services.AddTransient<T_funcionarios>();
+            builder.Services.AddTransient<T_informe>();
 
             builder.Services.AddTransient<C_menu>();
             builder.Services.AddTransient<C_acercaDe>();
             builder.Services.AddTransient<C_misVehiculos>();
             builder.Services.AddTransient<C_crearVehiculo>();
             builder.Services.AddTransient<C_crearOrden>();
+            builder.Services.AddTransient<C_misOrdenes>();
 
             //ViewModels
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<ActivarCuentaViewModel>();
+            builder.Services.AddTransient<InformacionesViewModel>();
             builder.Services.AddTransient<T_menuViewModel>();
             builder.Services.AddTransient<T_ordenesViewModel>();
             builder.Services.AddTransient<T_ordenDetalleViewModel>();
@@ -90,6 +95,7 @@ namespace UI
             builder.Services.AddTransient<C_misVehiculosViewModel>();
             builder.Services.AddTransient<C_crearVehiculoViewModel>();
             builder.Services.AddTransient<C_crearOrdenViewModel>();
+            builder.Services.AddTransient<C_misOrdenesViewModel>();
             builder.Services.AddTransient<T_vehiculosViewModel>();
             builder.Services.AddTransient<T_modificarVehiculoVIewModel>();
             builder.Services.AddTransient<T_categoriasViewModel>();
@@ -98,6 +104,7 @@ namespace UI
             builder.Services.AddTransient<T_modelosViewModel>();
             builder.Services.AddTransient<T_timbradoViewModel>();
             builder.Services.AddTransient<T_funcionariosViewModel>();
+            builder.Services.AddTransient<T_informeViewModel>();
 
             //Services & Repositories
             builder.Services.AddScoped<IUserService, UserService>();

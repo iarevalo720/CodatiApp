@@ -71,4 +71,9 @@ public partial class Login : ContentPage
     {
         await Shell.Current.GoToAsync($"{nameof(ActivarCuenta)}");
     }
+
+    private async void BtnIrInformaciones(object sender, EventArgs e)
+    {
+        await Shell.Current.GoToAsync($"{nameof(Informaciones)}");
+    }
 }
